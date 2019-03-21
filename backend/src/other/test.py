@@ -1,25 +1,40 @@
-import requests
-import json, os
-# import pycurl
+import requests, json, os
 
-# authentication = requests.post(r'http://127.0.0.1:5000/getToken')
-# print(authentication.text)
-# json_data = open('example.json', 'r').read()
-# OrderSubmit = requests.post(r'http://127.0.0.1:5000/pushOrder', data=json_data)
-# print(OrderSubmit.text)
-# authentication = requests.get(r'http://192.168.20.118:8000/o/token/')
+IP = '127.0.0.1:8000'
+token = 'Xfy5Nef1e6xfM97UYLwqllJUYDnUcD'
+item = 't14001'
 
-IP = '192.168.20.100:8000'
-token = 'n9mPEVc0HBCH2Y3S3nxxgDQ8PR2FVQ'
+# # Token endpoint
+authentication = requests.post(r'http://127.0.0.1:8000/o/token/?grant_type=password&username=Mike&password=tas}Ng2uQ7?!rSS9&client_id=1VICqpEgPG2D5UB5TSd0UoiMmzuKhvy8ejO9k1hi&client_secret=zFcO5hjIUw44hzNEh1M6lOScNtBmHr3KC6CTeITxqPEd69IZOn5FmwadvVEBKixbeauFgi22geuEvj1uQqAwYWx3buywTs1XW3kuNLMLYPuPFn63AWGtRgIzX3nzlyfM')
+if not 'error' in authentication.text:
+    print('Success Token endpoint')
+else:
+    print(authentication.text)
 
-# Productlist
-authentication = requests.get(r'http://' + str(IP) + r'/Productlist/?access_token='+str(token))
-print(r'Sucess http://' + str(IP) + r'/Productlist/?access_token='+str(token)+r'&format=json')
+# # Address endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/Address/?access_token='+str(token))
+if not 'address1' in authentication.text:
+    print(authentication.text)
+else:
+    print('Success Address endpoint')
 
-# Manufacturer endpoint
-authentication = requests.get(r'http://' + str(IP) + r'/Manufacturer/?access_token='+str(token))
-print(r'Sucess http://' + str(IP) + r'/Manufacturer/?access_token='+str(token)+r'&format=json')
+# # Manufacturer endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/Manufacturer/?access_token='+str(token))
+if not 'manufacturerCode' in authentication.text:
+    print('authentication.text')
+else:
+    print('Success Manufacturer endpoint')
 
-# Address endpoint
-authentication = requests.get(r'http://' + str(IP) + r'/Address/?access_token='+str(token))
-print(r'Sucess http://' + str(IP) + r'/Address/?access_token='+str(token)+r'&format=json')
+# Productlist endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/Productlist/?access_token='+str(token)+'&itemno='+str(item))
+if not 'itemno' in authentication.text:
+    print(authentication.text)
+else:
+    print('Success Productlist endpoint')
+
+# ProductDetailed endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/ProductDetailed/?access_token='+str(token)+'&itemno='+str(item))
+if not 'itemno' in authentication.text:
+    print(authentication.text)
+else:
+    print('Success Productlist endpoint')
