@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "backend\\Scripts\\python.exe"
+=======
+    "python.pythonPath": "backEnd\\Scripts\\python.exe"
+>>>>>>> e52725d3cc1691aabcb006da1297cbbc94df66b2
 }
