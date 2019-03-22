@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope, TokenHasScope)
-from data.models import Product, Address
-from data.serializers import ProdListSerializer, ManufacturerSerializer, AdressSerializer, ProdDetailedSerializer, UserSerializer
+from api.models import Product, Address
+from api.serializers import ProdListSerializer, ManufacturerSerializer, AdressSerializer, ProdDetailedSerializer, UserSerializer
 
 class Productlist(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
