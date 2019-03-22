@@ -1,13 +1,14 @@
 import requests, json, os
 
 IP = '127.0.0.1:8000'
-token = 'Xfy5Nef1e6xfM97UYLwqllJUYDnUcD'
+token = ''
 item = 't14001'
 
 # # Token endpoint
 authentication = requests.post(r'http://127.0.0.1:8000/o/token/?grant_type=password&username=Mike&password=tas}Ng2uQ7?!rSS9&client_id=1VICqpEgPG2D5UB5TSd0UoiMmzuKhvy8ejO9k1hi&client_secret=zFcO5hjIUw44hzNEh1M6lOScNtBmHr3KC6CTeITxqPEd69IZOn5FmwadvVEBKixbeauFgi22geuEvj1uQqAwYWx3buywTs1XW3kuNLMLYPuPFn63AWGtRgIzX3nzlyfM')
 if not 'error' in authentication.text:
     print('Success Token endpoint')
+    token = json.loads(authentication.text)["access_token"]
 else:
     print(authentication.text)
 
