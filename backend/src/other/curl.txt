@@ -1,0 +1,5 @@
+DEV SERVER 
+curl -X POST -d "grant_type=password&username=Mike&password=mike91448" -u"3USdTjmnjbcdTeNrdwjeaOlEcVg1n7oFmXHPz2q9:QuZg0JK62clUelPFMJs1884zx1g1ZeFPcgPN74W58Z3ZKUrWrUFAaMwoxJ8sdLei5CvTUIvCErNcmIQk4hoRA5w5A3GC1u9Sbe4ctqWrV67SX12mZ8Rxp2hFwVhFXF5M" http://100.1.253.16:8000/o/token/
+
+PERSONAL SERVER
+curl -X POST -d "grant_type=password&username=Mike&password=mike91448" -u"1VICqpEgPG2D5UB5TSd0UoiMmzuKhvy8ejO9k1hi:zFcO5hjIUw44hzNEh1M6lOScNtBmHr3KC6CTeITxqPEd69IZOn5FmwadvVEBKixbeauFgi22geuEvj1uQqAwYWx3buywTs1XW3kuNLMLYPuPFn63AWGtRgIzX3nzlyfM" http://127.0.0.1:8000/o/token/
