@@ -139,8 +139,8 @@ Back END:
                     }
                 ]
 
-        OProdDetailed:
-            http://100.1.253.16:8000/OProdDetailed/
+        ProdDetailed:
+            http://100.1.253.16:8000/ProdDetailed/
             Params: itemno
             Headers:
                 Content-Type:application/json
