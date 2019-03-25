@@ -89,6 +89,8 @@ class OrderLines(models.Model):
     itemID = models.IntegerField()
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    orderDateTime = models.DateTimeField(auto_created=True)
+    orderHeaderID = models.IntegerField()
 
 class IPG(models.Model):
     Code = models.CharField(max_length=20)

@@ -1,12 +1,9 @@
-# from django.test import TestCase
-
-# Create your tests here.
 import requests, json, os
 
 token = ''
 item = 't14001'
 
-testing_mode = True
+testing_mode = False
 
 if testing_mode:
     IP = '127.0.0.1:8000'  
@@ -42,6 +39,20 @@ if not 'address1' in authentication.text:
     print(authentication.text)
 else:
     print('Success OAddressList endpoint')
+
+# # OOrderHeader endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/OOrderHeader/?access_token='+str(token))
+if not 'id' in authentication.text:
+    print(authentication.text)
+else:
+    print('Success OOrderHeader endpoint')
+
+# # OOrderLines endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/OOrderLines/?access_token='+str(token))
+if not 'id' in authentication.text:
+    print(authentication.text)
+else:
+    print('Success OOrderLines endpoint')
 
 # Productlist endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/Productlist/?access_token='+'&itemno='+str(item))

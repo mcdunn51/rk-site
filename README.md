@@ -99,7 +99,7 @@ Back END:
 
         OAddressList:
             http://100.1.253.16:8000/OAddressList/
-            Params:
+            Params: customerID
             Headers:
                 Content-Type:application/json
                 Authorization:Bearer <insert token>     
@@ -108,16 +108,17 @@ Back END:
             Returns:
             [
                 {
-                    "customerID": 8978864,
-                    "address1": "Sutton House",
-                    "address2": "Berry Hill Road",
-                    "town": "Staffordshire",
-                    "county": "Staffordshire",
-                    "postcode": "ST4 2NL",
-                    "phoneNumber": "01782 838822",
-                    "email": "rkw@rkwltd.com",
-                    "country": "UK",
-                    "city": "Stoke"
+                    "id": 1,
+                    "customerID": 1,
+                    "address1": "dpw;aiujdoiaw",
+                    "address2": "oui8hdoiuawhouih",
+                    "town": "oiuhdoiuawhduoiah",
+                    "county": "1ouihoiuhoiu",
+                    "postcode": "houi",
+                    "phoneNumber": "hoiu",
+                    "email": "h",
+                    "country": "iuoh",
+                    "city": "iyg"
                 }
             ]
 
@@ -147,10 +148,37 @@ Back END:
                         "orderStatus": "Basket"
                     }
                 ]
+        
+        OOrderHeader:
+            http://127.0.0.1:8000/OOrderLines/
+            Params: customerID
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>     
+            Type:
+                GET|POST
+            Payload:
+                {
+                    "customerID": 2,
+                    "addressID": 1,
+                    "orderDateTime": "1995-02-15T06:00",
+                    "orderStatus": "Basket"
+                }
+
+            Returns:
+                [
+                    {
+                        "id": 9,
+                        "customerID": 2,
+                        "addressID": 1,
+                        "orderDateTime": "1995-02-15T06:00:00Z",
+                        "orderStatus": "Basket"
+                    }
+                ]
 
         Productlist:
             http://100.1.253.16:8000/Productlist/
-            Params: manufacturerCode|itemno|LTPrice|GTPrice|colour
+            Params: manufacturerCode|itemno|colour
             Headers:
                 Content-Type:application/json
                 Authorization:Bearer <insert token>

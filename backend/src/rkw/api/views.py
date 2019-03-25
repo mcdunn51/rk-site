@@ -1,12 +1,8 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
-from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope, TokenHasScope)
-from .models import Product, Address, OrderHeader
-from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdressSerializer, ProdDetailedSerializer, OauthProdDetailedSerializer, OauthProdListSerializer, OauthOrderHeaderSerializer
+from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope)
+from .models import Product, Address, OrderHeader, OrderLines
+from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdressSerializer, ProdDetailedSerializer, OauthProdDetailedSerializer, OauthProdListSerializer, OauthOrderHeaderSerializer, OauthOrderLinesSerializer
 
 # Oauth views
 class OauthProductlist(generics.ListAPIView):
@@ -45,6 +41,11 @@ class OauthAddressList(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = Address.objects.all()
     serializer_class = OauthAdressSerializer
+    def get(self, request, *args, **kwargs):
+        if 'customerID' in self.request.query_params:
+            if len(self.request.query_params['customerID']) > 0:
+                self.queryset = self.queryset.filter(customerID=self.request.query_params['customerID'])
+        return super().get(request, *args, **kwargs)
 
 class OauthOrderHeader(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
@@ -56,8 +57,17 @@ class OauthOrderHeader(generics.ListCreateAPIView):
                 self.queryset = self.queryset.filter(customerID=self.request.query_params['customerID'])
         return super().get(request, *args, **kwargs)
 
-# non Oauth views
+class OauthOrderLines(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = OrderLines.objects.all()
+    serializer_class = OauthOrderLinesSerializer
+    def get(self, request, *args, **kwargs):
+        if 'orderHeaderID' in self.request.query_params:
+            if len(self.request.query_params['orderHeaderID']) > 0:
+                self.queryset = self.queryset.filter(orderHeaderID=self.request.query_params['orderHeaderID'])
+        return super().get(request, *args, **kwargs)
 
+# non Oauth views
 class Productlist(generics.ListAPIView):
     permission_classes = []
     queryset = Product.objects.all()

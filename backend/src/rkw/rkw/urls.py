@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope, TokenHasScope)
-from rest_framework import generics, permissions
-from api.views import Productlist, Manufacturerlist, ProdDetailed, OauthProductlist, OauthProdDetailed, OauthAddressList, OauthOrderHeader
+from api.views import Productlist, Manufacturerlist, ProdDetailed, OauthProductlist, OauthProdDetailed, OauthAddressList, OauthOrderHeader, OauthOrderLines
 admin.autodiscover()
 
 urlpatterns = [
@@ -14,6 +12,7 @@ urlpatterns = [
     path('OProdDetailed/', OauthProdDetailed.as_view()),
     path('OAddressList/', OauthAddressList.as_view()),
     path('OOrderHeader/', OauthOrderHeader.as_view()),
+    path('OOrderLines/', OauthOrderLines.as_view()),
     
     # non Oauth paths
     path('Productlist/', Productlist.as_view()),
