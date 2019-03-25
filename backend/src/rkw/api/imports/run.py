@@ -1,7 +1,6 @@
-# import sqlite3, csv
-
 import mysql.connector, csv, pymssql, json
 from django.conf import settings
+from imports import IPG, Products
 
 test_mode = True
 
@@ -39,18 +38,6 @@ mysql_cur = mysql_conn.cursor()
 mssql_conn = create_mssql_connection()
 mssql_cur = mssql_conn.cursor()
 
-sql = 'DELETE FROM `django-test`.`api_ipg`'
-mysql_cur.execute(sql)
-mysql_conn.commit()
+IPG(mysql_conn, mysql_cur, mssql_conn, mssql_cur, test_mode)
 
-sql = "SELECT Code, Description, [Electrical or Housewares] from [SVG$Inventory Posting Group]"
-mssql_cur.execute(sql)
-res = mssql_cur.fetchall()
-for row in res:
-    try:
-        sql = "INSERT INTO `django-test`.`api_ipg` (`Code`, `Description`, `EorH`) VALUES ('%s', '%s', '%s');" % (row[0], row[1], row[2])
-        print(sql)
-        mysql_cur.execute(sql)
-        mysql_conn.commit()
-    except Exception as e:
-        print('cant import %s' % (e))
+Products(mysql_conn, mysql_cur, mssql_conn, mssql_cur, test_mode)

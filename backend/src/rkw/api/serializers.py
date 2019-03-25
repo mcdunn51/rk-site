@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Product, Address
+from .models import Product, Address, OrderHeader
 
-# Oauth serializer
+# Oauth serializers
 class OauthProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -16,9 +16,14 @@ class OauthProdListSerializer(serializers.ModelSerializer):
 class OauthAdressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ("customerID", "address1", "address2", "town", "county", "postcode", "phoneNumber", "email", "country", "city")
+        fields = ('id', "customerID", "address1", "address2", "town", "county", "postcode", "phoneNumber", "email", "country", "city")
 
-# non Oauth serializer
+class OauthOrderHeaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderHeader
+        fields = ('id', 'customerID', 'addressID', 'orderDateTime', 'orderStatus')
+
+# non Oauth serializers
 class ProdListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product

@@ -17,7 +17,6 @@ Back END:
             Params: grant_type|username|password|client_id|client_secret
             Type:
                 POST
-            Payload:
             Returns:
                 {
                     "access_token": "4YbEdIQdvxWHGnjzX5oVoxKUEfRC9e",
@@ -97,6 +96,7 @@ Back END:
                         "IPGID": -1
                     }
                 ]
+
         OAddressList:
             http://100.1.253.16:8000/OAddressList/
             Params:
@@ -120,6 +120,33 @@ Back END:
                     "city": "Stoke"
                 }
             ]
+
+        OOrderHeader:
+            http://127.0.0.1:8000/OOrderHeader/
+            Params: customerID
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>     
+            Type:
+                GET|POST
+            Payload:
+                {
+                    "customerID": 2,
+                    "addressID": 1,
+                    "orderDateTime": "1995-02-15T06:00",
+                    "orderStatus": "Basket"
+                }
+
+            Returns:
+                [
+                    {
+                        "id": 9,
+                        "customerID": 2,
+                        "addressID": 1,
+                        "orderDateTime": "1995-02-15T06:00:00Z",
+                        "orderStatus": "Basket"
+                    }
+                ]
 
         Productlist:
             http://100.1.253.16:8000/Productlist/
