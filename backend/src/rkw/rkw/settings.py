@@ -83,7 +83,7 @@ if not TEST_MODE:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'testserv_rkw',
             'USER': 'testserv_root',
-            'PASSWORD': '0000'
+            'PASSWORD': 'r6KnZEQrWA'
         }
     }
 else:

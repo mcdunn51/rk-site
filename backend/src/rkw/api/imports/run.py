@@ -27,7 +27,7 @@ else:
         conn = mysql.connector.connect(
         host="localhost",
         user="testserv_root",
-        passwd="0000",
+        passwd="r6KnZEQrWA",
         database='testserv_rkw',
         auth_plugin='caching_sha2_password'
         )
