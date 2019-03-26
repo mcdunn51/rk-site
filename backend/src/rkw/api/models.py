@@ -1,6 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+class UserProfile(models.Model):
+    username = models.CharField(max_length=50)
+    customerID = models.IntegerField()
+    def __str__(self):
+        return self.username
 
 class Product(models.Model):
     itemno = models.CharField(max_length=120)
@@ -38,6 +43,7 @@ class Product(models.Model):
     cartonQty = models.IntegerField()
     restockDate = models.DateField()
     IPGID = models.IntegerField()
+    IPG = models.CharField(max_length=50)
     def __str__(self):
         return self.itemno
 
@@ -68,7 +74,7 @@ class CustomerPrices(models.Model):
     customerID = models.IntegerField()
     itemID = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    startDate = models.DateField(),
+    startDate = models.DateField()
     endDate = models.DateField()
 
 class Media(models.Model):

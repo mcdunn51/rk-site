@@ -3,7 +3,7 @@ import requests, json, os
 token = ''
 item = 't14001'
 
-testing_mode = False
+testing_mode = True
 
 if testing_mode:
     IP = '127.0.0.1:8000'  
@@ -19,58 +19,65 @@ if not 'error' in authentication.text:
 else:
     print(authentication.text)
 
+# OCustomerID endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/OCustomerID/?access_token='+str(token)+'&itemno='+str(item))
+if not 'username' in authentication.text:
+    print('Failed OCustomerID endpoint')
+else:
+    print('Success OCustomerID endpoint')
+
 # OProductlist endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OProductlist/?access_token='+str(token)+'&itemno='+str(item))
 if not 'itemno' in authentication.text:
-    print(authentication.text)
+    print('Failed OProductlist endpoint')
 else:
     print('Success OProductlist endpoint')
 
 # OProdDetailed endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OProdDetailed/?access_token='+str(token)+'&itemno='+str(item))
 if not 'itemno' in authentication.text:
-    print(authentication.text)
+    print('Failed OProdDetailed endpoint')
 else:
     print('Success OProdDetailed endpoint')
 
 # # OAddressList endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OAddressList/?access_token='+str(token))
 if not 'address1' in authentication.text:
-    print(authentication.text)
+    print('Failed OAddressList endpoint')
 else:
     print('Success OAddressList endpoint')
 
 # # OOrderHeader endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OOrderHeader/?access_token='+str(token))
-if not 'id' in authentication.text:
-    print(authentication.text)
+if not 'customerID' in authentication.text:
+    print('Failed OOrderHeader endpoint')
 else:
     print('Success OOrderHeader endpoint')
 
 # # OOrderLines endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OOrderLines/?access_token='+str(token))
-if not 'id' in authentication.text:
-    print(authentication.text)
+if not 'itemID' in authentication.text:
+    print('Failed OOrderLines endpoint')
 else:
     print('Success OOrderLines endpoint')
 
 # Productlist endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/Productlist/?access_token='+'&itemno='+str(item))
 if not 'itemno' in authentication.text:
-    print(authentication.text)
+    print('Failed Productlist endpoint')
 else:
     print('Success Productlist endpoint')
 
 # ProductDetailed endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/ProductDetailed/?access_token='+str(token)+'&itemno='+str(item))
 if not 'itemno' in authentication.text:
-    print(authentication.text)
+    print('Failed Productlist endpoint')
 else:
     print('Success Productlist endpoint')
 
 # # Manufacturer endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/Manufacturer/?access_token=')
 if not 'manufacturerCode' in authentication.text:
-    print('authentication.text')
+    print('Failed Manufacturer endpoint')
 else:
     print('Success Manufacturer endpoint')

@@ -145,7 +145,6 @@ REST_FRAMEWORK = {
 }
 
 OAUTH2_PROVIDER = {
-    # this is the list of available scopes
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups', },
     'ACCESS_TOKEN_EXPIRE_SECONDS': 60000000,
     'OAUTH_SINGLE_ACCESS_TOKEN': True,
@@ -153,3 +152,5 @@ OAUTH2_PROVIDER = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+AUTH_PROFILE_MODULE = "api.UserProfile"

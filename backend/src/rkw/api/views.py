@@ -1,21 +1,27 @@
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope)
-from .models import Product, Address, OrderHeader, OrderLines
-from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdressSerializer, ProdDetailedSerializer, OauthProdDetailedSerializer, OauthProdListSerializer, OauthOrderHeaderSerializer, OauthOrderLinesSerializer
+from .models import Product, Address, OrderHeader, OrderLines, UserProfile
+from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdressSerializer, ProdDetailedSerializer, OauthProdDetailedSerializer, OauthProdListSerializer, OauthOrderHeaderSerializer, OauthOrderLinesSerializer, OUserProfileSerializer
 
 # Oauth views
+
+class OCustomerID(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = UserProfile.objects.all()
+    serializer_class = OUserProfileSerializer
+
 class OauthProductlist(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = Product.objects.all()
     serializer_class = OauthProdListSerializer
     def get(self, request, *args, **kwargs):
-        if 'manufacturerCode' in self.request.query_params:
-            if len(self.request.query_params['manufacturerCode']) > 0:
-                self.queryset = self.queryset.filter(manufacturerCode=self.request.query_params['manufacturerCode'])
         if 'itemno' in self.request.query_params:
             if len(self.request.query_params['itemno']) > 0:
                 self.queryset = self.queryset.filter(itemno=self.request.query_params['itemno'])
+        if 'manufacturerCode' in self.request.query_params:
+            if len(self.request.query_params['manufacturerCode']) > 0:
+                self.queryset = self.queryset.filter(manufacturerCode=self.request.query_params['manufacturerCode'])
         if 'LTPrice' in self.request.query_params:
             if len(self.request.query_params['LTPrice']) > 0:
                 self.queryset = self.queryset.filter(price__lte=self.request.query_params['LTPrice'])
@@ -68,6 +74,7 @@ class OauthOrderLines(generics.ListCreateAPIView):
         return super().get(request, *args, **kwargs)
 
 # non Oauth views
+
 class Productlist(generics.ListAPIView):
     permission_classes = []
     queryset = Product.objects.all()
