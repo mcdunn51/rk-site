@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=f!3l8+s=!=zezmbz9=gmch1hxsto!-r_0*lh5(bxtaepjd@tv'
 
 # Testing Mode
-if socket.gethostbyname(socket.gethostname()) == '100.1.253.16':
+if not socket.gethostbyname(socket.gethostname()) == '100.1.253.16':
     test_mode = True
 else:
     test_mode = False
@@ -80,7 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rkw.wsgi.application'
 
-if not TEST_MODE:
+if not test_mode:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',

@@ -42,4 +42,4 @@ mssql_conn = create_mssql_connection()
 mssql_cur = mssql_conn.cursor()
 
 IPG(mysql_conn, mysql_cur, mssql_conn, mssql_cur, test_mode)
-# Products(mysql_conn, mysql_cur, mssql_conn, mssql_cur, test_mode)
+Products(mysql_conn, mysql_cur, mssql_conn, mssql_cur, test_mode)
