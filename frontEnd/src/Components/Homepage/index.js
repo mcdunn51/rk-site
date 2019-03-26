@@ -1,12 +1,15 @@
 import React from 'react';
+
 import HomePageCarousel from './carousel';
-import ThreeBrands from './ThreeBrands';
+import DeliveryStrapline from './deliveryStrapline';
+import Over25years from './over25years';
 
 const Index = () => {
     return (
         <div>
+            <DeliveryStrapline/>
             <HomePageCarousel/>
-            <ThreeBrands/>
+            <Over25years/>
         </div>
     )
 }

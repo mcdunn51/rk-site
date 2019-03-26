@@ -1,11 +1,16 @@
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import '_globalStyles.scss';
+
+// homepage
 @import './Components/MainNavBar/MainNavBar.scss';
+@import './Components/Homepage/deliveryStrapline.scss';
 @import './Components/Homepage/HomePageCarousel.scss';
+@import './Components/Homepage/over25years.scss';
+
 @import './Components/Footer/Footer.scss';
 @import './Components/Products/Products.scss';
-@import './Components/Checkout/Checkout';
+
 
 
 

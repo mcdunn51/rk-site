@@ -6,9 +6,9 @@ import SlideImg3 from '../../images/roseGoldSlider.jpg';
 
 const HomePageCarousel = () => {
     return (
-        <Container id="HomePageCarousel">
+        <Container id="HomePageCarousel" fluid={true}>
             <Row>
-                <Col md={12}>
+                <Col>
                     <Carousel>
                         <Carousel.Item>
                             <img
@@ -27,7 +27,6 @@ const HomePageCarousel = () => {
                                 src={SlideImg2}
                                 alt="Third slide"
                             />
-
                             <Carousel.Caption>
                                 <h3>Second slide label</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
