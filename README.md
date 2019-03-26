@@ -1,7 +1,13 @@
 Front End:
 
 Back END:
-    ServerCommands:
+    DevServer:
+        Server IP: 100.1.253.16
+        Web Panel Login: 
+        Domain: testserver.svg.local
+        Username: testserv
+        Password: vN2zQUsS
+        CentOS WebPanel: https://100.1.253.16:2031/
         scl enable rh-python36 bash
     Refrence DB:
         Server: 5.5.5.10
