@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import os
+import os, socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=f!3l8+s=!=zezmbz9=gmch1hxsto!-r_0*lh5(bxtaepjd@tv'
 
 # Testing Mode
-TEST_MODE = True
+if socket.gethostbyname(socket.gethostname()) == '100.1.253.16':
+    test_mode = True
+else:
+    test_mode = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
