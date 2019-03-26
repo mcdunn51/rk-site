@@ -22,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=f!3l8+s=!=zezmbz9=gmch1hxsto!-r_0*lh5(bxtaepjd@tv'
 
 # Testing Mode
-if not socket.gethostbyname(socket.gethostname()) == '100.1.253.16':
-    test_mode = True
-else:
+if socket.gethostbyname(socket.gethostname()) == '100.1.253.16':
     test_mode = False
+else:
+    test_mode = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,16 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rkw.wsgi.application'
 
-if not test_mode:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'testserv_rkw',
-            'USER': 'testserv_root',
-            'PASSWORD': 'r6KnZEQrWA'
-        }
-    }
-else:
+if test_mode:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -98,7 +89,15 @@ else:
             'PASSWORD': '0000'
         }
     }
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'testserv_rkw',
+            'USER': 'testserv_root',
+            'PASSWORD': 'r6KnZEQrWA'    
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
