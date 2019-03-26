@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import os
+import os, socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=f!3l8+s=!=zezmbz9=gmch1hxsto!-r_0*lh5(bxtaepjd@tv'
 
 # Testing Mode
-TEST_MODE = True
+if socket.gethostbyname(socket.gethostname()) == '172.31.146.241':
+    test_mode = True
+else:
+    test_mode = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,16 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rkw.wsgi.application'
 
-if not TEST_MODE:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'testserv_rkw',
-            'USER': 'testserv_root',
-            'PASSWORD': '0000'
-        }
-    }
-else:
+if test_mode:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -95,7 +89,15 @@ else:
             'PASSWORD': '0000'
         }
     }
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'testserv_rkw',
+            'USER': 'testserv_root',
+            'PASSWORD': 'r6KnZEQrWA'    
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -145,11 +147,12 @@ REST_FRAMEWORK = {
 }
 
 OAUTH2_PROVIDER = {
-    # this is the list of available scopes
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups', },
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 600,
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60000000,
     'OAUTH_SINGLE_ACCESS_TOKEN': True,
     'OAUTH_DELETE_EXPIRED': True
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+AUTH_PROFILE_MODULE = "api.UserProfile"
