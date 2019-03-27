@@ -2,10 +2,10 @@ import mysql.connector, csv, pymssql, json, socket
 from django.conf import settings
 from imports import IPG, Products
 
-if socket.gethostbyname(socket.gethostname()) == '100.1.253.16':
-    test_mode = True
-else:
+if socket.gethostname() == 's1.intranet.svg.local':
     test_mode = False
+else:
+    test_mode = True
 
 def create_mssql_connection():
 	host = r'navsqlat\RKWL1'
