@@ -1,0 +1,55 @@
+#aboutUsPanel {
+    #firstCol {
+        padding-right: 0px;
+
+        #aboutUsImages {
+            width: 100%;
+            height: auto;
+        }
+    }
+    #secondCol {
+        padding-left: 0px;
+        background-color: #11406D;
+        color: white;
+        background-clip: content-box;
+        #text {
+            margin-left: 10%;
+            margin-right: 10%;
+            margin-top: 10%;
+            margin-bottom: 
+            h3 {
+                font-size: 65px;
+            }
+            p {
+                font-size: 20px;
+                text-align: justify;
+            }
+        }
+        .row {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+        .svg-inline--fa{
+            vertical-align: bottom;
+            padding-left: 15px;
+            padding-right: 15px;
+            &.fa-w-14 {
+                width: auto;
+                height: 38px;
+            }
+            &.fa-w-16 {
+                width: auto;
+                height: 38px;
+            }
+            &.fa-w-20 {
+                width: auto;
+                height: 38px;
+                padding-right: 30px;
+            }
+        }
+    }
+    #moreBtn {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+}

@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import backgroundImg from '../../images/over25years.jpg'
 
+
 const background = {
     backgroundImage: `url(${backgroundImg})`,
     width: "100%",
