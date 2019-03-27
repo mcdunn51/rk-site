@@ -1,5 +1,30 @@
 #over25years {
     .col {
-        background-image: url("../../images/over25years.jpg");
+        background-clip: padding-box;
+        text-align: center;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        margin-left: 15px;
+        margin-right: 15px;
+        opacity: 0.2;
+    }
+    .col {
+        
+    }
+    h3 {
+        font-size: 65px;
+        font-weight: bold;
+        color: #11406D;
+        line-height: 1;
+        span {
+            color: #01B5DD;
+        }
+    }
+    p {
+        color: #01B5DD;
+        font-size: 30px;
+        margin-bottom: 0%;
     }
 }

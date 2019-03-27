@@ -4,6 +4,7 @@ import SlideImg1 from '../../images/cerastoneSlider.jpg';
 import SlideImg2 from '../../images/infinitySlider.jpg';
 import SlideImg3 from '../../images/roseGoldSlider.jpg';
 
+
 const HomePageCarousel = () => {
     return (
         <Container id="HomePageCarousel" fluid={true}>
