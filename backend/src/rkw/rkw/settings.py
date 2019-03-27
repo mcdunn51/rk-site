@@ -22,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=f!3l8+s=!=zezmbz9=gmch1hxsto!-r_0*lh5(bxtaepjd@tv'
 
 # Testing Mode
-if socket.gethostbyname(socket.gethostname()) == '172.31.146.241':
-    test_mode = True
-else:
+if socket.gethostname() == 's1.intranet.svg.local':
     test_mode = False
+else:
+    test_mode = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -95,7 +95,7 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'testserv_rkw',
             'USER': 'testserv_root',
-            'PASSWORD': 'r6KnZEQrWA'    
+            'PASSWORD': '0000'    
         }
     }
 

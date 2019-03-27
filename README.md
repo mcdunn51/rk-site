@@ -32,6 +32,23 @@ Back END:
                     "refresh_token": "LLR3fjm5q556GfiEGdZNoq0sXxGOWY"
                 }
 
+        OCustomerID:
+            http://100.1.253.16:8000/OCustomerID/
+            Params: username
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>
+            Type:
+                GET
+            Returns:
+                [
+                    {
+                        "id": 2,
+                        "username": "mike",
+                        "customerID": 123456
+                    }
+                ]
+
         OProductlist:
             http://100.1.253.16:8000/OProductlist/
             Params: manufacturerCode|itemno|LTPrice|GTPrice|colour
@@ -99,7 +116,8 @@ Back END:
                         "palletQty": 30,
                         "cartonQty": 2,
                         "restockDate": "2019-03-15",
-                        "IPGID": -1
+                        "IPGID": 1801,
+                        "IPG": "AF"
                     }
                 ]
 
@@ -129,7 +147,7 @@ Back END:
             ]
 
         OOrderHeader:
-            http://127.0.0.1:8000/OOrderHeader/
+            http://100.1.253.16:8000/OOrderHeader/
             Params: customerID
             Headers:
                 Content-Type:application/json
@@ -143,7 +161,6 @@ Back END:
                     "orderDateTime": "1995-02-15T06:00",
                     "orderStatus": "Basket"
                 }
-
             Returns:
                 [
                     {
@@ -155,8 +172,8 @@ Back END:
                     }
                 ]
         
-        OOrderHeader:
-            http://127.0.0.1:8000/OOrderLines/
+        OOrderLines:
+            http://100.1.253.16:8000/OOrderLines/
             Params: customerID
             Headers:
                 Content-Type:application/json
@@ -165,20 +182,23 @@ Back END:
                 GET|POST
             Payload:
                 {
-                    "customerID": 2,
-                    "addressID": 1,
-                    "orderDateTime": "1995-02-15T06:00",
-                    "orderStatus": "Basket"
+                    "lineNo": 26848,
+                    "itemID": 178016,
+                    "quantity": 5,
+                    "price": "23.99",
+                    "orderDateTime": "1995-02-25T00:00:00Z",
+                    "orderHeaderID": 2
                 }
-
             Returns:
                 [
                     {
-                        "id": 9,
-                        "customerID": 2,
-                        "addressID": 1,
-                        "orderDateTime": "1995-02-15T06:00:00Z",
-                        "orderStatus": "Basket"
+                        "id": 1,
+                        "lineNo": 1,
+                        "itemID": 178016,
+                        "quantity": 5,
+                        "price": "23.99",
+                        "orderDateTime": "1995-02-25T00:00:00Z",
+                        "orderHeaderID": 1
                     }
                 ]
 
