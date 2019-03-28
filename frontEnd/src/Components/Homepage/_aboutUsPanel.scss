@@ -1,7 +1,7 @@
 #aboutUsPanel {
+    margin-bottom: 20px; 
     #firstCol {
         padding-right: 0px;
-
         #aboutUsImages {
             width: 100%;
             height: auto;
@@ -16,9 +16,10 @@
             margin-left: 10%;
             margin-right: 10%;
             margin-top: 10%;
-            margin-bottom: 
+            margin-bottom: 10%; 
             h3 {
                 font-size: 65px;
+                margin-bottom: 5%;
             }
             p {
                 font-size: 20px;
@@ -28,6 +29,7 @@
         .row {
             margin-left: 0px;
             margin-right: 0px;
+            text-align: center;
         }
         .svg-inline--fa{
             vertical-align: bottom;

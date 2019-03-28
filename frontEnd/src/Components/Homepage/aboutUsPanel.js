@@ -66,7 +66,7 @@ const AboutUsPanel = () => {
                     <img id="aboutUsImages" src={benefitsOfUsImg1} />
                 </Col>
                 <Col md={6} id="secondCol">
-                    <TradeWithUs />
+                    <BenefitsOfUs />
                     <Row>
                         <Col>
                             <FontAwesomeIcon id="userCircle" icon={faUser}/>

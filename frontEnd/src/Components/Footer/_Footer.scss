@@ -1,6 +1,11 @@
 #footerContainer {
-    background-color: lightgray;
-    bottom:0;
+    background-color: #01B5DD;
+    bottom: 0;
+    background-clip: content-box;
+    ul {
+        list-style: none;
+    }
+
 }
 
 

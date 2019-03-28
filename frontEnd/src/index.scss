@@ -1,6 +1,8 @@
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import '_globalStyles.scss';
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 
 // homepage
 @import './Components/MainNavBar/MainNavBar.scss';
@@ -8,6 +10,9 @@
 @import './Components/Homepage/HomePageCarousel.scss';
 @import './Components/Homepage/over25years.scss';
 @import './Components/Homepage/aboutUsPanel.scss';
+@import './Components/Homepage/brandCarousel.scss';
+@import './Components/Homepage/newsLetterSignUpBar.scss';
+
 
 @import './Components/Footer/Footer.scss';
 @import './Components/Products/Products.scss';
