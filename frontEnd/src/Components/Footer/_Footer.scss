@@ -1,11 +1,16 @@
 #footerContainer {
     background-color: #01B5DD;
     bottom: 0;
-    background-clip: content-box;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-right: 15px;
+    margin-left: 15px;
+    #column1 {
+        border-left: 1px solid white; 
+    }
     ul {
         list-style: none;
     }
-
 }
 
 

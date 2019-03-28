@@ -1,13 +1,13 @@
 import React from 'react';
-
 import { Container, Col, Row } from 'react-bootstrap';
+
 
 const Footer = () => {
     return (
-        <Container fluid={true} id="footerContainer">
+        <div id="footerContainer">
             <Container>
                 <Row>
-                    <Col>
+                    <Col id="column1">
                         <ul>
                             <h6>Tower</h6>
                             <li>Trade Enquiries</li>
@@ -16,7 +16,7 @@ const Footer = () => {
                             <li>About Us</li>
                         </ul>
                     </Col>
-                    <Col>
+                    <Col id="column2">
                         <ul>
                             <h6>Support</h6>
                             <li>Privacy Policy</li>
@@ -26,7 +26,7 @@ const Footer = () => {
                             <li>Delivery & Returns</li>
                         </ul>
                     </Col>
-                    <Col>
+                    <Col id="column2">
                         <ul>
                             <h6>Features</h6>
                             <li>Extend Your Warranty</li>
@@ -35,7 +35,7 @@ const Footer = () => {
                     </Col>
                 </Row>
             </Container>
-        </Container>
+        </div>
     )
 }
 

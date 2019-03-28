@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 
 const NewsletterSignUpBar = () => {
     return (
-        <Container fluid={true} id="newsLetterSignUpBar">
+        <div id="newsLetterSignUpBar">
             <Container>
                 <Row>
                     <Col>
@@ -24,7 +24,7 @@ const NewsletterSignUpBar = () => {
                     </Col>
                 </Row>
             </Container>
-        </Container>
+        </div>
     )
 }
 

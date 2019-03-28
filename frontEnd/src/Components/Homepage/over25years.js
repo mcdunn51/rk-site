@@ -6,7 +6,7 @@ import backgroundImg from '../../images/over25years.jpg'
 
 
 const background = {
-    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.6) 100%), url(${backgroundImg})`,
+    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%), url(${backgroundImg})`,
     width: "100%",
     height: "auto",
 }
