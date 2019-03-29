@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope)
 from .models import Product, Address, OrderHeader, OrderLines, UserProfile

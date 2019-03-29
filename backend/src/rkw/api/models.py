@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     username = models.CharField(max_length=50)
     customerID = models.IntegerField()
+    customerno = models.CharField(max_length=20)
     def __str__(self):
         return self.username
 
@@ -63,7 +64,7 @@ class Address(models.Model):
 
 class Customer(models.Model):
     customerCode = models.CharField(max_length=20)
-    companyName = models.CharField(max_length=20)
+    companyName = models.CharField(max_length=50)
     proforma = models.BooleanField()
     billingaddressID = models.IntegerField()
     def __str__(self):
