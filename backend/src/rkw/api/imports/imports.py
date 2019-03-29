@@ -11,35 +11,35 @@ def user(mysql_conn, mysql_cur, mssql_conn, mssql_cur):
                 if not User.objects.filter(username=row[2]).exists():
                     user=User.objects.create_user(username=row[2], password=secrets.token_urlsafe, email=row[0])
                     user.save()
-                    mysql_cur.execute("SELECT id FROM `django-test`.api_userprofile where username = '%s'" % (row[2]))
+                    mysql_cur.execute("SELECT id FROM `api_userprofile where username = '%s'" % (row[2]))
                     if not len(mysql_cur.fetchall()) > 0:
                         mysql_cur.execute("INSERT INTO `api_userprofile` (`customerID`, `username`, `customerno`) VALUES (-1, '%s', '%s');" % (row[2], row[1]))
                         mysql_conn.commit()
 
 # update customer table
 def customer(mysql_conn, mysql_cur, mssql_conn, mssql_cur):
-    mysql_cur.execute("SELECT customerno FROM `django-test`.api_userprofile where customerid = '-1';")
+    mysql_cur.execute("SELECT customerno FROM api_userprofile where customerid = '-1';")
     res = mysql_cur.fetchall()
     for row in res:
         mssql_cur.execute("SELECT No_, Name, -1 as proforma, -1 as billingaddressID from SVG$Customer WHERE No_ = '%s'" % (row[0]))
         res = mssql_cur.fetchall()
         if len(res) > 0:
             for row in res:
-                mysql_cur.execute("SELECT id FROM `django-test`.api_customer where customercode = '%s'" % (row[0]))
+                mysql_cur.execute("SELECT id FROM api_customer where customercode = '%s'" % (row[0]))
                 if not len(mysql_cur.fetchall()) > 0:
-                    mysql_cur.execute("INSERT INTO `api_customer` (`customerCode`, `companyName`, `proforma`, `billingaddressID`) VALUES ( '%s', '%s', '%s', '%s')" % (row[0], str(row[1]).replace("'", ""), row[2], row[3]))
+                    mysql_cur.execute("INSERT INTO api_customer (`customerCode`, `companyName`, `proforma`, `billingaddressID`) VALUES ( '%s', '%s', '%s', '%s')" % (row[0], str(row[1]).replace("'", ""), row[2], row[3]))
                     mysql_conn.commit()
 
 # update user id field         
 def updateUserID(mysql_conn, mysql_cur, mssql_conn, mssql_cur):
-    mysql_cur.execute("SELECT id, customerno FROM `django-test`.api_userprofile where customerid = -1")
+    mysql_cur.execute("SELECT id, customerno FROM api_userprofile where customerid = -1")
     res = mysql_cur.fetchall()
     for row in res:
-        mysql_cur.execute("SELECT id FROM `django-test`.api_customer where customercode = '%s'" % (row[1]))
+        mysql_cur.execute("SELECT id FROM api_customer where customercode = '%s'" % (row[1]))
         checkIfExists = mysql_cur.fetchall()
         if len(checkIfExists) > 0:
             for checkIfExists_line in checkIfExists:
-                mysql_cur.execute("UPDATE api_userprofile` SET `customerID` = '%s' WHERE `id` = '%s'" % (checkIfExists_line[0], row[0]))
+                mysql_cur.execute("UPDATE api_userprofile SET `customerID` = '%s' WHERE `id` = '%s'" % (checkIfExists_line[0], row[0]))
                 mysql_conn.commit()
 
 # update ipg table
@@ -48,7 +48,7 @@ def ipg(mysql_conn, mysql_cur, mssql_conn, mssql_cur):
     res = mssql_cur.fetchall()
     for row in res:
         if len(row) > 0:
-            mysql_cur.execute("SELECT * FROM `django-test`.api_ipg WHERE Code ='%s'" % (str(row[0])))
+            mysql_cur.execute("SELECT * FROM api_ipg WHERE Code ='%s'" % (str(row[0])))
             checkIfExists = mysql_cur.fetchall()
             if not len(checkIfExists) > 0:
                 try:
