@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 
-import akai from '../../images/brandCarousel/akai.png'
-import carmen from '../../images/brandCarousel/carmen.png'
+import akai from '../../images/brandCarousel/akai.jpg'
+import carmen from '../../images/brandCarousel/carmen.jpg'
 import cookincolour from '../../images/brandCarousel/cookincolour.png'
-import elgento from '../../images/brandCarousel/elgento.png'
-import itek from '../../images/brandCarousel/itek.png'
+import elgento from '../../images/brandCarousel/elgento.jpg'
+import itek from '../../images/brandCarousel/itek.jpg'
 import morphyrichards from '../../images/brandCarousel/morphyrichards.png'
 import nutrimaster from '../../images/brandCarousel/nutrimaster.png'
 import pifco from '../../images/brandCarousel/pifco.png'
@@ -29,16 +29,16 @@ const BrandCarousel = () => {
         <div id="brandCarousel">
             <Slider {...settings}>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={akai} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={carmen} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={elgento} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                <img src={itek} />
                 </div>
                 <div>
                     <img src="http://placekitten.com/g/300/100" />
