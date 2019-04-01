@@ -1,15 +1,54 @@
 #footerContainer {
     background-color: #01B5DD;
     bottom: 0;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
     margin-right: 15px;
     margin-left: 15px;
+    color: white;
+    h6 {
+        font-size: 14px;
+    }
+    .col {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
     #column1 {
         border-left: 1px solid white; 
     }
+    #column2 {
+        border-left: 1px solid white;
+        text-align: center; 
+    }
+    #callUs {
+        margin-top: 10px;
+    }
+    #email {
+        margin-top: 15px;
+    }
+    #column3 {
+        border-left: 1px solid white;
+        border-right: 1px solid white;
+        text-align: center;
+        align-items: center;  
+    }
     ul {
         list-style: none;
+        padding-left: 0px;
+        margin-bottom: 0px;
+    }
+    .icon {
+        margin-bottom: 10px;
+    }
+    #phone {
+        margin-bottom: 0%;
+    }
+    #linkedIn {
+        margin-right: 10px;
+    }
+    #twitter {
+        margin-right: 10px;
     }
 }
 
