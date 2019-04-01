@@ -27,6 +27,12 @@ class OauthProductlist(generics.ListAPIView):
         if 'GTPrice' in self.request.query_params:
             if len(self.request.query_params['GTPrice']) > 0:
                 self.queryset = self.queryset.filter(price__gte=self.request.query_params['GTPrice'])
+        if 'LTFreeStock' in self.request.query_params:
+            if len(self.request.query_params['LTFreeStock']) > 0:
+                self.queryset = self.queryset.filter(FreeStock__lte=self.request.query_params['LTFreeStock'])
+        if 'GTFreeStock' in self.request.query_params:
+            if len(self.request.query_params['GTFreeStock']) > 0:
+                self.queryset = self.queryset.filter(FreeStock__gte=self.request.query_params['GTFreeStock'])
         if 'colour' in self.request.query_params:
             if len(self.request.query_params['colour']) > 0:
                 self.queryset = self.queryset.filter(colour=self.request.query_params['colour'])

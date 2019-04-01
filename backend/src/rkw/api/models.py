@@ -9,26 +9,23 @@ class UserProfile(models.Model):
         return self.username
 
 class Product(models.Model):
-    itemno = models.CharField(max_length=120)
+    itemno = models.CharField(max_length=100)
     description = models.TextField()
-    description2 = models.TextField()
-    price = models.DecimalField(decimal_places=2, max_digits=20, default=0.00)
-    colour = models.CharField(max_length=50)
-    manufacturerCode = models.CharField(max_length = 50)
-    Product_Category = models.CharField(max_length=20)
+    colour = models.CharField(max_length=100)
+    manufacturerCode = models.CharField(max_length = 100)
     RRP = models.DecimalField(max_digits=6, decimal_places=2)
     SSP = models.DecimalField(max_digits=6, decimal_places=2)
     FreeStock = models.IntegerField()
-    ItemSpec1 = models.CharField(max_length=69)
-    ItemSpec2 = models.CharField(max_length=69)
-    ItemSpec3 = models.CharField(max_length=69)
-    ItemSpec4 = models.CharField(max_length=69)
-    ItemSpec5 = models.CharField(max_length=69)
-    ItemSpec6 = models.CharField(max_length=69)
-    ItemSpec7 = models.CharField(max_length=69)
-    ItemSpec8 = models.CharField(max_length=69)
-    ItemSpec9 = models.CharField(max_length=69)
-    ItemSpec10 = models.CharField(max_length=69)
+    ItemSpec1 = models.CharField(max_length=100)
+    ItemSpec2 = models.CharField(max_length=100)
+    ItemSpec3 = models.CharField(max_length=100)
+    ItemSpec4 = models.CharField(max_length=100)
+    ItemSpec5 = models.CharField(max_length=100)
+    ItemSpec6 = models.CharField(max_length=100)
+    ItemSpec7 = models.CharField(max_length=100)
+    ItemSpec8 = models.CharField(max_length=100)
+    ItemSpec9 = models.CharField(max_length=100)
+    ItemSpec10 = models.CharField(max_length=100)
     TI = models.IntegerField()
     HI = models.IntegerField()
     Item_Height = models.DecimalField(max_digits=6, decimal_places=2)
@@ -43,8 +40,8 @@ class Product(models.Model):
     palletQty = models.IntegerField()
     cartonQty = models.IntegerField()
     restockDate = models.DateField()
-    IPGID = models.IntegerField()
-    IPG = models.CharField(max_length=50)
+    IPG = models.CharField(max_length=100)
+    CatalogueTheme = models.CharField(max_length=100)
     def __str__(self):
         return self.itemno
 
@@ -98,13 +95,6 @@ class OrderLines(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     orderDateTime = models.DateTimeField(auto_created=True)
     orderHeaderID = models.IntegerField()
-
-class IPG(models.Model):
-    Code = models.CharField(max_length=20)
-    Description = models.CharField(max_length=50)
-    EorH = models.CharField(max_length=10)
-    def __str__(self):
-        return self.Code
 
 class Matched(models.Model):
     ItemID = models.IntegerField()
