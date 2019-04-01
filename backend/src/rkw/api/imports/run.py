@@ -15,8 +15,19 @@ def create_mssql_connection():
 	conn = pymssql.connect(host, username, password, database)
 	return  conn
 
+def create_refrence_mysql_connection():
+    conn = mysql.connector.connect(
+    host="5.5.5.10",
+    database='svglrkwl_svgl1',
+    port= '3306',
+    user="svglrkwl_svglrkR",
+    passwd="H61dk0Fa",
+    # auth_plugin='caching_sha2_password'
+    )
+    return conn
+
 if test_mode:
-    def create_mysql_connection():
+    def create_local_mysql_connection():
         conn = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -26,7 +37,7 @@ if test_mode:
         )
         return conn
 else:
-    def create_mysql_connection():
+    def create_local_mysql_connection():
         conn = mysql.connector.connect(
         host="localhost",
         user="testserv_root",
@@ -37,14 +48,16 @@ else:
         return conn
 
 # setting variables for db connections
-mysql_conn = create_mysql_connection()
-mysql_cur = mysql_conn.cursor()
-mssql_conn = create_mssql_connection()
-mssql_cur = mssql_conn.cursor()
+local_conn = create_local_mysql_connection()
+local_cur = local_conn.cursor()
+ref_conn = create_refrence_mysql_connection()
+ref_cur = ref_conn.cursor()
+# mssql_conn = create_mssql_connection()
+# mssql_cur = mssql_conn.cursor()
 
 # update function calls
-user(mysql_conn, mysql_cur, mssql_conn, mssql_cur)
-customer(mysql_conn, mysql_cur, mssql_conn, mssql_cur)
-updateUserID(mysql_conn, mysql_cur, mssql_conn, mssql_cur)
-# ipg(mysql_conn, mysql_cur, mssql_conn, mssql_cur)
-# products(mysql_conn, mysql_cur, mssql_conn, mssql_cur)
+# user(local_conn, local_cur, mssql_conn, mssql_cur)
+# customer(local_conn, local_cur, mssql_conn, mssql_cur)
+# updateUserID(local_conn, local_cur, mssql_conn, mssql_cur)
+# ipg(local_conn, local_cur, mssql_conn, mssql_cur)
+products(local_conn, local_cur, ref_conn, ref_cur)

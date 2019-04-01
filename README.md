@@ -11,8 +11,8 @@ Back END:
         scl enable rh-python36 bash
     Refrence DB:
         Server: 5.5.5.10
-        DBUser: svglrkwl_svglrkR
         DBName: svglrkwl_svgl1
+        DBUser: svglrkwl_svglrkR
         Password: H61dk0Fa
         URL: https://5.5.5.10:2087/pma/   it will probably give you an SSL warning, just ignore it. if this doesnt work try below
         https://46.20.231.215:2087/pma
