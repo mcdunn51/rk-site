@@ -51,7 +51,7 @@ Back END:
 
         OProductlist:
             http://100.1.253.16:8000/OProductlist/
-            Params: manufacturerCode|itemno|LTPrice|GTPrice|colour
+            Params: manufacturerCode|itemno|LTPrice|GTPrice|colour|LTFreeStock|GTFreeStock
             Headers:
                 Content-Type:application/json
                 Authorization:Bearer <insert token>
@@ -60,13 +60,14 @@ Back END:
             Returns:
                 [
                     {
-                        "id": 131661,
-                        "itemno": "100108",
-                        "description": "Evoke Pyramid Kettle Red",
-                        "colour": "RED",
-                        "price": "32.00",
-                        "RRP": "59.99",
-                        "SSP": "59.99"
+                        "id": 217406,
+                        "itemno": "SK22110GRN",
+                        "description": "Retro Pump Espresso Coffee Machine - Grey",
+                        "colour": "Grey",
+                        "RRP": "199.99",
+                        "SSP": "99.99",
+                        "manufacturerCode": "SWAN",
+                        "FreeStock": 172
                     }
                 ]
 
@@ -81,43 +82,40 @@ Back END:
             Returns:
                 [
                     {
-                        "id": 104649,
-                        "itemno": "T14001",
-                        "description": "Halogen Low Fat Air Fryer",
-                        "description2": "Black",
-                        "price": "29.95",
-                        "colour": "BLACK",
-                        "manufacturerCode": "TOWER",
-                        "Product_Category": "EOL",
-                        "RRP": "99.99",
-                        "SSP": "44.99",
-                        "FreeStock": 100,
-                        "ItemSpec1": "1300W of power uses less energy and cooks 3 times faster",
-                        "ItemSpec2": "12 litre bowl with 5L extender ring great for families",
-                        "ItemSpec3": "Triple cooking power of halogen / convection and infrared",
-                        "ItemSpec4": "Removable glass bowl for easy cleaning and observation",
-                        "ItemSpec5": "Cooks food from frozen no thawing time needed",
-                        "ItemSpec6": "Halogen heating element heats directly",
-                        "ItemSpec7": "Added browning roasting and flavour enhancement",
-                        "ItemSpec8": "Convection circulates the air for even heat distribution",
-                        "ItemSpec9": "Includes recipe book",
-                        "ItemSpec10": "",
-                        "TI": 3,
-                        "HI": 5,
-                        "Item_Height": "32.40",
-                        "Item_Length": "32.40",
-                        "Item_Width": "39.50",
-                        "ProductPaging_Height": "23.10",
-                        "ProductPaging_Length": "36.40",
-                        "ProductPaging_Width": "36.40",
-                        "CartonHeight": "24.60",
-                        "CartonLength": "38.20",
-                        "CartonWidth": "73.50",
-                        "palletQty": 30,
-                        "cartonQty": 2,
-                        "restockDate": "2019-03-15",
-                        "IPGID": 1801,
-                        "IPG": "AF"
+                        "id": 217406,
+                        "itemno": "SK22110GRN",
+                        "description": "Retro Pump Espresso Coffee Machine - Grey",
+                        "colour": "Grey",
+                        "manufacturerCode": "SWAN",
+                        "RRP": "199.99",
+                        "SSP": "99.99",
+                        "FreeStock": 172,
+                        "ItemSpec1": "15 bars of pressure",
+                        "ItemSpec2": "1.2 litre detachable water tank",
+                        "ItemSpec3": "1 or 2 cups at once",
+                        "ItemSpec4": "Die cast boiler",
+                        "ItemSpec5": "Steam pressure control",
+                        "ItemSpec6": "Can make Espresso Cappuccino Latte Flat white and more",
+                        "ItemSpec7": "Removable drip tray",
+                        "ItemSpec8": "Retro design",
+                        "ItemSpec9": "1100W",
+                        "ItemSpec10": "Includes measuring spoon and coffee presser",
+                        "TI": 0,
+                        "HI": 0,
+                        "Item_Height": "0.00",
+                        "Item_Length": "0.00",
+                        "Item_Width": "0.00",
+                        "ProductPaging_Height": "0.00",
+                        "ProductPaging_Length": "0.00",
+                        "ProductPaging_Width": "0.00",
+                        "CartonHeight": "0.00",
+                        "CartonLength": "0.00",
+                        "CartonWidth": "0.00",
+                        "palletQty": 0,
+                        "cartonQty": 0,
+                        "restockDate": "1900-01-01",
+                        "IPG": "COFFEE MAKERS",
+                        "CatalogueTheme": ""
                     }
                 ]
 
@@ -204,7 +202,7 @@ Back END:
 
         Productlist:
             http://100.1.253.16:8000/Productlist/
-            Params: manufacturerCode|itemno|colour
+            Params: manufacturerCode|itemno|colour|LTFreeStock|GTFreeStock
             Headers:
                 Content-Type:application/json
                 Authorization:Bearer <insert token>

@@ -9,6 +9,7 @@ djangorestframework==3.9.1
 idna==2.8
 mysql-connector==2.1.6
 mysql-connector-python==8.0.15
+netifaces==0.10.9
 oauthlib==3.0.1
 protobuf==3.7.0
 pymssql==2.1.4

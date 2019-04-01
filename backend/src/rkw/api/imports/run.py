@@ -1,5 +1,5 @@
 import mysql.connector, csv, pymssql, json, socket
-from src.rkw.api.imports.imports import ipg, products, user, customer, updateUserID
+from src.rkw.api.imports.imports import products, user, customer, updateUserID
 # setting test mode
 if socket.gethostname() == 's1.intranet.svg.local':
     test_mode = False
@@ -22,7 +22,7 @@ def create_refrence_mysql_connection():
     port= '3306',
     user="svglrkwl_svglrkR",
     passwd="H61dk0Fa",
-    # auth_plugin='caching_sha2_password'
+    auth_plugin='caching_sha2_password'
     )
     return conn
 
@@ -52,12 +52,11 @@ local_conn = create_local_mysql_connection()
 local_cur = local_conn.cursor()
 ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
-# mssql_conn = create_mssql_connection()
-# mssql_cur = mssql_conn.cursor()
+mssql_conn = create_mssql_connection()
+mssql_cur = mssql_conn.cursor()
 
 # update function calls
-# user(local_conn, local_cur, mssql_conn, mssql_cur)
-# customer(local_conn, local_cur, mssql_conn, mssql_cur)
-# updateUserID(local_conn, local_cur, mssql_conn, mssql_cur)
-# ipg(local_conn, local_cur, mssql_conn, mssql_cur)
+user(local_conn, local_cur, mssql_conn, mssql_cur)
+customer(local_conn, local_cur, mssql_conn, mssql_cur)
+updateUserID(local_conn, local_cur, mssql_conn, mssql_cur)
 products(local_conn, local_cur, ref_conn, ref_cur)
