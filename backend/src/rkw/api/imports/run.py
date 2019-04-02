@@ -1,5 +1,5 @@
 import mysql.connector, csv, pymssql, json, socket
-from src.rkw.api.imports.imports import products, user, customer, updateUserID
+from src.rkw.api.imports.imports import products, user, customer, updateUserID, ifNotStillInStock
 # setting test mode
 if socket.gethostname() == 's1.intranet.svg.local':
     test_mode = False
@@ -60,3 +60,4 @@ user(local_conn, local_cur, mssql_conn, mssql_cur)
 customer(local_conn, local_cur, mssql_conn, mssql_cur)
 updateUserID(local_conn, local_cur, mssql_conn, mssql_cur)
 products(local_conn, local_cur, ref_conn, ref_cur)
+ifNotStillInStock(local_conn, local_cur, ref_conn, ref_cur)

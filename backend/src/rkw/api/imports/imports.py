@@ -44,7 +44,7 @@ def updateUserID(local_conn, local_cur, mssql_conn, mssql_cur):
 
 # update products table
 def products(local_conn, local_cur, ref_conn, ref_cur):
-    ref_cur.execute("SELECT `No_`, `CatalogueTheme`, `RRP`, `VolumePrice`, `ManufacturerCode`, `PrimaryColour`, `InventoryPostingGroup`, `ProdName`,`ItemSpec1`, `ItemSpec2`, `ItemSpec3`, `ItemSpec4`, `ItemSpec5`, `ItemSpec6`, `ItemSpec7`, `ItemSpec8`, `ItemSpec9`, `ItemSpec10`, `ReStockDate`, `FreeStock` from Items WHERE `ReStockDate` is not null or `FreeStock` is not null")
+    ref_cur.execute("SELECT `No_`, `CatalogueTheme`, `RRP`, `VolumePrice`, `ManufacturerCode`, `PrimaryColour`, `InventoryPostingGroup`, `ProdName`,`ItemSpec1`, `ItemSpec2`, `ItemSpec3`, `ItemSpec4`, `ItemSpec5`, `ItemSpec6`, `ItemSpec7`, `ItemSpec8`, `ItemSpec9`, `ItemSpec10`, `ReStockDate`, `FreeStock` from Items WHERE `ReStockDate` > '1900-01-01' or `FreeStock` is not null")
     res = ref_cur.fetchall()
     if len(res) > 0:
         for row in res:
@@ -52,4 +52,23 @@ def products(local_conn, local_cur, ref_conn, ref_cur):
             checkIfExists = local_cur.fetchall()
             if not len(checkIfExists) > 0:
                 local_cur.execute("insert into api_product (itemno, CatalogueTheme, RRP, SSP, manufacturerCode, colour, IPG, description, ItemSpec1, ItemSpec2, ItemSpec3, ItemSpec4, ItemSpec5, ItemSpec6, ItemSpec7, ItemSpec8, ItemSpec9, ItemSpec10, restockDate, FreeStock, TI, HI, Item_Height, Item_Length, Item_Width, ProductPaging_Height, ProductPaging_Length, ProductPaging_Width, CartonHeight, CartonLength, CartonWidth, palletQty, cartonQty) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19]))
+                local_conn.commit()
+            else:
+                try:
+                    local_cur.execute("UPDATE api_product SET `description` = '%s', `colour` = '%s', `manufacturerCode` = '%s', `RRP` = '%s', `SSP` = '%s', `FreeStock` = '%s', `ItemSpec1` = '%s', `ItemSpec2` = '%s', `ItemSpec3` = '%s', `ItemSpec4` = '%s', `ItemSpec5` = '%s', `ItemSpec6` = '%s', `ItemSpec7` = '%s', `ItemSpec8` = '%s', `ItemSpec9` = '%s', `ItemSpec10` = '%s', `TI` = 0, `HI` = 0, `Item_Height` = 0, `Item_Length` = 0, `Item_Width` = 0, `ProductPaging_Height` = 0, `ProductPaging_Length` = 0, `ProductPaging_Width` = 0, `CartonHeight` = 0, `CartonLength` = 0, `CartonWidth` = 0, `palletQty` = 0, `cartonQty` = 0, `restockDate` = '%s', `IPG` = '%s', `CatalogueTheme` = '%s' WHERE `itemno` = '%s'" % (row[7], row[5], row[4], row[2], row[3], row[19], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[6], row[1], row[0]))
+                    local_conn.commit()
+                except:
+                    pass
+                
+
+# quick update of stock and restock date
+def ifNotStillInStock(local_conn, local_cur, ref_conn, ref_cur):
+    local_cur.execute("SELECT id, itemno FROM api_product where freestock > 0 or restockDate > '1900-01-01'")
+    res = local_cur.fetchall()
+    if len(res) > 0:
+        for row in res:
+            ref_cur.execute("SELECT No_, FreeStock, ReStockDate FROM Items where (freestock is not null OR ReStockDate > '1900-01-01') and No_ = '%s'" % (row[1])) 
+            ref_res = ref_cur.fetchall()
+            if not len(ref_res) > 0:
+                local_cur.execute("UPDATE api_product SET FreeStock = 0, `restockDate` = '1900-01-01' WHERE id = '%s'" % (row[0])) 
                 local_conn.commit()
