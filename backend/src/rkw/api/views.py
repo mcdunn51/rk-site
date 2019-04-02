@@ -109,4 +109,5 @@ class ProdDetailed(generics.ListAPIView):
 class Manufacturerlist(generics.ListAPIView):
     permission_classes = []
     queryset = Product.objects.values('manufacturerCode').distinct()
+    queryset = queryset.filter(FreeStock__gt = 0)
     serializer_class = ManufacturerSerializer

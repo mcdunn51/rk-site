@@ -7,7 +7,7 @@ Back END:
         Domain: testserver.svg.local
         Username: testserv
         Password: vN2zQUsS
-        CentOS WebPanel: https://100.1.253.16:2031/
+        CentOS WebPanel: https://100.1.253.16:2031/pma/
         scl enable rh-python36 bash
     Refrence DB:
         Server: 5.5.5.10
