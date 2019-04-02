@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faCheck, faHandshake } from '@fortawesome/free-solid-svg-icons'
+import { faUserCircle, faCheckCircle, faRegistered } from '@fortawesome/free-regular-svg-icons'
 
 import benefitsOfUsImg1 from '../../images/benefitsOfUsImg1.jpg';
 import benefitsOfUsImg2 from '../../images/benefitsOfUsImg2.jpg';
@@ -75,15 +75,16 @@ class AboutUsPanel extends Component {
             <Container fluid={true} id="aboutUsPanel">
                 <Row>
                     <Col md={6} id="firstCol">
-                        <img id="aboutUsImages" src={picture} />
+                        <img id="aboutUsImages" src="https://placekitten.com/940/542" />
+                        {/* <img id="aboutUsImages" src={picture} /> */}
                     </Col>
                     <Col md={6} id="secondCol">
                         {text}
                         <Row>
-                            <Col>
-                                <FontAwesomeIcon onClick={() => this.changePicAndText('about')} size="4x" id="userCircle" icon={faUser} />
-                                <FontAwesomeIcon onClick={() => this.changePicAndText('benefits')} size="4x" id="tick" icon={faCheck} />
-                                <FontAwesomeIcon onClick={() => this.changePicAndText('trade')} size="4x" id="handshake" icon={faHandshake} />
+                            <Col id="buttonsCol">
+                                <FontAwesomeIcon onClick={() => this.changePicAndText('about')} size="4x" id="userCircle" icon={faUserCircle} />
+                                <FontAwesomeIcon onClick={() => this.changePicAndText('benefits')} size="4x" id="tick" icon={faCheckCircle} />
+                                <FontAwesomeIcon onClick={() => this.changePicAndText('trade')} size="4x" id="handshake" icon={faRegistered} />
                                 <MoreBtn />
                             </Col>
                         </Row>

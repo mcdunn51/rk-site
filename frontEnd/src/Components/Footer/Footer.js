@@ -3,6 +3,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import {faLinkedin, faTwitter, faFacebook} from '@fortawesome/free-brands-svg-icons'
+import {Link} from 'react-router-dom'
 
 
 const Footer = () => {
@@ -16,13 +17,27 @@ const Footer = () => {
                                 <FontAwesomeIcon size="4x" className="icon" id="information" icon={faInfoCircle}/>
                             </div>
                             <h6>USEFUL INFORMATION</h6>
-                            <li>About Us</li>
-                            <li>Delivery Information</li>
-                            <li>Privacy and Cookies Policies</li>
-                            <li>Returns and Cancelations Policy</li>
-                            <li>Site Terms and Conditions</li>
-                            <li>Showroom</li>
-                            <li>Trade Account Registration</li>
+                            <li> 
+                                <Link to="/UsefulInformation/AboutUs">About Us</Link>
+                            </li>
+                            <li>
+                                <Link to="/UsefulInformation/DeliveryInformation">Delivery Information</Link>
+                            </li>
+                            <li>
+                                <Link to="/UsefulInformation/Privacy&CookiesPolicies">Privacy and Cookies Policies</Link>
+                            </li>
+                            <li> 
+                                <Link to="/UsefulInformation/ReturnsAndCancelations">Returns and Cancelations Policy</Link>
+                            </li>
+                            <li> 
+                                <Link to="/UsefulInformation/SiteTerms&Conditions">Site Terms and Conditions</Link>
+                            </li>
+                            <li> 
+                                <Link to="/UsefulInformation/Showroom">Showroom</Link>
+                            </li>
+                            <li> 
+                                <Link to="/UsefulInformation/TradeAccountRegistration">Trade Account Registration</Link>
+                            </li>
                         </ul>
                     </Col>
                     <Col id="column2">
