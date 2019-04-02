@@ -6,4 +6,9 @@
         color: white;
         margin-bottom: 0px;
     }
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) { 
+        margin-right: 0px;
+        margin-left: 0px;
+    }
 }

@@ -50,12 +50,10 @@ const Footer = () => {
                             <li>sales@rkwltd.com</li>
                         </ul>
                     </Col>
-                    <Col id="column3">
+                    <Col xs={12} md={4} id="column3">
                         <ul>
                             <h6>FOLLOW US ON</h6>
                             <FontAwesomeIcon size="4x" id="linkedIn" className="icon" icon={faLinkedin}/>
-                            <FontAwesomeIcon size="4x" id="twitter" className="icon" icon={faTwitter}/>
-                            <FontAwesomeIcon size="4x" className="icon" icon={faFacebook}/>
                         </ul>
                     </Col>
                 </Row>

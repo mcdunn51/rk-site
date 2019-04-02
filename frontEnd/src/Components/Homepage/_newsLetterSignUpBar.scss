@@ -10,4 +10,9 @@
         background-color: #01B5DD;
         border-color: #01B5DD;
     }
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) { 
+        margin-left: 0px;
+        margin-right: 0px;
+    }
 }

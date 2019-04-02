@@ -74,11 +74,11 @@ class AboutUsPanel extends Component {
         return (
             <Container fluid={true} id="aboutUsPanel">
                 <Row>
-                    <Col md={6} id="firstCol">
+                    <Col lg={6} className="d-none d-lg-block" id="firstCol">
                         <img id="aboutUsImages" src="https://placekitten.com/940/542" />
                         {/* <img id="aboutUsImages" src={picture} /> */}
                     </Col>
-                    <Col md={6} id="secondCol">
+                    <Col md={12} lg={6} id="secondCol">
                         {text}
                         <Row>
                             <Col id="buttonsCol">

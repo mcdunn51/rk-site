@@ -18,6 +18,7 @@ import warmnight from '../../images/brandCarousel/warmnight.png'
 const BrandCarousel = () => {
 
     const settings = {
+        arrows: false,
         infinite: true,
         slidesToShow: 6,
         slidesToScroll: 1,

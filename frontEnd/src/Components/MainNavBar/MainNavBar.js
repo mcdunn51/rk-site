@@ -16,15 +16,14 @@ class MainNavbar extends Component {
             url: `http://100.1.253.16:8000/Manufacturer/`,
             headers: { 'Authorization': 'Bearer SDhm0d95wxYxnBzeFIEXL2Fbev14GW' },
         })
-            .then(res => {
-                const manufacturerCodes = [];
-                res.data.forEach(element => {
-                    if (element.manufacturerCode.startsWith('s') || element.manufacturerCode.startsWith('S')) {
-                        manufacturerCodes.push(element.manufacturerCode);
-                    }
-                })
-                loadBrands(manufacturerCodes)
+        .then(res => {
+            console.log(res.data)
+            const manufacturerCodes = [];
+            res.data.forEach(element => {
+                manufacturerCodes.push(element.manufacturerCode);
             })
+            loadBrands(manufacturerCodes)
+        })
     };
 
 
