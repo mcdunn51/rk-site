@@ -1,1 +1,1 @@
-Scripts\python.exe src\rkw\manage.py shell < src\rkw\api\imports\run.py
+Scripts\python.exe src\rkw\manage.py shell < src\rkw\api\imports.py
