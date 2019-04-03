@@ -1,82 +1,83 @@
 #footerContainer {
-    background-color: #01B5DD;
-    bottom: 0;
-    padding-top: 2.5%;
-    padding-bottom: 2.5%;
-    margin-right: 15px;
-    margin-left: 15px;
+  background-color: #01b5dd;
+  bottom: 0;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  margin-right: 15px;
+  margin-left: 15px;
+  color: white;
+  h6 {
+    font-size: 14px;
+  }
+  .col {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  a {
     color: white;
-    h6 {
-        font-size: 14px;
+  }
+  #column1 {
+    border-left: 1px solid white;
+  }
+  #column2 {
+    border-left: 1px solid white;
+    text-align: center;
+  }
+  #callUs {
+    margin-top: 10px;
+  }
+  #email {
+    margin-top: 15px;
+  }
+  #column3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    text-align: center;
+    align-items: center;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+  .icon {
+    margin-bottom: 10px;
+  }
+  #phone {
+    margin-bottom: 0%;
+  }
+  #linkedIn {
+    margin-right: 10px;
+  }
+  #twitter {
+    margin-right: 10px;
+  }
+
+  // Small devices (landscape phones, less than 768px)
+  @media (max-width: 767.98px) {
+    #column3 {
+      border-left: 0px;
+      margin-top: 20px;
     }
-    .col {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    a {
-        color: white;
-    }
+  }
+
+  // Medium devices (tablets, less than 992px)
+  @media (max-width: 991.98px) {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  // Large devices (desktops, less than 1200px)
+  @media (max-width: 1199.98px) {
     #column1 {
-        border-left: 1px solid white; 
-    }
-    #column2 {
-        border-left: 1px solid white;
-        text-align: center; 
-    }
-    #callUs {
-        margin-top: 10px;
-    }
-    #email {
-        margin-top: 15px;
+      border-left: 0px;
     }
     #column3 {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        border-left: 1px solid white;
-        border-right: 1px solid white;
-        text-align: center;
-        align-items: center;  
+      border-right: 0px;
     }
-    ul {
-        list-style: none;
-        padding-left: 0px;
-        margin-bottom: 0px;
-    }
-    .icon {
-        margin-bottom: 10px;
-    }
-    #phone {
-        margin-bottom: 0%;
-    }
-    #linkedIn {
-        margin-right: 10px;
-    }
-    #twitter {
-        margin-right: 10px;
-    }
-
-    // Extra small devices (portrait phones, less than 576px)
-    @media (max-width: 575.98px) {
-        #column3 {
-            border-left: 0px;
-        }
-    }
-
-    // Medium devices (tablets, less than 992px)
-    @media (max-width: 991.98px) { 
-        margin-right: 0px;
-        margin-left: 0px;
-        #column1 {
-            border-left: 0px; 
-        }
-        #column3 {
-            border-right: 0px;
-        }
-    }
-
+  }
 }
-
-
-

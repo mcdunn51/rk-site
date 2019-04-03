@@ -1,99 +1,116 @@
 #aboutUsPanel {
-    margin-bottom: 20px; 
-    #firstCol {
-        padding-right: 0px;
-        #aboutUsImages {
-            width: 100%;
-            height: auto;
-        }
+  #moreBtn {
+    height: 100%;
+    background-color: #a8acad;
+    border-color: #a8acad;
+    font-size: 18px;
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+
+  // extra large
+  margin-bottom: 20px;
+  #firstCol {
+    padding-right: 0px;
+    #aboutUsImages {
+      width: 100%;
+      height: auto;
     }
-    #secondCol {
+  }
+  #secondCol {
+    background-color: #11406d;
+    color: white;
+    background-clip: content-box;
+    position: relative;
+    #text {
+      margin-left: 10%;
+      margin-right: 10%;
+      margin-top: 3%;
+      margin-bottom: 10%;
+      h3 {
+        font-size: 65px;
+        margin-bottom: 5%;
+      }
+      p {
+        font-size: 20px;
+        text-align: justify;
+      }
+      ul {
+        list-style: none;
+        font-size: 20px;
         padding-left: 0px;
-        background-color: #11406D;
-        color: white;
-        background-clip: content-box;
-        position: relative;
-        #text {
-            margin-left: 10%;
-            margin-right: 10%;
-            margin-top: 5%;
-            margin-bottom: 10%; 
-            h3 {
-                font-size: 65px;
-                margin-bottom: 5%;
-            }
-            p {
-                font-size: 20px;
-                text-align: justify;
-            }
-            ul {
-                list-style: none;
-                font-size: 20px;
-                padding-left: 0px;
-            }
-        }
-        .row {
-            margin-left: 0px;
-            margin-right: 0px;
-            text-align: center;
-            #buttonsCol {
-                position: absolute;
-                bottom: 20%;
-            } 
-        }
-
+      }
+    }
+    .row {
+      margin-left: 0px;
+      margin-right: 0px;
+      text-align: center;
+      #buttonsCol {
+        position: absolute;
+        bottom: 17.5%;
         .svg-inline--fa {
-            vertical-align: bottom;
-            margin-right: 30px;
-            &:hover {
-                color: #01B5DD;
-            }
-            // &.fa-w-14 {
-            // //     width: auto;
-            // //     height: 38px;
-            // }
-            // &.fa-w-16 {
-            
-            // }
-            // &.fa-w-20 {
-                
-            // }
+          vertical-align: bottom;
+          margin-right: 30px;
+          font-size: 4em;
+          &:hover {
+            color: #01b5dd;
+          }
         }
+      }
     }
-    #moreBtn {
-        height: 100%;
-        background-color: #A8ACAD;
-        border-color: #A8ACAD;
-        font-size: 18px;
-        padding-left: 7%;
-        padding-right: 7%;
+  }
+  
+
+  // Extra small devices (portrait phones, less than 576px)
+  // @media (max-width: 575.98px) {
+  //   #secondCol { 
+  //     padding-left: 15px;
+  //     padding-right: 15px;
+  //   }
+  // }
+
+
+  // Small devices (landscape phones, less than 768px)
+  @media (max-width: 767.98px) {
+    padding-left: 0px;
+    padding-right: 0px;
+    #secondCol {
+      #text {
+        margin-left: 20px;
+        margin-right: 20px;
+        h3 {
+          font-size: 45px;
+        }
+        p {
+          font-size: 20px;
+        }
+      }
+      .row {
+        #buttonsCol {
+          .svg-inline--fa {
+            font-size: 3em;
+          }
+        }
+      }
     }
+  }
 
-    // Small devices (landscape phones, less than 768px)
-    // @media (max-width: 767.98px) { 
-    //     #secondCol {
-    //         padding-left: 0px;
-    //         padding-right: 0px;
-    //     }
-    //     .row 
-    // }
+  
 
-    // // Medium devices (tablets, less than 992px)
-    // @media (min-width: 768px) { 
-    //     #secondCol {
-    //         padding-left: 15px;
-    //         #text {
-    //             margin-bottom: 5%;
-    //             h3 {
-    //                 margin-bottom: 0%;
-    //             }
-    //         }
-    //         .row {
-    //             #buttonsCol {
-    //                 position: static;
-    //                 margin-bottom: 5%;
-    //             }
-    //         }
-    //     }
-    // }
+  // Large devices (desktops, less than 1200px)
+  @media (max-width: 1199.98px) {
+    #secondCol {
+      #text {
+        margin-bottom: 100px;
+      }
+      .row {
+        #buttonsCol {
+          bottom: 20px;
+        }
+      }
+    }
+  }
+
+
+
 }

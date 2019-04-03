@@ -74,17 +74,17 @@ class AboutUsPanel extends Component {
         return (
             <Container fluid={true} id="aboutUsPanel">
                 <Row>
-                    <Col lg={6} className="d-none d-lg-block" id="firstCol">
+                    <Col xl={6} className="d-none d-xl-block" id="firstCol">
                         <img id="aboutUsImages" src="https://placekitten.com/940/542" />
                         {/* <img id="aboutUsImages" src={picture} /> */}
                     </Col>
-                    <Col md={12} lg={6} id="secondCol">
+                    <Col md={12} xl={6} id="secondCol">
                         {text}
                         <Row>
                             <Col id="buttonsCol">
-                                <FontAwesomeIcon onClick={() => this.changePicAndText('about')} size="4x" id="userCircle" icon={faUserCircle} />
-                                <FontAwesomeIcon onClick={() => this.changePicAndText('benefits')} size="4x" id="tick" icon={faCheckCircle} />
-                                <FontAwesomeIcon onClick={() => this.changePicAndText('trade')} size="4x" id="handshake" icon={faRegistered} />
+                                <FontAwesomeIcon onClick={() => this.changePicAndText('about')} id="userCircle" icon={faUserCircle} />
+                                <FontAwesomeIcon onClick={() => this.changePicAndText('benefits')} id="tick" icon={faCheckCircle} />
+                                <FontAwesomeIcon onClick={() => this.changePicAndText('trade')} id="handshake" icon={faRegistered} />
                                 <MoreBtn />
                             </Col>
                         </Row>
