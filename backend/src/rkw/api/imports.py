@@ -83,11 +83,12 @@ def products(local_conn, local_cur, ref_conn, ref_cur):
                     local_conn.commit()
                 except:
                     pass
-                
+
 # quick update of stock and restock date
-def ifNotStillInStock(local_conn, local_cur, ref_conn, ref_cur):
+def updateStock(local_conn, local_cur, ref_conn, ref_cur):
     local_cur.execute("SELECT id, itemno FROM api_product where freestock > 0 or restockDate > '1900-01-01'")
     res = local_cur.fetchall()
+    print('hello')
     if len(res) > 0:
         for row in res:
             ref_cur.execute("SELECT No_, FreeStock, ReStockDate FROM Items where (freestock is not null OR ReStockDate > '1900-01-01') and No_ = '%s'" % (row[1])) 
@@ -109,4 +110,4 @@ user(local_conn, local_cur, mssql_conn, mssql_cur)
 customer(local_conn, local_cur, mssql_conn, mssql_cur)
 updateUserID(local_conn, local_cur, mssql_conn, mssql_cur) 
 products(local_conn, local_cur, ref_conn, ref_cur)
-ifNotStillInStock(local_conn, local_cur, ref_conn, ref_cur)
+updateStock(local_conn, local_cur, ref_conn, ref_cur)
