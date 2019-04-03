@@ -14,7 +14,7 @@ class OauthProdDetailedSerializer(serializers.ModelSerializer):
 class OauthProdListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "itemno", "description", "colour", "RRP", "SSP", "manufacturerCode", "FreeStock")
+        fields = ("id", "itemno", "description", "colour", "RRP", "SSP", "manufacturerCode", "FreeStock", "restockDate")
 
 class OauthAdressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,7 +35,7 @@ class OauthOrderLinesSerializer(serializers.ModelSerializer):
 class ProdListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock")
+        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock", "restockDate")
 
 class ProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:
