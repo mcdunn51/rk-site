@@ -42,20 +42,22 @@ class Product(models.Model):
     restockDate = models.DateField()
     IPG = models.CharField(max_length=100)
     CatalogueTheme = models.CharField(max_length=100)
+    Analysis2 = models.CharField(max_length=100)
+    Electrical_or_Housewares = models.CharField(max_length=100)
+    HighSell = models.DecimalField(max_digits=6, decimal_places=2)
     def __str__(self):
         return self.itemno
 
 class Address(models.Model):
-    customerID = models.IntegerField()
+    customerNO = models.IntegerField()
     address1 = models.CharField(max_length=20)
     address2 = models.CharField(max_length=20)
-    town = models.CharField(max_length=20)
     county = models.CharField(max_length=20)
     postcode = models.CharField(max_length=20) 
     phoneNumber = models.CharField(max_length=20)
-    email = models.CharField(max_length=20)
     country = models.CharField(max_length=20)
     city = models.CharField(max_length=20)
+    Type = models.CharField(max_length=20)
     def __str__(self):
         return self.address1
 
@@ -68,15 +70,14 @@ class Customer(models.Model):
         return self.customerCode
 
 class CustomerPrices(models.Model):
-    salesType = models.CharField(max_length=20)
-    customerID = models.IntegerField()
-    itemID = models.IntegerField()
+    customerNo = models.CharField(max_length=20)
+    itemno = models.CharField(max_length=20)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     startDate = models.DateField()
     endDate = models.DateField()
 
 class Media(models.Model):
-    itemID = models.IntegerField()
+    itemno = models.CharField(max_length=100)
     cdn = models.CharField(max_length=20)
     filename = models.CharField(max_length=20)
     def __str__(self):
@@ -90,14 +91,14 @@ class OrderHeader(models.Model):
 
 class OrderLines(models.Model):
     lineNo = models.IntegerField()
-    itemID = models.IntegerField()
+    itemno = models.CharField(max_length=100)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     orderDateTime = models.DateTimeField(auto_created=True)
     orderHeaderID = models.IntegerField()
 
 class Matched(models.Model):
-    ItemID = models.IntegerField()
-    MatchingItemID = models.IntegerField()
+    itemno = models.CharField(max_length=100)
+    Matchingitemno = models.IntegerField()
     ParentPartNo = models.CharField(max_length=20)
     MatchingPartNo = models.CharField(max_length=20)

@@ -8,10 +8,6 @@ else:
     test_mode = True
 
 # functions
-def create_mssql_connection():
-	conn = pymssql.connect(r'navsqlat\RKWL1', 'MICHAELM', 'michael91448', 'SVGL1')
-	return  conn
-
 def create_refrence_mysql_connection():
     conn = mysql.connector.connect(host="5.5.5.10", database='svglrkwl_svgl1', port='3306',user="svglrkwl_svglrkR", passwd="H61dk0Fa", auth_plugin='caching_sha2_password')
     return conn
@@ -26,14 +22,14 @@ else:
         return conn
 
 # update user table
-def user(local_conn, local_cur, mssql_conn, mssql_cur):
-    mssql_cur.execute("SELECT [Web User Account], [On Behalf Of], [Search Name] Name  from SVG$Contact WHERE [Web User Account] <>'' and Name <>'' and [On Behalf Of] <>''")
-    res = mssql_cur.fetchall()
+def user(local_conn, local_cur, ref_conn, ref_cur):
+    ref_cur.execute("SELECT `email`, `customerNo`, `username` FROM `Contact`")
+    res = ref_cur.fetchall()
     if len(res) > 0:
         for row in res:
             if len(row[2]) > 0:
                 if not User.objects.filter(username=row[2]).exists():
-                    user=User.objects.create_user(username=row[2], password=secrets.token_urlsafe, email=row[0])
+                    user=User.objects.create_user(username=row[2], password=secrets.token_urlsafe(), email=row[0])
                     user.save()
                     local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (row[2]))
                     if not len(local_cur.fetchall()) > 0:
@@ -41,21 +37,21 @@ def user(local_conn, local_cur, mssql_conn, mssql_cur):
                         local_conn.commit()
 
 # update customer table
-def customer(local_conn, local_cur, mssql_conn, mssql_cur):
+def customer(local_conn, local_cur, ref_conn, ref_cur):
     local_cur.execute("SELECT customerno FROM api_userprofile where customerid = '-1';")
     res = local_cur.fetchall()
     for row in res:
-        mssql_cur.execute("SELECT No_, Name, -1 as proforma, -1 as billingaddressID from SVG$Customer WHERE No_ = '%s'" % (row[0]))
-        res = mssql_cur.fetchall()
+        ref_cur.execute("SELECT `customerCode`, `companyName`, `proforma` FROM `Customer` WHERE `customerCode` = '%s'" % (row[0]))
+        res = ref_cur.fetchall()
         if len(res) > 0:
             for row in res:
                 local_cur.execute("SELECT id FROM api_customer where customercode = '%s'" % (row[0]))
                 if not len(local_cur.fetchall()) > 0:
-                    local_cur.execute("INSERT INTO api_customer (`customerCode`, `companyName`, `proforma`, `billingaddressID`) VALUES ( '%s', '%s', '%s', '%s')" % (row[0], str(row[1]).replace("'", ""), row[2], row[3]))
+                    local_cur.execute("INSERT INTO api_customer (`customerCode`, `companyName`, `proforma`, `billingaddressID`) VALUES ( '%s', '%s', '%s', -1)" % (row[0], str(row[1]).replace("'", ""), row[2]))
                     local_conn.commit()
 
 # update user id field         
-def updateUserID(local_conn, local_cur, mssql_conn, mssql_cur):
+def updateUserID(local_conn, local_cur, ref_conn, ref_cur):
     local_cur.execute("SELECT id, customerno FROM api_userprofile where customerid = -1")
     res = local_cur.fetchall()
     for row in res:
@@ -68,27 +64,23 @@ def updateUserID(local_conn, local_cur, mssql_conn, mssql_cur):
 
 # update products table
 def products(local_conn, local_cur, ref_conn, ref_cur):
-    ref_cur.execute("SELECT `No_`, `CatalogueTheme`, `RRP`, `VolumePrice`, `ManufacturerCode`, `PrimaryColour`, `InventoryPostingGroup`, `ProdName`,`ItemSpec1`, `ItemSpec2`, `ItemSpec3`, `ItemSpec4`, `ItemSpec5`, `ItemSpec6`, `ItemSpec7`, `ItemSpec8`, `ItemSpec9`, `ItemSpec10`, `ReStockDate`, `FreeStock` from Items WHERE `ReStockDate` > '1900-01-01' or `FreeStock` is not null")
+    ref_cur.execute("SELECT `No_`, `CatalogueTheme`, `RRP`, `VolumePrice`, `ManufacturerCode`, `PrimaryColour`, `InventoryPostingGroup`, `ProdName`,`ItemSpec1`, `ItemSpec2`, `ItemSpec3`, `ItemSpec4`, `ItemSpec5`, `ItemSpec6`, `ItemSpec7`, `ItemSpec8`, `ItemSpec9`, `ItemSpec10`, `ReStockDate`, `FreeStock`, `Ti`, `Hi`, `Analysis 2`, `Item Dimensions (H)`, `Item Dimensions (L)`, `Item Dimensions (W)`, `Retail Box Dimensions (H)`, `Retail Box Dimensions (L)`, `Retail Box Dimensions (W)`, `Outer Dimensions (H)`, `Outer Dimensions (L)`, `Outer Dimensions (W)`, `CartonQty`, `PalletQty`, `Electrical or Housewares`, HighSell from `Items` WHERE `ReStockDate` > '1900-01-01' or `FreeStock` is not null")
     res = ref_cur.fetchall()
     if len(res) > 0:
         for row in res:
-            local_cur.execute("SELECT * FROM api_product WHERE itemno ='%s'" % (str(row[0])))
+            local_cur.execute("SELECT itemno FROM api_product WHERE itemno ='%s'" % (str(row[0])))
             checkIfExists = local_cur.fetchall()
             if not len(checkIfExists) > 0:
-                local_cur.execute("insert into api_product (itemno, CatalogueTheme, RRP, SSP, manufacturerCode, colour, IPG, description, ItemSpec1, ItemSpec2, ItemSpec3, ItemSpec4, ItemSpec5, ItemSpec6, ItemSpec7, ItemSpec8, ItemSpec9, ItemSpec10, restockDate, FreeStock, TI, HI, Item_Height, Item_Length, Item_Width, ProductPaging_Height, ProductPaging_Length, ProductPaging_Width, CartonHeight, CartonLength, CartonWidth, palletQty, cartonQty) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19]))
+                local_cur.execute("insert into api_product (itemno, CatalogueTheme, RRP, SSP, manufacturerCode, colour, IPG, description, ItemSpec1, ItemSpec2, ItemSpec3, ItemSpec4, ItemSpec5, ItemSpec6, ItemSpec7, ItemSpec8, ItemSpec9, ItemSpec10, restockDate, FreeStock, TI, HI, Analysis2, Item_Height, Item_Length, Item_Width, ProductPaging_Height, ProductPaging_Length, ProductPaging_Width, CartonHeight, CartonLength, CartonWidth, cartonQty, palletQty, `Electrical_or_Housewares`, HighSell) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35]))
                 local_conn.commit()
             else:
-                try:
-                    local_cur.execute("UPDATE api_product SET `description` = '%s', `colour` = '%s', `manufacturerCode` = '%s', `RRP` = '%s', `SSP` = '%s', `FreeStock` = '%s', `ItemSpec1` = '%s', `ItemSpec2` = '%s', `ItemSpec3` = '%s', `ItemSpec4` = '%s', `ItemSpec5` = '%s', `ItemSpec6` = '%s', `ItemSpec7` = '%s', `ItemSpec8` = '%s', `ItemSpec9` = '%s', `ItemSpec10` = '%s', `TI` = 0, `HI` = 0, `Item_Height` = 0, `Item_Length` = 0, `Item_Width` = 0, `ProductPaging_Height` = 0, `ProductPaging_Length` = 0, `ProductPaging_Width` = 0, `CartonHeight` = 0, `CartonLength` = 0, `CartonWidth` = 0, `palletQty` = 0, `cartonQty` = 0, `restockDate` = '%s', `IPG` = '%s', `CatalogueTheme` = '%s' WHERE `itemno` = '%s'" % (row[7], row[5], row[4], row[2], row[3], row[19], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[6], row[1], row[0]))
-                    local_conn.commit()
-                except:
-                    pass
+                local_cur.execute("UPDATE api_product SET `CatalogueTheme` = '%s', `RRP` = '%s', `SSP` = '%s', `manufacturerCode` = '%s', `colour` = '%s', `IPG` = '%s', `description` = '%s', `ItemSpec1` = '%s', `ItemSpec2` = '%s', `ItemSpec3` = '%s', `ItemSpec4` = '%s', `ItemSpec5` = '%s', `ItemSpec6` = '%s', `ItemSpec7` = '%s', `ItemSpec8` = '%s', `ItemSpec9` = '%s', `ItemSpec10` = '%s', `restockDate` = '%s', `FreeStock` = '%s', `TI` = '%s', `HI` = '%s', Analysis2 = '%s', `Item_Height` = '%s', `Item_Length` = '%s', `Item_Width` = '%s', `ProductPaging_Height` = '%s', `ProductPaging_Length` = '%s', `ProductPaging_Width` = '%s', `CartonHeight` = '%s', `CartonLength` = '%s', `CartonWidth` = '%s', `cartonQty` = '%s', palletQty = '%s', Electrical_or_Housewares = '%s', HighSell = '%s' WHERE `itemno` = '%s'" % (row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35], row[0]))
+                local_conn.commit()
 
 # quick update of stock and restock date
 def updateStock(local_conn, local_cur, ref_conn, ref_cur):
     local_cur.execute("SELECT id, itemno FROM api_product where freestock > 0 or restockDate > '1900-01-01'")
     res = local_cur.fetchall()
-    print('hello')
     if len(res) > 0:
         for row in res:
             ref_cur.execute("SELECT No_, FreeStock, ReStockDate FROM Items where (freestock is not null OR ReStockDate > '1900-01-01') and No_ = '%s'" % (row[1])) 
@@ -97,17 +89,27 @@ def updateStock(local_conn, local_cur, ref_conn, ref_cur):
                 local_cur.execute("UPDATE api_product SET FreeStock = 0, `restockDate` = '1900-01-01' WHERE id = '%s'" % (row[0])) 
                 local_conn.commit()
 
+# update CustomerPrices table
+def CustomerPrices(local_conn, local_cur, ref_conn, ref_cur):
+    ref_cur.execute("SELECT `customerNo`,`itemno`,`price`,`startDate`,`endDate` FROM `CustomerPrices`")
+    res = ref_cur.fetchall()
+    if len(res) > 0:
+        for row in res:
+            local_cur.execute("SELECT id FROM `django-test`.api_customerprices where customerno = '%s' and itemno = '%s' and price = %s and enddate = '%s' and startdate = '%s';" % (row[0], row[1], row[2], row[4], row[3]))
+            if not len(local_cur.fetchall()) > 0:
+                local_cur.execute("INSERT INTO `django-test`.`api_customerprices` (`customerNo`, `itemno`, `price`, `endDate`, `startDate`) VALUES ('%s', '%s', '%s', '%s', '%s');" % (row[0], row[1], row[2], row[4], row[3]))
+                local_conn.commit()
+
 # setting variables for db connections
 local_conn = create_local_mysql_connection()
 local_cur = local_conn.cursor()
 ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
-mssql_conn = create_mssql_connection()
-mssql_cur = mssql_conn.cursor()
 
 # update function calls
-user(local_conn, local_cur, mssql_conn, mssql_cur)
-customer(local_conn, local_cur, mssql_conn, mssql_cur)
-updateUserID(local_conn, local_cur, mssql_conn, mssql_cur) 
-products(local_conn, local_cur, ref_conn, ref_cur)
-updateStock(local_conn, local_cur, ref_conn, ref_cur)
+# user(local_conn, local_cur, ref_conn, ref_cur)
+# customer(local_conn, local_cur, ref_conn, ref_cur)
+# updateUserID(local_conn, local_cur, ref_conn, ref_cur) 
+# products(local_conn, local_cur, ref_conn, ref_cur)
+# updateStock(local_conn, local_cur, ref_conn, ref_cur)
+# CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
