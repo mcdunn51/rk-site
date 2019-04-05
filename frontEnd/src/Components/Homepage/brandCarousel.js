@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
+import {Container} from 'react-bootstrap';
 
 import akai from '../../images/brandCarousel/akai.jpg'
 import carmen from '../../images/brandCarousel/carmen.jpg'
@@ -27,7 +28,7 @@ const BrandCarousel = () => {
     }
 
     return (
-        <div id="brandCarousel">
+        <Container id="brandCarousel">
             <Slider {...settings}>
                 <div>
                     <img src={akai} />
@@ -66,7 +67,7 @@ const BrandCarousel = () => {
                     <img src="http://placekitten.com/g/300/100" />
                 </div>
             </Slider>
-        </div>
+        </Container>
     )
 }
 

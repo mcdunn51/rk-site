@@ -1,0 +1,39 @@
+#header {
+.row {
+    padding-top: 25px;
+    padding-bottom: 25px;
+} 
+  img {
+    max-width: 250px;
+    height: auto;
+  }
+  #firstCol {
+    margin-top: auto;
+    margin-bottom: auto;
+    .input-group {
+        width: 70%;
+    }
+  }
+  #secondCol {
+      text-align: center;
+  }
+  #thirdCol {
+      text-align: right;
+      font-size: 14px;
+      margin-top: auto;
+      margin-bottom: auto;
+    .fa-user {
+        margin-right: 10px;
+    }
+    #loginText {
+      display: inline;
+      margin-right: 10%;
+    }
+    .fa-shopping-basket {
+        margin-right: 7px;
+    }
+    #basketText {
+      display: inline;
+    }
+  }
+}
