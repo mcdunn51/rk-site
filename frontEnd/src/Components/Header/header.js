@@ -7,13 +7,49 @@ import { FormControl } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUser, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSearch, faUser, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 
 import RKWLogo from '../../images/rkwlogo.jpg'
 
 const Header = () => {
     return (
-            <Container id="header">
+        // mobile & tablet
+        <div>
+            <Container id="mobileTabletHeader">
+                <Row id="firstRow">
+                    <Col id="firstCol">
+                        <FontAwesomeIcon icon={faBars} />
+                    </Col>
+                    <Col id="secondCol">
+                        <img src={RKWLogo} />
+                    </Col>
+                    <Col id="thirdCol">
+                        <FontAwesomeIcon icon={faUser} />
+                        <FontAwesomeIcon icon={faShoppingBasket} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form>
+                            <InputGroup>
+                                <FormControl
+                                    placeholder="search"
+                                    aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2"
+                                />
+                                <InputGroup.Append>
+                                    <Button variant="outline-secondary">
+                                        <FontAwesomeIcon icon={faSearch} />
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+
+            {/* desktop & up */}
+            <Container id="desktopHeader">
                 <Row>
                     <Col id="firstCol">
                         <Form>
@@ -35,15 +71,14 @@ const Header = () => {
                         <img src={RKWLogo} />
                     </Col>
                     <Col id="thirdCol">
-            
-                            <FontAwesomeIcon icon={faUser} />
-                            <p id="loginText">Login/Register</p>
-                            <FontAwesomeIcon icon={faShoppingBasket} />
-                            <p id="basketText">Basket</p>
-                    
+                        <FontAwesomeIcon icon={faUser} />
+                        <p id="loginText">Login/Register</p>
+                        <FontAwesomeIcon icon={faShoppingBasket} />
+                        <p id="basketText">Basket</p>
                     </Col>
                 </Row>
             </Container>
+        </div>
     )
 }
 
