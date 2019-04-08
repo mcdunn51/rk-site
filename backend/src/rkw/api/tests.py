@@ -3,11 +3,15 @@ import requests, json, os
 token = ''
 item = 't14001'
 
-testing_mode = True
+# Testing Mode
+if socket.gethostname() == 's1.intranet.svg.local':
+    test_mode = False
+else:
+    test_mode = True
 
 if testing_mode:
     IP = '127.0.0.1:8000'  
-    authentication = requests.post(r'http://'+str(IP)+r'/o/token/?grant_type=password&username=Mike&password=tas}Ng2uQ7?!rSS9&client_id=1VICqpEgPG2D5UB5TSd0UoiMmzuKhvy8ejO9k1hi&client_secret=zFcO5hjIUw44hzNEh1M6lOScNtBmHr3KC6CTeITxqPEd69IZOn5FmwadvVEBKixbeauFgi22geuEvj1uQqAwYWx3buywTs1XW3kuNLMLYPuPFn63AWGtRgIzX3nzlyfM')
+    authentication = requests.post(r'http://'+str(IP)+r'/o/token/?grant_type=password&username=M&password=0&client_id=CpV612uZEllAr8vh7bFGVB9Uiq6DagTrhCUu3l4W&client_secret=jJVNuUlYkGSsbbdSQ7DvrAtuiR2T9OO9eY2kVQIJDoNRZ69pHjSkk2KSVJtnXNyGmDAh2PHF0qogfc1GpdXvnqj7ID1rdwVvgjbuNdDkXup3Ewt1mKaDYZR37jTQ6cvr')
 else:
     IP = '100.1.253.16:8000'
     authentication = requests.post(r'http://'+str(IP)+r'/o/token/?grant_type=password&username=Mike&password=tas}Ng2uQ7?!rSS9&client_id=3USdTjmnjbcdTeNrdwjeaOlEcVg1n7oFmXHPz2q9&client_secret=QuZg0JK62clUelPFMJs1884zx1g1ZeFPcgPN74W58Z3ZKUrWrUFAaMwoxJ8sdLei5CvTUIvCErNcmIQk4hoRA5w5A3GC1u9Sbe4ctqWrV67SX12mZ8Rxp2hFwVhFXF5M')
