@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     username = models.CharField(max_length=50)
-    customerID = models.IntegerField()
     customerno = models.CharField(max_length=20)
     def __str__(self):
         return self.username
@@ -49,15 +48,16 @@ class Product(models.Model):
         return self.itemno
 
 class Address(models.Model):
-    customerNO = models.IntegerField()
-    address1 = models.CharField(max_length=20)
-    address2 = models.CharField(max_length=20)
-    county = models.CharField(max_length=20)
+    customerNO = models.CharField(max_length=20)
+    address1 = models.CharField(max_length=50)
+    address2 = models.CharField(max_length=50)
+    county = models.CharField(max_length=30)
     postcode = models.CharField(max_length=20) 
-    phoneNumber = models.CharField(max_length=20)
+    phoneNumber = models.CharField(max_length=30)
     country = models.CharField(max_length=20)
-    city = models.CharField(max_length=20)
+    city = models.CharField(max_length=30)
     Type = models.CharField(max_length=20)
+    Code = models.CharField(max_length=20)
     def __str__(self):
         return self.address1
 
