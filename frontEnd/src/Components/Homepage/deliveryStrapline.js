@@ -7,10 +7,10 @@ import { faShippingFast } from '@fortawesome/free-solid-svg-icons'
 
 const DeliveryStrapline = () => {
     return (
-        <Container id="deliveryStrapline" fluid={true}>
+        <Container id="deliveryStrapline">
             <Row>
                 <Col>
-                    <h2><FontAwesomeIcon icon={faShippingFast} flip="horizontal" />Order by 1pm for NEXT DAY DELIVERY</h2> 
+                    <h2><FontAwesomeIcon icon={faShippingFast} flip="horizontal" />Order by 12pm for NEXT DAY DELIVERY</h2> 
                 </Col>
             </Row>
         </Container>

@@ -4,8 +4,12 @@
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
-// homepage
+
+// header & nav
 @import './Components/MainNavBar/MainNavBar.scss';
+@import './Components/Header/Header.scss';
+
+// homepage
 @import './Components/Homepage/deliveryStrapline.scss';
 @import './Components/Homepage/HomePageCarousel.scss';
 @import './Components/Homepage/over25years.scss';

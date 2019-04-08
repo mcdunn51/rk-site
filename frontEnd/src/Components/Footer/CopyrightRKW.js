@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 
 const CopyrightRKW = () => {
     return (
-        <div id="copyrightRKW">
+        <Container id="copyrightRKW" fluid={true}>
             <Container>
                 <Row>
                     <Col>
@@ -13,7 +13,7 @@ const CopyrightRKW = () => {
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </Container>
     )
 }
 

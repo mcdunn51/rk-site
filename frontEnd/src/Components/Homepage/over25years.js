@@ -13,7 +13,7 @@ const background = {
 
 const over25years = () => {
     return (
-        <Container id="over25years" fluid={true}>
+        <Container id="over25years">
             <Row>
                 <Col style={background}>
                     <div id="textWrapper">

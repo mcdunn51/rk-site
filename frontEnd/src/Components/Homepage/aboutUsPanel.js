@@ -38,7 +38,7 @@ class AboutUsPanel extends Component {
         if (value === 'about') {
             picture = benefitsOfUsImg1;
             text = <div id="text">
-                <h3>About us</h3>
+                <h3>About RKW</h3>
                 <p>We supply trade customers including John Lewis, Tesco,
                 Amazon, Very and Wayfair with high volume products
                 spanning cookware, houseware, heating, and SDAs, as well
@@ -48,7 +48,7 @@ class AboutUsPanel extends Component {
         } else if (value === 'benefits') {
             picture = benefitsOfUsImg1;
             text = <div id="text">
-                <h3>Benefits of us</h3>
+                <h3>Benefits of RKW</h3>
                 <ul>
                     <li>Dedicated account manager</li>
                     <li>UK-based customer services</li>
@@ -62,7 +62,7 @@ class AboutUsPanel extends Component {
         else {
             picture = benefitsOfUsImg1;
             text = <div id="text">
-                <h3>Trade with us</h3>
+                <h3>Trade with RKW</h3>
                 <p>Creating a trade account at RKW Ltd is the quickest and
                 easiest way to ensure that you have access to a range of
                 high quality products from prestigious housewares and
@@ -72,10 +72,10 @@ class AboutUsPanel extends Component {
         }
 
         return (
-            <Container fluid={true} id="aboutUsPanel">
+            <Container id="aboutUsPanel">
                 <Row>
                     <Col xl={6} className="d-none d-xl-block" id="firstCol">
-                        <img id="aboutUsImages" src="https://placekitten.com/940/542" />
+                        <img id="aboutUsImages" src="https://placekitten.com/555/387" />
                         {/* <img id="aboutUsImages" src={picture} /> */}
                     </Col>
                     <Col md={12} xl={6} id="secondCol">

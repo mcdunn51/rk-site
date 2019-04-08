@@ -7,7 +7,7 @@ import SlideImg3 from '../../images/roseGoldSlider.jpg';
 
 const HomePageCarousel = () => {
     return (
-        <Container id="HomePageCarousel" fluid={true}>
+        <Container id="HomePageCarousel">
             <Row>
                 <Col>
                     <Carousel>
