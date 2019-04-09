@@ -18,25 +18,25 @@ const Footer = () => {
                             </div>
                             <h6>USEFUL INFORMATION</h6>
                             <li>
-                                <Link to="/UsefulInformation/AboutUs">About Us</Link>
+                                <Link to="/UsefulInformation/About Us">About Us</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/DeliveryInformation">Delivery Information</Link>
+                                <Link to="/UsefulInformation/Delivery Information">Delivery Information</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/Privacy&CookiesPolicies">Privacy and Cookies Policies</Link>
+                                <Link to="/UsefulInformation/Privacy & Cookies Policies">Privacy & Cookies Policies</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/ReturnsAndCancelations">Returns and Cancelations Policy</Link>
+                                <Link to="/UsefulInformation/Returns & Cancelations">Returns & Cancelations Policy</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/SiteTerms&Conditions">Site Terms and Conditions</Link>
+                                <Link to="/UsefulInformation/SiteTerms & Conditions">Site Terms & Conditions</Link>
                             </li>
                             <li>
                                 <Link to="/UsefulInformation/Showroom">Showroom</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/TradeAccountRegistration">Trade Account Registration</Link>
+                                <Link to="/UsefulInformation/Trade Account Registration">Trade Account Registration</Link>
                             </li>
                         </ul>
                     </Col>
