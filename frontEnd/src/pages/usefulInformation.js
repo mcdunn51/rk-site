@@ -64,6 +64,10 @@ class UsefulInformation extends Component {
         } else if (id === "Trade Account Registration") {
             heading = <h2>Trade Account Registration</h2>
             text = <TradeAccountRegistration/>
+            
+        } else if (id === "Contact Us") {
+            heading = <h2>Contact Us</h2>
+            text = <ContactUs/>
         }
 
         
@@ -75,8 +79,8 @@ class UsefulInformation extends Component {
                         {heading}
                     </Col>
                 </Row>
-                <Row>
-                    <Col md={3} id="sideNavigationBar">
+                <Row id="secondRow">
+                    <Col md={3} id="sideNavigationBar" className="d-none d-md-block">
                         <ul>
                             <li>
                                 UsefulInformation
@@ -101,6 +105,9 @@ class UsefulInformation extends Component {
                             </li>
                             <li>
                                 <Link to="/UsefulInformation/Trade Account Registration">Trade Account Registration</Link>
+                            </li>
+                            <li>
+                                <Link to="/UsefulInformation/Contact Us">Contact Us</Link>
                             </li>
                         </ul>
                     </Col>

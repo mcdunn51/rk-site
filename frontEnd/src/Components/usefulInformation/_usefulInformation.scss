@@ -1,23 +1,44 @@
 #usefulInformation {
     h2 {
-        text-align: center;
-        font-size: 42px;
-    } 
+        font-size: 32px;
+    }
+    #secondRow { 
+        margin-bottom: 20px; 
+    }
     #sideNavigationBar {
-        background-color: #01b5dd;
-        padding-top: 20px;
-        padding-bottom: 10px;
         ul {
             list-style: none;
             padding-left: 0px;
             font-size: 14px;
+            border: 1px solid #01b5dd;
             li {
-                margin-bottom: 10px;
+                padding: 5px;
+                a {
+                    color: black;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                &:first-child {
+                    background-color: #01b5dd;
+                    color: white;
+                    font-size: 16px;
+                }
+                &:last-child {
+                    padding-bottom: 10px;
+                }
             }
         }
     }
     #textCol {
         font-size: 14px;
         text-align: justify;
+    }
+
+    // Medium devices (tablets, 768px and up)
+    @media (min-width: 768px) { 
+        h2 {
+            font-size: 42px;
+        }
     }
 }

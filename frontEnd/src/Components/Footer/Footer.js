@@ -17,26 +17,29 @@ const Footer = () => {
                                 <FontAwesomeIcon size="4x" className="icon" id="information" icon={faInfoCircle} />
                             </div>
                             <h6>USEFUL INFORMATION</h6>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/About Us">About Us</Link>
                             </li>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/Delivery Information">Delivery Information</Link>
                             </li>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/Privacy & Cookies Policies">Privacy & Cookies Policies</Link>
                             </li>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/Returns & Cancelations">Returns & Cancelations Policy</Link>
                             </li>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/SiteTerms & Conditions">Site Terms & Conditions</Link>
                             </li>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/Showroom">Showroom</Link>
                             </li>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/Trade Account Registration">Trade Account Registration</Link>
+                            </li>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/Contact Us">Contact Us</Link>
                             </li>
                         </ul>
                     </Col>
