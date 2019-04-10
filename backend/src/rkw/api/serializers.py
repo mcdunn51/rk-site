@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Product, Address, OrderHeader, OrderLines, UserProfile
+from .models import Product, Address, OrderHeader, OrderLines, UserProfile, BackInStock
 
 class OUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ("id", "username", "customerID")
+        fields = ("id", "username", "customerno")
 
 class OauthProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,17 +19,22 @@ class OauthProdListSerializer(serializers.ModelSerializer):
 class OauthAdressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ('id', "customerID", "address1", "address2", "town", "county", "postcode", "phoneNumber", "email", "country", "city")
+        fields = ('id', "customerNO", "address1", "address2", "county", "postcode", "phoneNumber", "country", "city")
 
 class OauthOrderHeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderHeader
-        fields = ('id', 'customerID', 'addressID', 'orderDateTime', 'orderStatus')
+        fields = ('id', 'customerCode', 'addressID', 'orderDateTime', 'orderStatus')
 
 class OauthOrderLinesSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderLines
-        fields = ('id', 'lineNo', 'itemID', 'quantity', 'price', 'orderDateTime', 'orderHeaderID')
+        fields = ('id', 'lineNo', 'itemno', 'quantity', 'price', 'orderDateTime', 'orderHeaderID')
+    
+class OauthBackInStockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BackInStock
+        fields = ('id', 'username', 'customerNO', 'itemno')
 
 # non Oauth serializers
 class ProdListSerializer(serializers.ModelSerializer):
@@ -46,3 +51,9 @@ class ManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ("id", "manufacturerCode")
+    
+class IPGSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ("id", "IPG")
+
