@@ -127,13 +127,13 @@ class ProdDetailed(generics.ListAPIView):
 
 class Manufacturerlist(generics.ListAPIView):
     permission_classes = []
-    queryset = Product.objects.values('manufacturerCode').distinct()
+    queryset = Product.objects.values('manufacturerCode').distinct().order_by('manufacturerCode')
     queryset = queryset.filter(FreeStock__gt = 0)
     serializer_class = ManufacturerSerializer
 
 class IPG(generics.ListAPIView):
     permission_classes = []
-    queryset = Product.objects.values('IPG').distinct()
+    queryset = Product.objects.values('IPG').distinct().order_by('IPG')
     queryset = queryset.filter(FreeStock__gt = 0)
     serializer_class = IPGSerializer
     def get(self, request, *args, **kwargs):
