@@ -21,16 +21,18 @@ const BrandCarousel = () => {
     const settings = {
         arrows: false,
         infinite: true,
-        slidesToShow: 6,
+        slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: false,
-        autoplaySpeed: 1000,
+        autoplaySpeed: 2000,
+        centerMode: true,
+
     }
 
     return (
         <Container id="brandCarousel">
             <Slider {...settings}>
-                <div>
+                {/* <div>
                     <img src={akai} />
                 </div>
                 <div>
@@ -41,6 +43,18 @@ const BrandCarousel = () => {
                 </div>
                 <div>
                 <img src={itek} />
+                </div> */}
+                <div>
+                    <img src="http://placekitten.com/g/300/100" />
+                </div>
+                <div>
+                    <img src="http://placekitten.com/g/300/100" />
+                </div>
+                <div>
+                    <img src="http://placekitten.com/g/300/100" />
+                </div>
+                <div>
+                    <img src="http://placekitten.com/g/300/100" />
                 </div>
                 <div>
                     <img src="http://placekitten.com/g/300/100" />

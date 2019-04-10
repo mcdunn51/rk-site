@@ -74,13 +74,18 @@ class AboutUsPanel extends Component {
         return (
             <Container id="aboutUsPanel">
                 <Row>
-                    <Col xl={6} className="d-none d-xl-block" id="firstCol">
+                    <Col lg={6} className="d-none d-lg-block" id="firstCol">
                         <img id="aboutUsImages" src="https://placekitten.com/555/387" />
                         {/* <img id="aboutUsImages" src={picture} /> */}
                     </Col>
-                    <Col md={12} xl={6} id="secondCol">
-                        {text}
+                    <Col md={12} lg={6} id="secondCol">
                         <Row>
+                            <Col>
+                                {text}
+                            </Col>
+                        </Row>
+
+                        <Row id="secondRow">
                             <Col id="buttonsCol">
                                 <FontAwesomeIcon onClick={() => this.changePicAndText('about')} id="userCircle" icon={faUserCircle} />
                                 <FontAwesomeIcon onClick={() => this.changePicAndText('benefits')} id="tick" icon={faCheckCircle} />

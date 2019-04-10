@@ -17,26 +17,29 @@ const Footer = () => {
                                 <FontAwesomeIcon size="4x" className="icon" id="information" icon={faInfoCircle} />
                             </div>
                             <h6>USEFUL INFORMATION</h6>
-                            <li>
-                                <Link to="/UsefulInformation/AboutUs">About Us</Link>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/About Us">About Us</Link>
                             </li>
-                            <li>
-                                <Link to="/UsefulInformation/DeliveryInformation">Delivery Information</Link>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/Delivery Information">Delivery Information</Link>
                             </li>
-                            <li>
-                                <Link to="/UsefulInformation/Privacy&CookiesPolicies">Privacy and Cookies Policies</Link>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/Privacy & Cookies Policies">Privacy & Cookies Policies</Link>
                             </li>
-                            <li>
-                                <Link to="/UsefulInformation/ReturnsAndCancelations">Returns and Cancelations Policy</Link>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/Returns & Cancelations">Returns & Cancelations Policy</Link>
                             </li>
-                            <li>
-                                <Link to="/UsefulInformation/SiteTerms&Conditions">Site Terms and Conditions</Link>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/SiteTerms & Conditions">Site Terms & Conditions</Link>
                             </li>
-                            <li>
+                            <li className="sideBarLi">
                                 <Link to="/UsefulInformation/Showroom">Showroom</Link>
                             </li>
-                            <li>
-                                <Link to="/UsefulInformation/TradeAccountRegistration">Trade Account Registration</Link>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/Trade Account Registration">Trade Account Registration</Link>
+                            </li>
+                            <li className="sideBarLi">
+                                <Link to="/UsefulInformation/Contact Us">Contact Us</Link>
                             </li>
                         </ul>
                     </Col>

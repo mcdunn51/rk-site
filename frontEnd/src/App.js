@@ -4,8 +4,8 @@ import Footer from './Components/Footer/Footer';
 import CopyrightRKW from './Components/Footer/CopyrightRKW';
 import Router from './Router';
 import Header from './Components/Header/header';
-
-
+import DeliveryStrapline from './Components/Homepage/deliveryStrapline'
+import NewsletterSignUpBar from './Components/Homepage/newsletterSignUpBar';
 
 
 class App extends Component {
@@ -14,7 +14,9 @@ class App extends Component {
       <div className="App">
         <Header />
         <MainNavBar />
+        <DeliveryStrapline/>
         <Router/>
+        <NewsletterSignUpBar/>
         <Footer />
         <CopyrightRKW />
       </div>

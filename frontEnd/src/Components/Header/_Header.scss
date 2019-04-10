@@ -1,8 +1,38 @@
-#header {
-.row {
+// Large devices (desktops, 992px and up)
+
+#mobileTabletHeader {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  #firstCol {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 16px;
+  }
+  #secondCol {
+    img {
+      max-width: 100%;
+    }
+  }
+  #thirdCol {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: right;
+    font-size: 16px;
+    .fa-user {
+      margin-right: 20px;
+    }
+  }
+  #firstRow {
+    margin-bottom: 10px;
+  }
+}
+
+#desktopHeader {
+  display: none;
+  .row {
     padding-top: 25px;
     padding-bottom: 25px;
-} 
+  }
   img {
     max-width: 250px;
     height: auto;
@@ -11,29 +41,45 @@
     margin-top: auto;
     margin-bottom: auto;
     .input-group {
-        width: 70%;
+      width: 70%;
     }
   }
   #secondCol {
-      text-align: center;
+    text-align: center;
   }
   #thirdCol {
-      text-align: right;
-      font-size: 14px;
-      margin-top: auto;
-      margin-bottom: auto;
+    text-align: right;
+    font-size: 14px;
+    margin-top: auto;
+    margin-bottom: auto;
     .fa-user {
-        margin-right: 10px;
+      margin-right: 10px;
     }
     #loginText {
       display: inline;
       margin-right: 10%;
     }
     .fa-shopping-basket {
-        margin-right: 7px;
+      margin-right: 7px;
     }
     #basketText {
       display: inline;
     }
   }
 }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  #mobileTabletHeader {
+    display: none;
+  }
+
+  #desktopHeader {
+    display: block;
+  }
+}
+
+
+  
+
