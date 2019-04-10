@@ -1,60 +1,66 @@
 import React, { Component } from 'react';
-import { Container, Nav } from 'react-bootstrap';
+import { Container, Nav, NavDropdown } from 'react-bootstrap';
 import { IndexLinkContainer } from 'react-router-bootstrap';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
 class MainNavbar extends Component {
 
-    // get all brand names
-    // componentDidMount() {
 
-    //     const { loadBrands } = this.props
+    componentDidMount() {
 
-    //     axios({
-    //         method: 'get',
-    //         url: `http://100.1.253.16:8000/Manufacturer/`,
-    //         headers: { 'Authorization': 'Bearer SDhm0d95wxYxnBzeFIEXL2Fbev14GW' },
-    //     })
-    //         .then(res => {
-    //             console.log(res.data)
-    //             const manufacturerCodes = [];
-    //             res.data.forEach(element => {
-    //                 manufacturerCodes.push(element.manufacturerCode);
-    //             })
-    //             loadBrands(manufacturerCodes)
-    //         })
-    // };
+        const { loadBrands } = this.props
+
+        // get all brand names
+        axios({
+            method: 'get',
+            url: 'http://100.1.253.16:8000/Manufacturer/',
+            headers: { 'Authorization': 'Bearer SDhm0d95wxYxnBzeFIEXL2Fbev14GW' },
+        })
+            .then(res => {
+                console.log(res.data)
+                const manufacturerCodes = [];
+                res.data.forEach(element => {
+                    manufacturerCodes.push(element.manufacturerCode);
+                })
+                loadBrands(manufacturerCodes)
+            })
+    };
 
 
     render() {
-        
+
+        const { brands } = this.props
 
         return (
             <Container fluid={true} id="mainNavBar">
                 <Container>
-                    <Nav
-                        activeKey="/home"
-                        onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-                    >
+                    <Nav>
+                        <NavDropdown title="Brands" id="nav-dropdown">
+                            {
+                                brands.map(brand =>
+                                    <IndexLinkContainer to={`/products/${brand}`}>
+                                        <NavDropdown.Item>{brand}</NavDropdown.Item>
+                                    </IndexLinkContainer>
+                                )
+                            }
+                        </NavDropdown>
                         <Nav.Item>
-                            <Nav.Link>ELECTRICALS</Nav.Link>
+                            <Nav.Link eventKey="1" href="#/home">
+                                NavLink 1 content
+                        </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-1">HOUSEWARES</Nav.Link>
+                            <Nav.Link eventKey="2" title="Item">
+                                NavLink 2 content
+                        </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-2">GARDEN & LEISURE</Nav.Link>
+                            <Nav.Link eventKey="3" disabled>
+                                NavLink 3 content
+                        </Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="link-3">SHOP BY BRAND</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="link-4">BEST SELLERS</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="link-5">CLEARANCE & SPECIALS</Nav.Link>
-                        </Nav.Item>
+
                     </Nav>
                 </Container>
             </Container>
@@ -62,20 +68,21 @@ class MainNavbar extends Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     return {
-//         brands: state.brands
-//     }
-// }
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         loadBrands: (brands) => {
-//             dispatch({ type: 'LOAD_BRANDS', payload: brands })
-//         }
-//     }
-// }
+function mapStateToProps(state) {
+    return {
+        brands: state.brands
+    }
+}
 
-export default MainNavbar;
+function mapDispatchToProps(dispatch) {
+    return {
+        loadBrands: (brands) => {
+            dispatch({ type: 'LOAD_BRANDS', payload: brands })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar);
 
 
