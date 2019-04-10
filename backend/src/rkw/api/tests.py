@@ -1,4 +1,4 @@
-import requests, json, os
+import requests, json, os, socket
 
 token = ''
 item = 't14001'
@@ -9,7 +9,7 @@ if socket.gethostname() == 's1.intranet.svg.local':
 else:
     test_mode = True
 
-if testing_mode:
+if test_mode:
     IP = '127.0.0.1:8000'  
     authentication = requests.post(r'http://'+str(IP)+r'/o/token/?grant_type=password&username=M&password=0&client_id=CpV612uZEllAr8vh7bFGVB9Uiq6DagTrhCUu3l4W&client_secret=jJVNuUlYkGSsbbdSQ7DvrAtuiR2T9OO9eY2kVQIJDoNRZ69pHjSkk2KSVJtnXNyGmDAh2PHF0qogfc1GpdXvnqj7ID1rdwVvgjbuNdDkXup3Ewt1mKaDYZR37jTQ6cvr')
 else:
@@ -23,8 +23,8 @@ if not 'error' in authentication.text:
 else:
     print(authentication.text)
 
-# OCustomerID endpoint
-authentication = requests.get(r'http://'+str(IP)+r'/OCustomerID/?access_token='+str(token)+'&itemno='+str(item))
+# OCustomerno endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/OCustomerno/?access_token='+str(token)+'&itemno='+str(item))
 if not 'username' in authentication.text:
     print('Failed OCustomerID endpoint')
 else:
@@ -60,7 +60,7 @@ else:
 
 # # OOrderLines endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OOrderLines/?access_token='+str(token))
-if not 'itemID' in authentication.text:
+if not 'itemno' in authentication.text:
     print('Failed OOrderLines endpoint')
 else:
     print('Success OOrderLines endpoint')
@@ -79,9 +79,16 @@ if not 'itemno' in authentication.text:
 else:
     print('Success Productlist endpoint')
 
-# # Manufacturer endpoint
+# Manufacturer endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/Manufacturer/?access_token=')
 if not 'manufacturerCode' in authentication.text:
     print('Failed Manufacturer endpoint')
 else:
     print('Success Manufacturer endpoint')
+
+# Manufacturer endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/IPG/?access_token=')
+if not 'IPG' in authentication.text:
+    print('Failed IPG endpoint')
+else:
+    print('Success IPGstage endpoint')

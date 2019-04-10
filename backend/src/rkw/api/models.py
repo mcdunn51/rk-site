@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     username = models.CharField(max_length=50)
     customerno = models.CharField(max_length=20)
+    rep = models.BooleanField()
     def __str__(self):
         return self.username
 
@@ -44,6 +45,7 @@ class Product(models.Model):
     Analysis2 = models.CharField(max_length=100)
     Electrical_or_Housewares = models.CharField(max_length=100)
     HighSell = models.DecimalField(max_digits=6, decimal_places=2)
+    Analysis1 = models.CharField(max_length=100)
     def __str__(self):
         return self.itemno
 
@@ -66,6 +68,9 @@ class Customer(models.Model):
     companyName = models.CharField(max_length=50)
     proforma = models.BooleanField()
     billingaddressID = models.IntegerField()
+    SalespersonCode = models.CharField(max_length=20)
+    ElectricalRep = models.CharField(max_length=20)
+    HousewaresRep = models.CharField(max_length=20)
     def __str__(self):
         return self.customerCode
 
@@ -84,7 +89,7 @@ class Media(models.Model):
         return self.filename
 
 class OrderHeader(models.Model):
-    customerID = models.IntegerField()
+    customerCode = models.CharField(max_length=20)
     addressID = models.IntegerField()
     orderDateTime = models.DateTimeField(auto_created=True)
     orderStatus = models.CharField(max_length=20)
@@ -102,3 +107,10 @@ class Matched(models.Model):
     Matchingitemno = models.IntegerField()
     ParentPartNo = models.CharField(max_length=20)
     MatchingPartNo = models.CharField(max_length=20)
+
+class BackInStock(models.Model):
+    customerNO = models.CharField(max_length=20)
+    itemno = models.CharField(max_length=100)
+    notified = models.BooleanField(default=False)
+    dateNotified = models.DateTimeField(default='1900-01-01')
+    username = models.CharField(max_length=50)
