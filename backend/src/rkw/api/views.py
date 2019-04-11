@@ -5,7 +5,7 @@ from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdress
 
 # Oauth views
 
-class OCustomerno(generics.ListAPIView):
+class OUserProfile(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = UserProfile.objects.all()
     serializer_class = OUserProfileSerializer
@@ -36,6 +36,9 @@ class OauthProductlist(generics.ListAPIView):
         if 'colour' in self.request.query_params:
             if len(self.request.query_params['colour']) > 0:
                 self.queryset = self.queryset.filter(colour=self.request.query_params['colour'])
+        if 'IPG' in self.request.query_params:
+            if len(self.request.query_params['IPG']) > 0:
+                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'.replace('%20', ' ')])
         return super().get(request, *args, **kwargs)
 
 class OauthProdDetailed(generics.ListAPIView):
@@ -88,6 +91,11 @@ class OauthBackInStock(generics.ListCreateAPIView):
     queryset = BackInStock.objects.all()
     serializer_class = OauthBackInStockSerializer
 
+class OCustomer(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = UserProfile.objects.all()
+    serializer_class = OUserProfileSerializer
+
 # non Oauth views
 
 class Productlist(generics.ListAPIView):
@@ -106,7 +114,7 @@ class Productlist(generics.ListAPIView):
                 self.queryset = self.queryset.filter(colour=self.request.query_params['colour'])
         if 'IPG' in self.request.query_params:
             if len(self.request.query_params['IPG']) > 0:
-                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'])
+                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'.replace('%20', ' ')])
         if 'LTFreeStock' in self.request.query_params:
             if len(self.request.query_params['LTFreeStock']) > 0:
                 self.queryset = self.queryset.filter(FreeStock__lte=self.request.query_params['LTFreeStock'])
