@@ -38,7 +38,7 @@ class OauthProductlist(generics.ListAPIView):
                 self.queryset = self.queryset.filter(colour=self.request.query_params['colour'])
         if 'IPG' in self.request.query_params:
             if len(self.request.query_params['IPG']) > 0:
-                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'])
+                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'.replace('%20', ' ')])
         return super().get(request, *args, **kwargs)
 
 class OauthProdDetailed(generics.ListAPIView):
@@ -114,7 +114,7 @@ class Productlist(generics.ListAPIView):
                 self.queryset = self.queryset.filter(colour=self.request.query_params['colour'])
         if 'IPG' in self.request.query_params:
             if len(self.request.query_params['IPG']) > 0:
-                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'])
+                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'.replace('%20', ' ')])
         if 'LTFreeStock' in self.request.query_params:
             if len(self.request.query_params['LTFreeStock']) > 0:
                 self.queryset = self.queryset.filter(FreeStock__lte=self.request.query_params['LTFreeStock'])
