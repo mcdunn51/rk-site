@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from api.views import Productlist, Manufacturerlist, ProdDetailed, OauthProductlist, OauthProdDetailed, OauthAddressList, OauthOrderHeader, OauthOrderLines, OCustomerno, OauthBackInStock, OauthOrderHeaderUpdate, IPG
+from api.views import Productlist, Manufacturerlist, ProdDetailed, OauthProductlist, OauthProdDetailed, OauthAddressList, OauthOrderHeader, OauthOrderLines, OCustomer, OauthBackInStock, OauthOrderHeaderUpdate, IPG
 admin.autodiscover()
 
 urlpatterns = [
@@ -8,7 +8,7 @@ urlpatterns = [
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     
     # Oauth paths
-    path('OCustomerno/', OCustomerno.as_view()),
+    path('OCustomer/', OCustomer.as_view()),
     path('OProductlist/', OauthProductlist.as_view()),
     path('OProdDetailed/', OauthProdDetailed.as_view()),
     path('OAddressList/', OauthAddressList.as_view()),
