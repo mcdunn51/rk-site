@@ -53,7 +53,7 @@ def customer(local_conn, local_cur, ref_conn, ref_cur):
             local_cur.execute("INSERT INTO api_customer (`customerCode`, `companyName`, `proforma`, billingaddressID, SalespersonCode, ElectricalRep, HousewaresRep) VALUES ( '%s', '%s', '%s', -1, '%s', '%s', '%s')" % (row[0], str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5]))
             local_conn.commit()
         else:
-            local_cur.execute("UPDATE `django-test`.`api_customer` SET `companyName` = '%s', `proforma` = '%s', `billingaddressID` = -1, SalespersonCode = '%s', ElectricalRep = '%s', HousewaresRep = '%s'  WHERE `customerCode` = '%s';" % (str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5], row[0]))
+            local_cur.execute("UPDATE `api_customer` SET `companyName` = '%s', `proforma` = '%s', `billingaddressID` = -1, SalespersonCode = '%s', ElectricalRep = '%s', HousewaresRep = '%s'  WHERE `customerCode` = '%s';" % (str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5], row[0]))
             local_conn.commit()
 
 # update products table
@@ -91,11 +91,11 @@ def CustomerPrices(local_conn, local_cur, ref_conn, ref_cur):
     ref_cur.execute("SELECT `customerNo`,`itemno`,`price`,`startDate`,`endDate` FROM `CustomerPrices`")
     res = ref_cur.fetchall()
     for row in res:
-        local_cur.execute("SELECT id FROM `django-test`.api_customerprices where customerno = '%s' and itemno = '%s' and price = %s and enddate = '%s' and startdate = '%s';" % (row[0], row[1], row[2], row[4], row[3]))
+        local_cur.execute("SELECT id FROM api_customerprices where customerno = '%s' and itemno = '%s' and price = %s and enddate = '%s' and startdate = '%s';" % (row[0], row[1], row[2], row[4], row[3]))
         if not len(local_cur.fetchall()) > 0:
-            local_cur.execute("INSERT INTO `django-test`.`api_customerprices` (`customerNo`, `itemno`, `price`, `endDate`, `startDate`) VALUES ('%s', '%s', '%s', '%s', '%s');" % (row[0], row[1], row[2], row[4], row[3]))
+            local_cur.execute("INSERT INTO `api_customerprices` (`customerNo`, `itemno`, `price`, `endDate`, `startDate`) VALUES ('%s', '%s', '%s', '%s', '%s');" % (row[0], row[1], row[2], row[4], row[3]))
             local_conn.commit()
-    local_cur.execute("Delete FROM `django-test`.api_customerprices where endDate < curdate();")
+    local_cur.execute("Delete FROM api_customerprices where endDate < curdate();")
     local_conn.commit()
 
 # update Address table 
@@ -103,20 +103,20 @@ def Address(local_cur, local_conn, ref_cur, ref_conn):
     ref_cur.execute("SELECT `customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, `Code` FROM `Address`")
     res = ref_cur.fetchall()
     for row in res:
-        local_cur.execute("SELECT * FROM `django-test`.api_address where customerno = '%s' and code = '%s';" % (sub(row[0]), sub(row[9])))
+        local_cur.execute("SELECT * FROM api_address where customerno = '%s' and code = '%s';" % (sub(row[0]), sub(row[9])))
         if len(local_cur.fetchall()) > 0:
-            local_cur.execute("UPDATE `django-test`.`api_address` SET `address1` = '%s', `address2` = '%s', `county` = '%s', `postcode` = '%s', `phoneNumber` = '%s', `country` = '%s', `city` = '%s', `Type` = '%s' WHERE customerNO = '%s' and Code = '%s';" % (sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[0]), sub(row[9])))
+            local_cur.execute("UPDATE `api_address` SET `address1` = '%s', `address2` = '%s', `county` = '%s', `postcode` = '%s', `phoneNumber` = '%s', `country` = '%s', `city` = '%s', `Type` = '%s' WHERE customerNO = '%s' and Code = '%s';" % (sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[0]), sub(row[9])))
             local_conn.commit()
         else:
-            local_cur.execute("INSERT INTO `django-test`.`api_address` (`customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, Code) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (sub(row[0]), sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[9])))
+            local_cur.execute("INSERT INTO `api_address` (`customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, Code) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (sub(row[0]), sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[9])))
             local_conn.commit()
 
 # send notificatin if item is now in stock 
 def BackinStock(local_cur, local_conn):
-    local_cur.execute("SELECT id, customerNO, itemno, notified, dateNotified, username FROM `django-test`.api_backinstock where notified = 0;")
+    local_cur.execute("SELECT id, customerNO, itemno, notified, dateNotified, username FROM api_backinstock where notified = 0;")
     for row in local_cur.fetchall():
         # email sending code here
-        local_cur.execute("UPDATE `django-test`.`api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
+        local_cur.execute("UPDATE `api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
         local_conn.commit()
 
 # setting variables for db connections

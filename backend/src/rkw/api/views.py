@@ -5,7 +5,7 @@ from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdress
 
 # Oauth views
 
-class OCustomerno(generics.ListAPIView):
+class OUserProfile(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = UserProfile.objects.all()
     serializer_class = OUserProfileSerializer
@@ -36,6 +36,9 @@ class OauthProductlist(generics.ListAPIView):
         if 'colour' in self.request.query_params:
             if len(self.request.query_params['colour']) > 0:
                 self.queryset = self.queryset.filter(colour=self.request.query_params['colour'])
+        if 'IPG' in self.request.query_params:
+            if len(self.request.query_params['IPG']) > 0:
+                self.queryset = self.queryset.filter(IPG=self.request.query_params['IPG'])
         return super().get(request, *args, **kwargs)
 
 class OauthProdDetailed(generics.ListAPIView):
@@ -87,6 +90,11 @@ class OauthBackInStock(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = BackInStock.objects.all()
     serializer_class = OauthBackInStockSerializer
+
+class OCustomer(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = UserProfile.objects.all()
+    serializer_class = OUserProfileSerializer
 
 # non Oauth views
 
