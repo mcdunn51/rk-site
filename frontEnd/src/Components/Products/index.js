@@ -14,11 +14,28 @@ class ProductsIndex extends Component {
 
         const { loadProducts } = this.props
 
-        axios.get(`http://100.1.253.16:8000/Productlist/?access_token=SDhm0d95wxYxnBzeFIEXL2Fbev14GW&manufacturerCode=${this.props.id}`)
+        // don't forget to allow for search parameters
+        // you need to allow for any combination of top level to third level parameters e.g. electricals, kitchen appliances, kettles
+
+        axios({
+            method: 'get',
+            url: 'http://100.1.253.16:8000/OProductlist/?${this.props.id}',
+            headers: { 'Authorization': 'Bearer SDhm0d95wxYxnBzeFIEXL2Fbev14GW' },
+        })
             .then(res => {
-                // console.log(res.data);
-                loadProducts(res.data);
+                console.log(res.data)
+                const manufacturerCodes = [];
+                res.data.forEach(element => {
+                    manufacturerCodes.push(element.manufacturerCode);
+                })
+                loadProducts(manufacturerCodes)
             })
+
+        // axios.get(`http://100.1.253.16:8000/Productlist/?access_token=SDhm0d95wxYxnBzeFIEXL2Fbev14GW&manufacturerCode=${this.props.id}`)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         loadProducts(res.data);
+        //     })
     }
 
     render() {

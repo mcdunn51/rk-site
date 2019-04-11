@@ -24,6 +24,21 @@ class MainNavbar extends Component {
                 })
                 loadBrands(manufacturerCodes)
             })
+
+        // axios({
+        //     method: 'get',
+        //     url: `http://100.1.253.16:8000/OProductlist/?Electrical`,
+        //     headers: { 'Authorization': 'Bearer SDhm0d95wxYxnBzeFIEXL2Fbev14GW' },
+        // })
+        //     .then(res => {
+        //         console.log(res.data)
+        //         const manufacturerCodes = [];
+        //         res.data.forEach(element => {
+        //             manufacturerCodes.push(element.manufacturerCode);
+        //         })
+        //         loadBrands(manufacturerCodes)
+        //     })
+
     };
 
 
