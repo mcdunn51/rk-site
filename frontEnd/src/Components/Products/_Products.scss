@@ -1,6 +1,12 @@
-#productPageContainer {
-    #productsPageTitle {
-        text-align: center;
+#productsPageContainer {
+    #firstRow {
+        .form-group {
+            width: 15%;
+            float: right;
+        }
+        select {
+            font-size: 14px;
+        }
     }
     #filters {
         background-clip: content-box;

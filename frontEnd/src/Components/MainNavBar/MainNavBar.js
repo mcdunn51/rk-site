@@ -9,7 +9,7 @@ class MainNavbar extends Component {
 
     componentDidMount() {
 
-        const { loadBrands } = this.props
+        const { loadBrands, loadElectricals, loadHousewares } = this.props
 
         // get all brand names
         axios({
@@ -18,19 +18,48 @@ class MainNavbar extends Component {
             headers: { 'Authorization': 'Bearer SDhm0d95wxYxnBzeFIEXL2Fbev14GW' },
         })
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 const manufacturerCodes = [];
                 res.data.forEach(element => {
                     manufacturerCodes.push(element.manufacturerCode);
                 })
                 loadBrands(manufacturerCodes)
             })
+
+        // get all electrical options
+        axios({
+            method: 'get',
+            url: 'http://100.1.253.16:8000/IPG/?Electrical_or_Housewares=Electrical'
+        })
+            .then(res => {
+                // console.log(res.data)
+                const electricals = [];
+                res.data.forEach(element => {
+                    electricals.push(element.IPG);
+                })
+                loadElectricals(electricals)
+            })
+
+        // get all Houseware options
+        axios({
+            method: 'get',
+            url: 'http://100.1.253.16:8000/IPG/?Electrical_or_Housewares=Housewares'
+        })
+            .then(res => {
+                // console.log(res.data)
+                const housewares = [];
+                res.data.forEach(element => {
+                    housewares.push(element.IPG);
+                })
+                loadHousewares(housewares)
+            })
+
     };
 
 
     render() {
 
-        const { brands } = this.props
+        const { brands, electricals, housewares } = this.props
 
         return (
             <Container fluid={true} id="mainNavBar">
@@ -45,16 +74,26 @@ class MainNavbar extends Component {
                                 )
                             }
                         </NavDropdown>
-                        <Nav.Item>
-                            <Nav.Link eventKey="1" href="#/home">
-                                NavLink 1 content
-                        </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="2" title="Item">
-                                NavLink 2 content
-                        </Nav.Link>
-                        </Nav.Item>
+                        <NavDropdown title="Electricals" id="nav-dropdown">
+                            {
+                                electricals.map(electrical =>
+                                    <IndexLinkContainer to={`/products/${electrical}`}>
+                                        <NavDropdown.Item>{electrical}</NavDropdown.Item>
+                                    </IndexLinkContainer>
+                                )
+                            }
+                        </NavDropdown>
+
+                        <NavDropdown title="Housewares" id="nav-dropdown">
+                            {
+                                housewares.map(houseware =>
+                                    <IndexLinkContainer to={`/products/${houseware}`}>
+                                        <NavDropdown.Item>{houseware}</NavDropdown.Item>
+                                    </IndexLinkContainer>
+                                )
+                            }
+                        </NavDropdown>
+
                         <Nav.Item>
                             <Nav.Link eventKey="3" disabled>
                                 NavLink 3 content
@@ -71,7 +110,9 @@ class MainNavbar extends Component {
 
 function mapStateToProps(state) {
     return {
-        brands: state.brands
+        brands: state.brands,
+        electricals: state.electricals,
+        housewares: state.housewares
     }
 }
 
@@ -79,6 +120,12 @@ function mapDispatchToProps(dispatch) {
     return {
         loadBrands: (brands) => {
             dispatch({ type: 'LOAD_BRANDS', payload: brands })
+        },
+        loadElectricals: (electricals) => {
+            dispatch({ type: 'LOAD_ELECTRICALS', payload: electricals })
+        },
+        loadHousewares: (housewares) => {
+            dispatch({ type: 'LOAD_HOUSEWARES', payload: housewares })
         }
     }
 }
