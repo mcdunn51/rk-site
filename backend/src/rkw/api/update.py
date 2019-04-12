@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-import mysql.connector, csv, pymssql, json, secrets, socket, re
+import mysql.connector, csv, pymssql, json, secrets, socket, re, requests
 
 # setting test mode
 if socket.gethostname() == 's1.intranet.svg.local':
@@ -25,6 +25,21 @@ else:
 def sub(string):
     string = str(string).replace("'", "").replace(",", "")
     return  string
+
+def imageExists(item):
+    try:
+        links = []
+        for i in range(0, 9):
+            if i == 0:
+                link = 'http://images.cdn.rkwltd.com/%s.jpg' % (item)
+            else:
+                link = 'http://images.cdn.rkwltd.com/%s_0%s.jpg' % (item, i)
+            req = requests.get(link)
+            if req.status_code == 200:
+                links.append(link)
+    except:
+        pass
+    return str(links).replace("'", "")
 
 # update user table
 def user(local_conn, local_cur, ref_conn, ref_cur):
@@ -64,7 +79,7 @@ def products(local_conn, local_cur, ref_conn, ref_cur):
         local_cur.execute("SELECT itemno FROM api_product WHERE itemno ='%s'" % (str(row[0])))
         if not len(local_cur.fetchall()) > 0:
             try:
-                local_cur.execute("insert into api_product (itemno, CatalogueTheme, RRP, SSP, manufacturerCode, colour, IPG, description, ItemSpec1, ItemSpec2, ItemSpec3, ItemSpec4, ItemSpec5, ItemSpec6, ItemSpec7, ItemSpec8, ItemSpec9, ItemSpec10, restockDate, FreeStock, TI, HI, Analysis2, Item_Height, Item_Length, Item_Width, ProductPaging_Height, ProductPaging_Length, ProductPaging_Width, CartonHeight, CartonLength, CartonWidth, cartonQty, palletQty, `Electrical_or_Housewares`, HighSell, Analysis1) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (row[0], row[1], row[2], row[3], row[4], row[5], str(row[6]).replace('/', ' '), row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35], row[36]))
+                local_cur.execute("insert into api_product (itemno, CatalogueTheme, RRP, SSP, manufacturerCode, colour, IPG, description, ItemSpec1, ItemSpec2, ItemSpec3, ItemSpec4, ItemSpec5, ItemSpec6, ItemSpec7, ItemSpec8, ItemSpec9, ItemSpec10, restockDate, FreeStock, TI, HI, Analysis2, Item_Height, Item_Length, Item_Width, ProductPaging_Height, ProductPaging_Length, ProductPaging_Width, CartonHeight, CartonLength, CartonWidth, cartonQty, palletQty, `Electrical_or_Housewares`, HighSell, Analysis1, Image) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (row[0], row[1], row[2], row[3], row[4], row[5], str(row[6]).replace('/', ' '), row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35], row[36]))
                 local_conn.commit()
             except Exception as e:
                 print("cant sync '%s' due to '%s'" % (row[0], e))
@@ -74,6 +89,12 @@ def products(local_conn, local_cur, ref_conn, ref_cur):
                 local_conn.commit()
             except Exception as e:
                 print("cant sync '%s' due to '%s'" % (row[0], e))
+
+def updateImages(local_conn, local_cur):
+    local_cur.execute("select itemno from api_product where restockDate > '1900-01-01' or freestock > 0;")
+    for row in local_cur.fetchall():
+        images = imageExists(row[0].lower())
+        local_cur.execute("update api_product set image = '%s' where itemno = '%s';" % (images, row[0] ))
 
 # quick update of sto.3ck and restock date
 def updateStock(local_conn, local_cur, ref_conn, ref_cur):
@@ -126,17 +147,11 @@ ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
 
 # update function calls
-# print('user')
 # user(local_conn, local_cur, ref_conn, ref_cur)
-# print('customer')
 # customer(local_conn, local_cur, ref_conn, ref_cur)
-print('products')
-products(local_conn, local_cur, ref_conn, ref_cur)
-# print('updateStock')
+# products(local_conn, local_cur, ref_conn, ref_cur)
+updateImages(local_conn, local_cur)
 # updateStock(local_conn, local_cur, ref_conn, ref_cur)
-# print('CustomerPrices')
 # CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-# print('Address')
 # Address(local_cur, local_conn, ref_cur, ref_conn)
-# print('BackinStock')
 # BackinStock(local_cur, local_conn)0
