@@ -1,11 +1,13 @@
 import { createStore, combineReducers} from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import brandsReducer from './Components/MainNavBar/reducer';
+import { brandsReducer, electricalsReducer, housewaresReducer } from './Components/MainNavBar/reducer';
 import productsReducer from './Components/Products/reducer';
 
 
 const rooReducer = combineReducers({
     brands: brandsReducer,
+    electricals: electricalsReducer,
+    housewares: housewaresReducer,
     products: productsReducer,
     form: formReducer
 })
