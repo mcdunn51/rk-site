@@ -9,12 +9,12 @@ class OUserProfileSerializer(serializers.ModelSerializer):
 class OauthProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "RRP", "SSP", "FreeStock", "ItemSpec1", "ItemSpec2", "ItemSpec3", "ItemSpec4", "ItemSpec5", "ItemSpec6", "ItemSpec7", "ItemSpec8", "ItemSpec9", "ItemSpec10", "TI", "HI", "Item_Height", "Item_Length", "Item_Width", "ProductPaging_Height", "ProductPaging_Length", "ProductPaging_Width", "CartonHeight", "CartonLength", "CartonWidth", "palletQty", "cartonQty", "restockDate", "IPG", "CatalogueTheme")
+        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "RRP", "SSP", "FreeStock", "ItemSpec1", "ItemSpec2", "ItemSpec3", "ItemSpec4", "ItemSpec5", "ItemSpec6", "ItemSpec7", "ItemSpec8", "ItemSpec9", "ItemSpec10", "TI", "HI", "Item_Height", "Item_Length", "Item_Width", "ProductPaging_Height", "ProductPaging_Length", "ProductPaging_Width", "CartonHeight", "CartonLength", "CartonWidth", "palletQty", "cartonQty", "restockDate", "IPG", "CatalogueTheme", "Image")
 
 class OauthProdListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "itemno", "description", "colour", "RRP", "SSP", "manufacturerCode", "FreeStock", "restockDate")
+        fields = ("id", "itemno", "description", "colour", "RRP", "SSP", "manufacturerCode", "FreeStock", "restockDate", "Image")
 
 class OauthAdressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,12 +40,12 @@ class OauthBackInStockSerializer(serializers.ModelSerializer):
 class ProdListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock", "restockDate")
+        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock", "restockDate", "Image")
 
 class ProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock", "ItemSpec1", "ItemSpec2", "ItemSpec3", "ItemSpec4", "ItemSpec5", "ItemSpec6", "ItemSpec7", "ItemSpec8", "ItemSpec9", "ItemSpec10", "TI", "HI", "Item_Height", "Item_Length", "Item_Width", "ProductPaging_Height", "ProductPaging_Length", "ProductPaging_Width", "CartonHeight", "CartonLength", "CartonWidth", "palletQty", "cartonQty", "restockDate", "IPG", "CatalogueTheme")
+        fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock", "ItemSpec1", "ItemSpec2", "ItemSpec3", "ItemSpec4", "ItemSpec5", "ItemSpec6", "ItemSpec7", "ItemSpec8", "ItemSpec9", "ItemSpec10", "TI", "HI", "Item_Height", "Item_Length", "Item_Width", "ProductPaging_Height", "ProductPaging_Length", "ProductPaging_Width", "CartonHeight", "CartonLength", "CartonWidth", "palletQty", "cartonQty", "restockDate", "IPG", "CatalogueTheme", "Image")
 
 class ManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
