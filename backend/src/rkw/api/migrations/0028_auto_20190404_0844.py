@@ -10,9 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(
-            name='IPG',
-        ),
         migrations.AddField(
             model_name='product',
             name='Analysis2',
