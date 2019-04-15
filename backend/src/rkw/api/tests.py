@@ -23,12 +23,12 @@ if not 'error' in authentication.text:
 else:
     print(authentication.text)
 
-# OCustomerno endpoint
-authentication = requests.get(r'http://'+str(IP)+r'/OCustomerno/?access_token='+str(token)+'&itemno='+str(item))
+# OCustomer endpoint
+authentication = requests.get(r'http://'+str(IP)+r'/OCustomer/?access_token='+str(token)+'&itemno='+str(item))
 if not 'username' in authentication.text:
-    print('Failed OCustomerID endpoint')
+    print('Failed OCustomer endpoint')
 else:
-    print('Success OCustomerID endpoint')
+    print('Success OCustomer endpoint')
 
 # OProductlist endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OProductlist/?access_token='+str(token)+'&itemno='+str(item))
@@ -53,7 +53,7 @@ else:
 
 # # OOrderHeader endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/OOrderHeader/?access_token='+str(token))
-if not 'customerID' in authentication.text:
+if not 'customerCode' in authentication.text:
     print('Failed OOrderHeader endpoint')
 else:
     print('Success OOrderHeader endpoint')
@@ -75,9 +75,9 @@ else:
 # ProductDetailed endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/ProductDetailed/?access_token='+str(token)+'&itemno='+str(item))
 if not 'itemno' in authentication.text:
-    print('Failed Productlist endpoint')
+    print('Failed ProductDetailed endpoint')
 else:
-    print('Success Productlist endpoint')
+    print('Success ProductDetailed endpoint')
 
 # Manufacturer endpoint
 authentication = requests.get(r'http://'+str(IP)+r'/Manufacturer/?access_token=')
@@ -91,4 +91,4 @@ authentication = requests.get(r'http://'+str(IP)+r'/IPG/?access_token=')
 if not 'IPG' in authentication.text:
     print('Failed IPG endpoint')
 else:
-    print('Success IPGstage endpoint')
+    print('Success IPG endpoint')

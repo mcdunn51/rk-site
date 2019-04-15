@@ -32,8 +32,8 @@ Back END:
                     "refresh_token": "LLR3fjm5q556GfiEGdZNoq0sXxGOWY"
                 }
 
-        OCustomerID:
-            http://100.1.253.16:8000/OCustomerID/
+        OCustomer:
+            http://100.1.253.16:8000/OCustomer/
             Params: username
             Headers:
                 Content-Type:application/json
@@ -43,15 +43,22 @@ Back END:
             Returns:
                 [
                     {
-                        "id": 2,
-                        "username": "mike",
-                        "customerID": 123456
-                    }
-                ]
+                        "id": 7,
+                        "username": "YOGI SHAH",
+                        "customerno": "MAC02",
+                        "companyName": "Macdonalds Discount Stores",
+                        "rep": false,
+                        "SalespersonCode": "GIANNIA",
+                        "ElectricalRep": "GIANNIA",
+                        "HousewaresRep": "GIANNIA",
+                        "proforma": false,
+                        "HouseManager": "ANDREWW",
+                        "CreditControlManager": "VICTORIAB"
+                    }                ]
 
         OProductlist:
             http://100.1.253.16:8000/OProductlist/
-            Params: manufacturerCode|itemno|LTPrice|GTPrice|colour|LTFreeStock|GTFreeStock
+            Params: manufacturerCode|itemno|LTPrice|GTPrice|colour|LTFreeStock|GTFreeStock|IPG
             Headers:
                 Content-Type:application/json
                 Authorization:Bearer <insert token>
@@ -60,14 +67,16 @@ Back END:
             Returns:
                 [
                     {
-                        "id": 217406,
-                        "itemno": "SK22110GRN",
-                        "description": "Retro Pump Espresso Coffee Machine - Grey",
-                        "colour": "Grey",
-                        "RRP": "199.99",
-                        "SSP": "99.99",
-                        "manufacturerCode": "SWAN",
-                        "FreeStock": 172
+                        "id": 281,
+                        "itemno": "T14001",
+                        "description": "HALOGEN LOW FAT AIR FRYER",
+                        "colour": "Black",
+                        "RRP": "99.99",
+                        "SSP": "44.99",
+                        "manufacturerCode": "TOWER",
+                        "FreeStock": 3,
+                        "restockDate": "1900-01-01",
+                        "Image": "{image0: http://images.cdn.rkwltd.com/t14001.jpg, image2: http://images.cdn.rkwltd.com/t14001_02.jpg, image3: http://images.cdn.rkwltd.com/t14001_03.jpg, image4: http://images.cdn.rkwltd.com/t14001_04.jpg, image5: http://images.cdn.rkwltd.com/t14001_05.jpg, image6: http://images.cdn.rkwltd.com/t14001_06.jpg, image7: http://images.cdn.rkwltd.com/t14001_07.jpg, image8: http://images.cdn.rkwltd.com/t14001_08.jpg}"
                     }
                 ]
 
@@ -82,14 +91,14 @@ Back END:
             Returns:
                 [
                     {
-                        "id": 217406,
+                        "id": 57,
                         "itemno": "SK22110GRN",
                         "description": "Retro Pump Espresso Coffee Machine - Grey",
                         "colour": "Grey",
                         "manufacturerCode": "SWAN",
                         "RRP": "199.99",
                         "SSP": "99.99",
-                        "FreeStock": 172,
+                        "FreeStock": 148,
                         "ItemSpec1": "15 bars of pressure",
                         "ItemSpec2": "1.2 litre detachable water tank",
                         "ItemSpec3": "1 or 2 cups at once",
@@ -100,22 +109,23 @@ Back END:
                         "ItemSpec8": "Retro design",
                         "ItemSpec9": "1100W",
                         "ItemSpec10": "Includes measuring spoon and coffee presser",
-                        "TI": 0,
-                        "HI": 0,
-                        "Item_Height": "0.00",
-                        "Item_Length": "0.00",
-                        "Item_Width": "0.00",
-                        "ProductPaging_Height": "0.00",
-                        "ProductPaging_Length": "0.00",
-                        "ProductPaging_Width": "0.00",
-                        "CartonHeight": "0.00",
-                        "CartonLength": "0.00",
-                        "CartonWidth": "0.00",
-                        "palletQty": 0,
-                        "cartonQty": 0,
+                        "TI": 5,
+                        "HI": 3,
+                        "Item_Height": "31.00",
+                        "Item_Length": "28.40",
+                        "Item_Width": "19.40",
+                        "ProductPaging_Height": "36.70",
+                        "ProductPaging_Length": "25.40",
+                        "ProductPaging_Width": "33.70",
+                        "CartonHeight": "39.20",
+                        "CartonLength": "35.50",
+                        "CartonWidth": "52.50",
+                        "palletQty": 30,
+                        "cartonQty": 2,
                         "restockDate": "1900-01-01",
                         "IPG": "COFFEE MAKERS",
-                        "CatalogueTheme": ""
+                        "CatalogueTheme": "",
+                        "Image": "{image0: http://images.cdn.rkwltd.com/sk22110grn.jpg, image2: http://images.cdn.rkwltd.com/sk22110grn_02.jpg, image3: http://images.cdn.rkwltd.com/sk22110grn_03.jpg, image4: http://images.cdn.rkwltd.com/sk22110grn_04.jpg, image5: http://images.cdn.rkwltd.com/sk22110grn_05.jpg, image6: http://images.cdn.rkwltd.com/sk22110grn_06.jpg, image7: http://images.cdn.rkwltd.com/sk22110grn_07.jpg, image8: http://images.cdn.rkwltd.com/sk22110grn_08.jpg}"
                     }
                 ]
 

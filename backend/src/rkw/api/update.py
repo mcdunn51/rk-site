@@ -26,6 +26,7 @@ def sub(string):
     string = str(string).replace("'", "").replace(",", "")
     return  string
 
+# index images 
 def imageExists(item):
     try:
         print(item)
@@ -37,7 +38,7 @@ def imageExists(item):
                 link = 'http://images.cdn.rkwltd.com/%s_0%s.jpg' % (item, i)
             req = requests.get(link)
             if req.status_code == 200:
-                links["image%s" % (i)] = link
+                links['"image%s"' % (i)] = '"%s"' % (link)
     except:
         pass
     return str(links).replace("'", "")
@@ -61,15 +62,12 @@ def user(local_conn, local_cur, ref_conn, ref_cur):
 
 # update customer table
 def customer(local_conn, local_cur, ref_conn, ref_cur):
-    ref_cur.execute("SELECT `customerCode`, `companyName`, `proforma`, SalespersonCode, ElectricalRep, HousewaresRep FROM `Customer`")
+    ref_cur.execute("SELECT `customerCode`, `companyName`, `proforma`, SalespersonCode, ElectricalRep, HousewaresRep, HouseManager, CreditControlManager FROM `Customer`")
     res = ref_cur.fetchall()
     for row in res:
-        local_cur.execute("SELECT `customerCode` FROM api_customer where customercode = '%s'" % (row[0]))
-        if not len(local_cur.fetchall()) > 0:
-            local_cur.execute("INSERT INTO api_customer (`customerCode`, `companyName`, `proforma`, billingaddressID, SalespersonCode, ElectricalRep, HousewaresRep) VALUES ( '%s', '%s', '%s', -1, '%s', '%s', '%s')" % (row[0], str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5]))
-            local_conn.commit()
-        else:
-            local_cur.execute("UPDATE `api_customer` SET `companyName` = '%s', `proforma` = '%s', `billingaddressID` = -1, SalespersonCode = '%s', ElectricalRep = '%s', HousewaresRep = '%s'  WHERE `customerCode` = '%s';" % (str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5], row[0]))
+        local_cur.execute("SELECT `customerno` FROM api_userprofile where customerno = '%s'" % (row[0]))
+        if len(local_cur.fetchall()) > 0:
+            local_cur.execute("UPDATE `api_userprofile` SET `companyName` = '%s', `proforma` = '%s', `billingaddressID` = -1, SalespersonCode = '%s', ElectricalRep = '%s', HousewaresRep = '%s', HouseManager = '%s', CreditControlManager = '%s' WHERE `customerno` = '%s';" % (str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5], row[6], row[7], row[0]))
             local_conn.commit()
 
 # update products table
@@ -91,6 +89,7 @@ def products(local_conn, local_cur, ref_conn, ref_cur):
             except Exception as e:
                 print("cant update '%s' due to '%s'" % (row[0], e))
 
+# update image field on products table
 def updateImages(local_conn, local_cur):
     local_cur.execute("select itemno from api_product where restockDate > '1900-01-01' or freestock > 0;")
     for row in local_cur.fetchall():

@@ -4,7 +4,7 @@ from .models import Product, Address, OrderHeader, OrderLines, UserProfile, Back
 class OUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ("id", "username", "customerno")
+        fields = ("id", "username", "customerno", "companyName", "rep", "SalespersonCode", "ElectricalRep", "HousewaresRep", "proforma", "HouseManager", "CreditControlManager")
 
 class OauthProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:

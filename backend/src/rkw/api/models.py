@@ -11,6 +11,8 @@ class UserProfile(models.Model):
     SalespersonCode = models.CharField(max_length=20)
     ElectricalRep = models.CharField(max_length=20)
     HousewaresRep = models.CharField(max_length=20)
+    HouseManager = models.CharField(max_length=20)
+    CreditControlManager = models.CharField(max_length=20)
     def __str__(self):
         return self.username
 
@@ -69,17 +71,6 @@ class Address(models.Model):
     Code = models.CharField(max_length=20)
     def __str__(self):
         return self.address1
-
-class Customer(models.Model):
-    customerCode = models.CharField(max_length=20)
-    companyName = models.CharField(max_length=50)
-    proforma = models.BooleanField()
-    billingaddressID = models.IntegerField()
-    SalespersonCode = models.CharField(max_length=20)
-    ElectricalRep = models.CharField(max_length=20)
-    HousewaresRep = models.CharField(max_length=20)
-    def __str__(self):
-        return self.customerCode
 
 class CustomerPrices(models.Model):
     customerNo = models.CharField(max_length=20)
