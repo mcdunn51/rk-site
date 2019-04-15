@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch, faUser, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 import RKWLogo from '../../images/rkwlogo.jpg'
 
@@ -68,13 +69,19 @@ const Header = () => {
                         </Form>
                     </Col>
                     <Col id="secondCol">
-                        <img src={RKWLogo} />
+                        <Link to="/">
+                            <img src={RKWLogo} />
+                        </Link>
                     </Col>
                     <Col id="thirdCol">
-                        <FontAwesomeIcon icon={faUser} />
-                        <p id="loginText">Login/Register</p>
-                        <FontAwesomeIcon icon={faShoppingBasket} />
-                        <p id="basketText">Basket</p>
+                        <Link to="/login">
+                            <FontAwesomeIcon icon={faUser} />
+                            <p id="loginText">Login/Register</p>
+                        </Link>
+                        <Link to="/">
+                            <FontAwesomeIcon icon={faShoppingBasket} />
+                            <p id="basketText">Basket</p>
+                        </Link>
                     </Col>
                 </Row>
             </Container>

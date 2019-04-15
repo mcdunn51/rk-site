@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 // import Button from './addToCartBtn';
 
-import CardImage from '../../images/cardImage.jpg';
+// import CardImage from '../../images/cardImage.jpg';
 import Filters from './filters';
 
 
@@ -46,8 +46,11 @@ class Index extends Component {
     }
 
     render() {
-
+        
         const { products, addToCart } = this.props
+        products.map(product => {
+            console.log(product.Image.image2)
+        });
 
         return (
             <Container id="productsPageContainer">
@@ -74,7 +77,7 @@ class Index extends Component {
                             {products.map(product =>
                                 <Col id="cardCol" xs={6} md={4} lg={3}>
                                     <Card className="text-center">
-                                        <Card.Img variant="top" src={CardImage} />
+                                        <Card.Img variant="top" src={product.Image.image0} />
                                         <Card.Body>
                                             <Card.Title>{product.description}</Card.Title>
                                             <Card.Text>

@@ -1,0 +1,36 @@
+#login {
+  margin-top: 50px;
+  .row {
+      margin-bottom: 50px;
+  }
+  #pwdWrapper {
+    text-align: right;
+    margin-bottom: 16px;
+  }
+  #forgottenPwd {
+    color: black;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .col-md-6 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  button {
+      display: block;
+      background-color: #a8acad;
+      border-color: #a8acad;
+  }
+  .col-md-7 {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+  }
+  h3 {
+      margin-bottom: 12px;
+  }
+  #phone {
+      color: #a8acad;
+  }
+}

@@ -17,13 +17,20 @@
 @import './Components/Homepage/brandCarousel.scss';
 @import './Components/Homepage/newsLetterSignUpBar.scss';
 
-// Useful Information
-@import './Components/UsefulInformation/usefulInformation.scss';
-
+// footer
 @import './Components/Footer/Footer.scss';
 @import './Components/Footer/copyrightRKW.scss';
 
+// Useful Information (static pages)
+@import './Components/UsefulInformation/usefulInformation.scss';
 
+// login
+@import './Components/Login/Login.scss';
+
+// pwdReset
+@import './Components/PWDReset/ResetPWD.scss';
+
+// products list 
 @import './Components/Products/Products.scss';
 
 

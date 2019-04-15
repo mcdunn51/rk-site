@@ -19,14 +19,19 @@
 
 
   #filters {
+    .filterWrapper {
+      border-bottom: 0.5px solid #a8acad;
+      margin-bottom: 10px;
+  }
     h3 {
         font-size: 14px;
         font-weight: bold;
+        display: inline;
     }
-    .filterWrapper {
-        border-bottom: 0.5px solid #a8acad;
-        margin-bottom: 10px;
+    .fa-plus {
+      float: right;
     }
+    
     .filtersList {
       list-style: none;
       margin-top: 20px;
