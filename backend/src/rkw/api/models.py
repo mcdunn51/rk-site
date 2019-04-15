@@ -5,6 +5,12 @@ class UserProfile(models.Model):
     username = models.CharField(max_length=50)
     customerno = models.CharField(max_length=20)
     rep = models.BooleanField()
+    companyName = models.CharField(max_length=50)
+    proforma = models.BooleanField()
+    billingaddressID = models.IntegerField()
+    SalespersonCode = models.CharField(max_length=20)
+    ElectricalRep = models.CharField(max_length=20)
+    HousewaresRep = models.CharField(max_length=20)
     def __str__(self):
         return self.username
 

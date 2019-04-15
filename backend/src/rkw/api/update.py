@@ -29,7 +29,7 @@ def sub(string):
 def imageExists(item):
     try:
         print(item)
-        links = []
+        links = {}
         for i in range(0, 9):
             if i == 0:
                 link = 'http://images.cdn.rkwltd.com/%s.jpg' % (item)
@@ -37,7 +37,7 @@ def imageExists(item):
                 link = 'http://images.cdn.rkwltd.com/%s_0%s.jpg' % (item, i)
             req = requests.get(link)
             if req.status_code == 200:
-                links.append(link)
+                links["image%s" % (i)] = link
     except:
         pass
     return str(links).replace("'", "")
@@ -96,6 +96,7 @@ def updateImages(local_conn, local_cur):
     for row in local_cur.fetchall():
         images = imageExists(row[0].lower())
         local_cur.execute("update api_product set image = '%s' where itemno = '%s';" % (images, row[0] ))
+        local_conn.commit()
 
 # quick update of sto.3ck and restock date
 def updateStock(local_conn, local_cur, ref_conn, ref_cur):
@@ -148,11 +149,11 @@ ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
 
 # update function calls
-user(local_conn, local_cur, ref_conn, ref_cur)
-customer(local_conn, local_cur, ref_conn, ref_cur)
-products(local_conn, local_cur, ref_conn, ref_cur)
-# updateImages(local_conn, local_cur)
-updateStock(local_conn, local_cur, ref_conn, ref_cur)
-CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-Address(local_cur, local_conn, ref_cur, ref_conn)
-BackinStock(local_cur, local_conn)
+# user(local_conn, local_cur, ref_conn, ref_cur)
+# customer(local_conn, local_cur, ref_conn, ref_cur)
+# products(local_conn, local_cur, ref_conn, ref_cur)
+updateImages(local_conn, local_cur)
+# updateStock(local_conn, local_cur, ref_conn, ref_cur)
+# CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+# Address(local_cur, local_conn, ref_cur, ref_conn)
+# BackinStock(local_cur, local_conn)
