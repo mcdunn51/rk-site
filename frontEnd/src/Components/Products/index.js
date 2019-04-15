@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Card, Form } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Button from './addToCartBtn';
+// import Button from './addToCartBtn';
 
 import CardImage from '../../images/cardImage.jpg';
 import Filters from './filters';
@@ -10,12 +10,12 @@ import Filters from './filters';
 
 class Index extends Component {
 
-    componentDidMount() {
-
+    getProductInfo() {
         const { loadProducts } = this.props
 
         // don't forget to allow for search parameters
         // you need to allow for any combination of top level to third level parameters e.g. electricals, kitchen appliances, kettles
+        // also need to sort this for brands
 
         axios({
             method: 'get',
@@ -30,8 +30,19 @@ class Index extends Component {
                 // })
                 loadProducts(res.data)
             })
+    }
 
 
+    componentDidMount() {
+
+        this.getProductInfo()
+
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.id !== prevProps.id) {
+            this.getProductInfo()
+        }
     }
 
     render() {
@@ -41,6 +52,9 @@ class Index extends Component {
         return (
             <Container id="productsPageContainer">
                 <Row id="firstRow">
+                    <Col>
+                        <Button className="d-md-none">Filters</Button>
+                    </Col>
                     <Col>
                         <Form.Group controlId="exampleForm.ControlSelect1">
                             <Form.Control as="select">
@@ -52,13 +66,13 @@ class Index extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={2} className="d-none">
-                        <Filters/>
+                    <Col md={2} className="d-none d-md-block">
+                        <Filters />
                     </Col>
                     <Col md={10}>
                         <Row>
                             {products.map(product =>
-                                <Col md={4} lg={3}>
+                                <Col id="cardCol" xs={6} md={4} lg={3}>
                                     <Card className="text-center">
                                         <Card.Img variant="top" src={CardImage} />
                                         <Card.Body>
@@ -68,17 +82,24 @@ class Index extends Component {
                                             </Card.Text>
                                             <Card.Text>
                                                 Your Price: £?
-                                    </Card.Text>
+                                            </Card.Text>
                                             <Card.Text>
                                                 Colours: ?
-                                    </Card.Text>
-                                            <Card.Text>
-                                                {/* not sure wether to use a form here */}
-                                                <input type="number" placeholder="Qty" />(PCS)
-                                        <input type="submit" value="Submit" />
                                             </Card.Text>
-                                            £{product.price}
-                                            <Button variant="primary" product={product} addToCart={addToCart}>Add product</Button>
+                                            {/* <Card.Text id="noUnderline"> */}
+                                                {/* not sure wether to use a form here */}
+                                                {/* <input type="number" placeholder="Qty" />(PCS)
+                                                <input type="submit" value="Add to basket" /> */}
+                                                <form inline={true}>
+                                                    <div>
+                                                        <Form.Control type="number" placeholder="Qty" />
+                                                        <Form.Label>pcs</Form.Label>
+                                                    </div>
+                                                    <Button id="addToBasketBtn" variant="primary" type="submit">Add</Button>
+                                                </form>
+
+
+                                            {/* </Card.Text> */}
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -86,7 +107,7 @@ class Index extends Component {
                         </Row>
                     </Col>
                 </Row>
-            </Container >
+            </Container>
         )
     }
 }

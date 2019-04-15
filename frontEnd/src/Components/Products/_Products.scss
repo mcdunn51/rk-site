@@ -1,27 +1,87 @@
 #productsPageContainer {
+  #firstRow {
+    .btn {
+      float: left;
+      background-color: #a8acad;
+      border-color: #a8acad;
+      color: white;
+    }
+    .form-group {
+      width: 100%;
+      float: right;
+    }
+    select {
+      font-size: 14px;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+  }
+
+
+  #filters {
+    h3 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .filterWrapper {
+        border-bottom: 0.5px solid #a8acad;
+        margin-bottom: 10px;
+    }
+    .filtersList {
+      list-style: none;
+      margin-top: 20px;
+    }
+  }
+
+
+  #cardCol {
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+    .card {
+      margin-bottom: 20px;
+    }
+    .card-body {
+      padding: 5px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      border-bottom: 0.5px solid #a8acad;
+      margin-bottom: 5px;
+    }
+    .card-text {
+      border-bottom: 0.5px solid #a8acad;
+      margin-bottom: 5px;
+    }
+    form {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: flex-end;
+      .form-label {
+          margin-bottom: 0px;
+      }
+      input {
+        font-size: 12px;
+        width: 30%;
+        padding: 0px;
+        text-align: center;
+      }
+    }
+
+    #addToBasketBtn {
+      font-size: 12px;
+    }
+    #noUnderline {
+      border-bottom: 0px;
+    }
+  }
+
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
     #firstRow {
         .form-group {
-            width: 15%;
-            float: right;
-        }
-        select {
-            font-size: 14px;
+          width: 47%;
         }
     }
-    #filters {
-        background-clip: content-box;
-        background-color: lightgray;
-        #filtersList {
-            list-style: none;
-            margin-top: 20px;
-        }
-    }
-    .card {
-        margin-top: 20px;
-    }
-    button {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
+  }
+} //end
