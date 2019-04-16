@@ -23,7 +23,8 @@ class Index extends Component {
             headers: { 'Authorization': 'Bearer Bymg0PGzTYP8x4r9trJiC0V5fyAT5V' },
         })
             .then(res => {
-                console.log(res.data)
+                console.log(res)
+
                 // const products = [];
                 // res.data.forEach(product => {
                 //     products.push(product);
@@ -45,12 +46,21 @@ class Index extends Component {
         }
     }
 
+
+
+
     render() {
-        
+
         const { products, addToCart } = this.props
-        products.map(product => {
-            console.log(product.Image.image2)
-        });
+
+        const getImages = (product) => {
+                const Images = JSON.parse(product.Image)
+                console.log(Images)
+                const Image = Images.image
+                return (
+                    Image
+                )
+        }
 
         return (
             <Container id="productsPageContainer">
@@ -77,7 +87,7 @@ class Index extends Component {
                             {products.map(product =>
                                 <Col id="cardCol" xs={6} md={4} lg={3}>
                                     <Card className="text-center">
-                                        <Card.Img variant="top" src={product.Image.image0} />
+                                        <Card.Img variant="top" src={getImages(product)} />
                                         <Card.Body>
                                             <Card.Title>{product.description}</Card.Title>
                                             <Card.Text>
@@ -90,16 +100,16 @@ class Index extends Component {
                                                 Colours: ?
                                             </Card.Text>
                                             {/* <Card.Text id="noUnderline"> */}
-                                                {/* not sure wether to use a form here */}
-                                                {/* <input type="number" placeholder="Qty" />(PCS)
+                                            {/* not sure wether to use a form here */}
+                                            {/* <input type="number" placeholder="Qty" />(PCS)
                                                 <input type="submit" value="Add to basket" /> */}
-                                                <form inline={true}>
-                                                    <div>
-                                                        <Form.Control type="number" placeholder="Qty" />
-                                                        <Form.Label>pcs</Form.Label>
-                                                    </div>
-                                                    <Button id="addToBasketBtn" variant="primary" type="submit">Add</Button>
-                                                </form>
+                                            <form inline={true}>
+                                                <div>
+                                                    <Form.Control type="number" placeholder="Qty" />
+                                                    <Form.Label>pcs</Form.Label>
+                                                </div>
+                                                <Button id="addToBasketBtn" variant="primary" type="submit">Add</Button>
+                                            </form>
 
 
                                             {/* </Card.Text> */}
