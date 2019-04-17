@@ -1,19 +1,24 @@
 import React from 'react';
 import Slider from 'react-slick';
-import {Container} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
-import akai from '../../images/brandCarousel/akai.jpg'
-import carmen from '../../images/brandCarousel/carmen.jpg'
-import cookincolour from '../../images/brandCarousel/cookincolour.png'
-import elgento from '../../images/brandCarousel/elgento.jpg'
-import itek from '../../images/brandCarousel/itek.jpg'
-import morphyrichards from '../../images/brandCarousel/morphyrichards.png'
-import nutrimaster from '../../images/brandCarousel/nutrimaster.png'
+import akai from '../../images/brandCarousel/akai.png'
+import blackDecker from '../../images/brandCarousel/blackDecker.png'
+import carmen from '../../images/brandCarousel/carmen.png'
+import elgento from '../../images/brandCarousel/elgento.png'
+import itek from '../../images/brandCarousel/itek.png'
+import morphyrichards from '../../images/brandCarousel/morphyRichards.png'
 import pifco from '../../images/brandCarousel/pifco.png'
-import teknique from '../../images/brandCarousel/teknique.png'
+import russellHobbs from '../../images/brandCarousel/russellHobbs.png'
+import signature from '../../images/brandCarousel/signature.png'
 import tower from '../../images/brandCarousel/tower.png'
 import warmlite from '../../images/brandCarousel/warmlite.png'
-import warmnight from '../../images/brandCarousel/warmnight.png'
+import warmnite from '../../images/brandCarousel/warmnite.png'
+// import cookincolour from '../../images/brandCarousel/cookincolour.png'
+// import nutrimaster from '../../images/brandCarousel/nutrimaster.png'
+// import teknique from '../../images/brandCarousel/teknique.png'
+
+
 
 
 const BrandCarousel = () => {
@@ -32,8 +37,11 @@ const BrandCarousel = () => {
     return (
         <Container id="brandCarousel">
             <Slider {...settings}>
-                {/* <div>
+                <div>
                     <img src={akai} />
+                </div>
+                <div>
+                    <img src={blackDecker} />
                 </div>
                 <div>
                     <img src={carmen} />
@@ -42,43 +50,28 @@ const BrandCarousel = () => {
                     <img src={elgento} />
                 </div>
                 <div>
-                <img src={itek} />
-                </div> */}
-                <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={itek} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={morphyrichards} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={pifco} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={russellHobbs} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={signature} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={tower} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={warmlite} />
                 </div>
                 <div>
-                    <img src="http://placekitten.com/g/300/100" />
-                </div>
-                <div>
-                    <img src="http://placekitten.com/g/300/100" />
-                </div>
-                <div>
-                    <img src="http://placekitten.com/g/300/100" />
-                </div>
-                <div>
-                    <img src="http://placekitten.com/g/300/100" />
-                </div>
-                <div>
-                    <img src="http://placekitten.com/g/300/100" />
+                    <img src={warmnite} />
                 </div>
             </Slider>
         </Container>

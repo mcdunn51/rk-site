@@ -6,9 +6,9 @@ import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faCheckCircle, faRegistered } from '@fortawesome/free-regular-svg-icons'
 
-import benefitsOfUsImg1 from '../../images/benefitsOfUsImg1.jpg';
-import benefitsOfUsImg2 from '../../images/benefitsOfUsImg2.jpg';
-import benefitsOfUsImg3 from '../../images/benefitsOfUsImg3.jpg';
+import benefitsOfUsImg1 from '../../images/aboutUsBanner/aboutUs.jpg';
+import benefitsOfUsImg2 from '../../images/aboutUsBanner/benefits.jpg';
+import benefitsOfUsImg3 from '../../images/aboutUsBanner/register.jpg';
 
 const MoreBtn = () => {
     return (
@@ -46,7 +46,7 @@ class AboutUsPanel extends Component {
                         and licensed brands.</p>
             </div>;
         } else if (value === 'benefits') {
-            picture = benefitsOfUsImg1;
+            picture = benefitsOfUsImg2;
             text = <div id="text">
                 <h3>Benefits of RKW</h3>
                 <ul>
@@ -60,7 +60,7 @@ class AboutUsPanel extends Component {
             </div>;
         }
         else {
-            picture = benefitsOfUsImg1;
+            picture = benefitsOfUsImg3;
             text = <div id="text">
                 <h3>Trade with RKW</h3>
                 <p>Creating a trade account at RKW Ltd is the quickest and
@@ -75,8 +75,8 @@ class AboutUsPanel extends Component {
             <Container id="aboutUsPanel">
                 <Row>
                     <Col lg={6} className="d-none d-lg-block" id="firstCol">
-                        <img id="aboutUsImages" src="https://placekitten.com/555/387" />
-                        {/* <img id="aboutUsImages" src={picture} /> */}
+                        {/* <img id="aboutUsImages" src="https://placekitten.com/555/387" /> */}
+                        <img id="aboutUsImages" src={picture} />
                     </Col>
                     <Col md={12} lg={6} id="secondCol">
                         <Row>

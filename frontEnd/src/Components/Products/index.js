@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 // import Button from './addToCartBtn';
 
 // import CardImage from '../../images/cardImage.jpg';
@@ -54,12 +55,12 @@ class Index extends Component {
         const { products, addToCart } = this.props
 
         const getImages = (product) => {
-                const Images = JSON.parse(product.Image)
-                console.log(Images)
-                const Image = Images.image
-                return (
-                    Image
-                )
+            const Images = JSON.parse(product.Image)
+            console.log(Images)
+            const Image = Images.image0
+            return (
+                Image
+            )
         }
 
         return (
@@ -87,9 +88,15 @@ class Index extends Component {
                             {products.map(product =>
                                 <Col id="cardCol" xs={6} md={4} lg={3}>
                                     <Card className="text-center">
-                                        <Card.Img variant="top" src={getImages(product)} />
+                                        <Link to={`/product/${product.id}`}>
+                                            <Card.Img variant="top" src={getImages(product)} />
+                                        </Link>
                                         <Card.Body>
-                                            <Card.Title>{product.description}</Card.Title>
+                                            <Card.Title>
+                                                <Link to={`/product/${product.id}`}>
+                                                    {product.description}
+                                                </Link>
+                                            </Card.Title>
                                             <Card.Text>
                                                 SSP: £{product.SSP} RRP: £{product.RRP}
                                             </Card.Text>

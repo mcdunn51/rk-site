@@ -1,0 +1,30 @@
+#productContainer {
+    a {
+        color: black;
+    }
+    span {
+        font-size: 1rem;
+        
+        .fa-circle {
+            margin-left: 15px;
+        }
+    }
+    .form-control {
+        border-radius: 0px;
+    }
+    .btn {
+        width: 100%;
+        border-radius: 0px;
+    }
+    .nav-tabs {
+        .nav-link {
+            border-radius: 0px;
+        }
+    }
+    .tab-content {
+        border-left: 1px solid #dee2e6;;
+        border-right: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+        padding: 16px;
+    }
+}
