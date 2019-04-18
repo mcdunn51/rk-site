@@ -24,12 +24,7 @@ class Index extends Component {
             headers: { 'Authorization': 'Bearer Bymg0PGzTYP8x4r9trJiC0V5fyAT5V' },
         })
             .then(res => {
-                console.log(res)
-
-                // const products = [];
-                // res.data.forEach(product => {
-                //     products.push(product);
-                // })
+                console.log(res.data)
                 loadProducts(res.data)
             })
     }
@@ -53,8 +48,10 @@ class Index extends Component {
     render() {
 
         const { products, addToCart } = this.props
+        
 
         const getImages = (product) => {
+            console.log(products)
             const Images = JSON.parse(product.Image)
             console.log(Images)
             const Image = Images.image0
@@ -88,12 +85,12 @@ class Index extends Component {
                             {products.map(product =>
                                 <Col id="cardCol" xs={6} md={4} lg={3}>
                                     <Card className="text-center">
-                                        <Link to={`/product/${product.id}`}>
+                                        <Link to={`/product/${product.itemno}`}>
                                             <Card.Img variant="top" src={getImages(product)} />
                                         </Link>
                                         <Card.Body>
                                             <Card.Title>
-                                                <Link to={`/product/${product.id}`}>
+                                                <Link to={`/product/${product.itemno}`}>
                                                     {product.description}
                                                 </Link>
                                             </Card.Title>
