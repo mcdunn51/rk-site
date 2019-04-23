@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 // import Button from './addToCartBtn';
 
-import CardImage from '../../images/cardImage.jpg';
+// import CardImage from '../../images/cardImage.jpg';
 import Filters from './filters';
 
 
@@ -24,10 +25,6 @@ class Index extends Component {
         })
             .then(res => {
                 console.log(res.data)
-                // const products = [];
-                // res.data.forEach(product => {
-                //     products.push(product);
-                // })
                 loadProducts(res.data)
             })
     }
@@ -45,9 +42,23 @@ class Index extends Component {
         }
     }
 
+
+
+
     render() {
 
         const { products, addToCart } = this.props
+        
+
+        const getImages = (product) => {
+            console.log(products)
+            const Images = JSON.parse(product.Image)
+            console.log(Images)
+            const Image = Images.image0
+            return (
+                Image
+            )
+        }
 
         return (
             <Container id="productsPageContainer">
@@ -74,9 +85,15 @@ class Index extends Component {
                             {products.map(product =>
                                 <Col id="cardCol" xs={6} md={4} lg={3}>
                                     <Card className="text-center">
-                                        <Card.Img variant="top" src={CardImage} />
+                                        <Link to={`/product/${product.itemno}`}>
+                                            <Card.Img variant="top" src={getImages(product)} />
+                                        </Link>
                                         <Card.Body>
-                                            <Card.Title>{product.description}</Card.Title>
+                                            <Card.Title>
+                                                <Link to={`/product/${product.itemno}`}>
+                                                    {product.description}
+                                                </Link>
+                                            </Card.Title>
                                             <Card.Text>
                                                 SSP: £{product.SSP} RRP: £{product.RRP}
                                             </Card.Text>
@@ -87,16 +104,16 @@ class Index extends Component {
                                                 Colours: ?
                                             </Card.Text>
                                             {/* <Card.Text id="noUnderline"> */}
-                                                {/* not sure wether to use a form here */}
-                                                {/* <input type="number" placeholder="Qty" />(PCS)
+                                            {/* not sure wether to use a form here */}
+                                            {/* <input type="number" placeholder="Qty" />(PCS)
                                                 <input type="submit" value="Add to basket" /> */}
-                                                <form inline={true}>
-                                                    <div>
-                                                        <Form.Control type="number" placeholder="Qty" />
-                                                        <Form.Label>pcs</Form.Label>
-                                                    </div>
-                                                    <Button id="addToBasketBtn" variant="primary" type="submit">Add</Button>
-                                                </form>
+                                            <form inline={true}>
+                                                <div>
+                                                    <Form.Control type="number" placeholder="Qty" />
+                                                    <Form.Label>pcs</Form.Label>
+                                                </div>
+                                                <Button id="addToBasketBtn" variant="primary" type="submit">Add</Button>
+                                            </form>
 
 
                                             {/* </Card.Text> */}

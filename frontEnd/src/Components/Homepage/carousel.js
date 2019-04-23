@@ -1,8 +1,8 @@
 import React from 'react';
 import { Carousel, Container, Row, Col } from 'react-bootstrap';
-import SlideImg1 from '../../images/cerastoneSlider.jpg';
-import SlideImg2 from '../../images/infinitySlider.jpg';
-import SlideImg3 from '../../images/roseGoldSlider.jpg';
+import SlideImg1 from '../../images/homepageCarousel/towerBanner.jpg';
+import SlideImg2 from '../../images/homepageCarousel/carmenBanner.jpg';
+import SlideImg3 from '../../images/homepageCarousel/akaiBanner.jpg';
 
 
 const HomePageCarousel = () => {
