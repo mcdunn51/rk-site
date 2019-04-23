@@ -3,6 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 import { brandsReducer, electricalsReducer, housewaresReducer } from './Components/MainNavBar/reducer';
 import productsReducer from './Components/Products/reducer';
 import productDetailedReducer from './Components/Product/reducer';
+import loginReducer from './Components/Login/reducer';
 
 const rooReducer = combineReducers({
     brands: brandsReducer,
@@ -10,7 +11,8 @@ const rooReducer = combineReducers({
     housewares: housewaresReducer,
     products: productsReducer,
     product: productDetailedReducer,
-    form: formReducer
+    form: formReducer,
+    accessToken: loginReducer
 })
 
 const store = createStore(

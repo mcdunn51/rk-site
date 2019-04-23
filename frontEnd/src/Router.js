@@ -9,6 +9,7 @@ import Cart from './pages/Cart';
 import UsefulInformation from './pages/UsefulInformation';
 import Login from './pages/Login';
 import ResetPwd from './pages/resetPwd'
+import Account from './pages/Account'
 
 // import Error from './pages/Error';
 
@@ -25,7 +26,8 @@ const Router = () => {
             <Route exact path="/login" component={Login} />
             <Route exact path="/pwdreset" component={ResetPwd} />
             <Route path="/product/:id" component={Product} />
-            
+            {/* should only be able to see this why logged in */}
+            <Route exact path="/account" component={Account} />
             {/* <Route component={Error} /> */}
         </div>
     )
