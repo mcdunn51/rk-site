@@ -54,7 +54,7 @@ class Product(models.Model):
     Electrical_or_Housewares = models.CharField(max_length=100)
     HighSell = models.DecimalField(max_digits=6, decimal_places=2)
     Analysis1 = models.CharField(max_length=100)
-    Image = models.CharField(max_length=1000, null=True)
+    Image = models.TextField()
     def __str__(self):
         return self.itemno
 
