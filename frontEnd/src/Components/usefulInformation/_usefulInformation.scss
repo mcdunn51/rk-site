@@ -1,44 +1,102 @@
 #usefulInformation {
-    h2 {
-        font-size: 32px;
-    }
-    #secondRow { 
-        margin-bottom: 20px; 
-    }
-    #sideNavigationBar {
-        ul {
-            list-style: none;
-            padding-left: 0px;
-            font-size: 14px;
-            border: 1px solid #01b5dd;
-            li {
-                padding: 5px;
-                a {
-                    color: black;
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-                &:first-child {
-                    background-color: #01b5dd;
-                    color: white;
-                    font-size: 16px;
-                }
-                &:last-child {
-                    padding-bottom: 10px;
-                }
-            }
+  font-size: 12px;
+  text-align: justify;
+  h2 {
+    font-size: 32px;
+  }
+  #secondRow {
+    margin-bottom: 20px;
+  }
+  .subheading {
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+  #sideNavigationBar {
+    text-align: left;
+    ul {
+      list-style: none;
+      padding-left: 0px;
+      li {
+        padding-bottom: 5px;
+        a {
+          color: black;
+          &:hover {
+            text-decoration: underline;
+          }
         }
+        &:first-child {
+          text-decoration: underline;
+        }
+      }
     }
-    #textCol {
-        font-size: 14px;
-        text-align: justify;
-    }
+  }
 
-    // Medium devices (tablets, 768px and up)
-    @media (min-width: 768px) { 
-        h2 {
-            font-size: 42px;
-        }
+  #aboutUs {
+    #firstParagraph {
+      font-weight: bold;
     }
+    #aboutUsImgCol {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  #deliveryInformation {
+    #firstParagraph {
+      font-weight: bold;
+    }
+    .subtitles {
+      margin-bottom: 0px;
+      font-weight: bold;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  #returnsAndCancellations {
+    #address {
+      list-style: none;
+      padding-left: 0px;
+    }
+  }
+
+  #showRooms {
+    #firstParagraph {
+      font-weight: bold;
+    }
+    .card {
+        text-align: center;
+      .card-title {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: auto;
+        padding-right: auto;
+        margin-bottom: 0px;
+        background-color: #01b5dd;
+        color: white;
+      }
+      ul {
+          list-style: none;
+          text-align: left;
+          padding-left: 0px;
+          li:first-child {
+              font-weight: bold;
+          }
+      }
+      .map {
+          width: 100%;
+          border: 0px;
+      }
+    }
+  }
+
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 42px;
+    }
+  }
 }

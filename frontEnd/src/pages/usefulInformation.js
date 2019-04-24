@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 
 import AboutUs from '../Components/UsefulInformation/AboutUs'
-import ContactUs from '../Components/UsefulInformation/ContactUs'
 import DeliveryInformation from '../Components/UsefulInformation/DeliveryInformation'
 import PrivacyAndCookiePolicy from '../Components/UsefulInformation/PrivacyAndCookiePolicy'
 import ReturnsAndCancellationPolicy from '../Components/UsefulInformation/ReturnsAndCancellationPolicy'
@@ -23,11 +22,9 @@ class UsefulInformation extends Component {
     componentDidUpdate(prevProps, prevState) {
         const id = this.props.match.params.id
         const prevId = prevState.id
-        console.log(this.props.match.params.id)
         if (id !== prevId) {
             this.setState({id: id})
         }
-        // console.log(this.props.match.params.id)
     }
 
     
@@ -54,7 +51,7 @@ class UsefulInformation extends Component {
             text = <ReturnsAndCancellationPolicy/>
 
         } else if (id === "SiteTerms & Conditions") {
-            heading = <h2>SiteTerms & Conditions</h2>
+            heading = <h2>Site Terms & Conditions</h2>
             text = <SiteTermsAndConditions/>
 
         } else if (id === "Showroom") {
@@ -64,26 +61,22 @@ class UsefulInformation extends Component {
         } else if (id === "Trade Account Registration") {
             heading = <h2>Trade Account Registration</h2>
             text = <TradeAccountRegistration/>
-            
-        } else if (id === "Contact Us") {
-            heading = <h2>Contact Us</h2>
-            text = <ContactUs/>
         }
 
         
         return (
-            <Container id="usefulInformation">
+            <Container id="usefulInformation" className="mb-5">
                 <Row>
-                    <Col md={3} />
-                    <Col md={9}>
+                    <Col md={2} />
+                    <Col md={10}>
                         {heading}
                     </Col>
                 </Row>
                 <Row id="secondRow">
-                    <Col md={3} id="sideNavigationBar" className="d-none d-md-block">
+                    <Col md={2} id="sideNavigationBar" className="d-none d-md-block pr-0">
                         <ul>
                             <li>
-                                UsefulInformation
+                                USEFUL INFORMATION
                             </li>
                             <li>
                                 <Link to="/UsefulInformation/About Us">About Us</Link>
@@ -92,13 +85,13 @@ class UsefulInformation extends Component {
                                 <Link to="/UsefulInformation/Delivery Information">Delivery Information</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/Privacy & Cookies Policies">Privacy and Cookies Policies</Link>
+                                <Link to="/UsefulInformation/Privacy & Cookies Policies">Privacy & Cookies Policies</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/Returns & Cancelations">Returns and Cancelations Policy</Link>
+                                <Link to="/UsefulInformation/Returns & Cancelations">Returns & Cancelations Policy</Link>
                             </li>
                             <li>
-                                <Link to="/UsefulInformation/SiteTerms & Conditions">Site Terms and Conditions</Link>
+                                <Link to="/UsefulInformation/SiteTerms & Conditions">Site Terms & Conditions</Link>
                             </li>
                             <li>
                                 <Link to="/UsefulInformation/Showroom">Showroom</Link>
@@ -106,14 +99,9 @@ class UsefulInformation extends Component {
                             <li>
                                 <Link to="/UsefulInformation/Trade Account Registration">Trade Account Registration</Link>
                             </li>
-                            <li>
-                                <Link to="/UsefulInformation/Contact Us">Contact Us</Link>
-                            </li>
                         </ul>
                     </Col>
-                    <Col md={9} id="textCol">
                         {text}
-                    </Col>
                 </Row>
             </Container>
         )
