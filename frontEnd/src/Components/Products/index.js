@@ -3,25 +3,20 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-// import Button from './addToCartBtn';
 
-// import CardImage from '../../images/cardImage.jpg';
+// import Button from './addToCartBtn';
 import Filters from './filters';
 
 
 class Index extends Component {
 
     getProductInfo() {
-        const { loadProducts } = this.props
-
-        // don't forget to allow for search parameters
-        // you need to allow for any combination of top level to third level parameters e.g. electricals, kitchen appliances, kettles
-        // also need to sort this for brands
-
+        const { loadProducts, accessToken} = this.props
+        console.log(accessToken)
         axios({
             method: 'get',
             url: `http://100.1.253.16:8000/OProductlist/?IPG=${this.props.id}`,
-            headers: { 'Authorization': 'Bearer Bymg0PGzTYP8x4r9trJiC0V5fyAT5V' },
+            headers: { 'Authorization': `Bearer ${accessToken}` },
         })
             .then(res => {
                 console.log(res.data)
@@ -131,7 +126,9 @@ class Index extends Component {
 
 function mapStateToProps(state) {
     return {
-        products: state.products
+        products: state.products,
+        accessToken: state.accessToken
+
     }
 }
 

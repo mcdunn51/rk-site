@@ -6,27 +6,6 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
 
-
-const settingsSliderMainImage = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: true,
-    asNavFor: '.slider-nav'
-
-}
-
-const settingsSliderNav = {
-
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    asNavFor: '.slider-for',
-    dots: true,
-    centerMode: true,
-    focusOnSelect: true
-
-}
-
 class Index extends Component {
 
     getDetailedProductInfo() {
@@ -54,20 +33,96 @@ class Index extends Component {
         }
     }
 
+
+
     render() {
 
         const { productDetailed, addToCart } = this.props
 
+        // const settingsSliderMainImage = {
+        //     slidesToShow: 1,
+        //     slidesToScroll: 1,
+        //     arrows: false,
+        //     fade: true,
+        //     asNavFor: '.slider-nav'
+        
+        // }
+        
+        // const settingsSliderNav = {
+        
+        //     slidesToShow: 3,
+        //     slidesToScroll: 1,
+        //     asNavFor: '.slider-for',
+        //     dots: true,
+        //     centerMode: true,
+        //     focusOnSelect: true
+        
+        // }
+
         return (
 
             <Container id="productContainer">
-                <Row>
+                <Row className="mb-5">
 
                     <Col md={5}>
+                        {/* <Slider {...settingsSliderMainImage}/>
+                        <div>
+                            <h1>1</h1>
+                        </div>
+                        <div>
+                            <h1>2</h1>
+                        </div>
+                        <div>
+                            <h1>3</h1>
+                        </div>
+                        <div>
+                            <h1>4</h1>
+                        </div>
+                        <div>
+                            <h1>5</h1>
+                        </div>
+                        <div>
+                            <h1>6</h1>
+                        </div>
+                        <div>
+                            <h1>7</h1>
+                        </div>
+                        <div>
+                            <h1>8</h1>
+                        </div>
+                        <div>
+                            <h1>9</h1>
+                        </div> */}
 
-                        {/* <Slider {...settingsSliderMainImage}/> */}
-                        {/* <Slider {...settingsSliderNav}/> */}
-                    </Col>
+                        {/* <Slider {...settingsSliderNav}/>
+                        <div>
+                            <h1>1</h1>
+                        </div>
+                        <div>
+                            <h1>2</h1>
+                        </div>
+                        <div>
+                            <h1>3</h1>
+                        </div>
+                        <div>
+                            <h1>4</h1>
+                        </div>
+                        <div>
+                            <h1>5</h1>
+                        </div>
+                        <div>
+                            <h1>6</h1>
+                        </div>
+                        <div>
+                            <h1>7</h1>
+                        </div>
+                        <div>
+                            <h1>8</h1>
+                        </div>
+                        <div>
+                            <h1>9</h1>
+                        </div> */}
+                    </Col> 
                     <Col md={7}>
 
                         <div>
@@ -109,7 +164,7 @@ class Index extends Component {
                             </Col>
                         </Row>
 
-                        <Row>
+                        <Row id="tabsRow">
                             <Col>
                                 <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
                                     <Tab eventKey="description" title="Product Description">
@@ -126,8 +181,15 @@ class Index extends Component {
                         </Row>
 
                     </Col>
-
                 </Row>
+                <Row className="mb-5">
+                    <Col className="text-center">
+                        <h3 className="mb-4">The Collection</h3>
+                        <img src="http://placekitten.com/1110/350"/>
+                    </Col>
+                </Row>
+
+
             </Container>
         )
     }
