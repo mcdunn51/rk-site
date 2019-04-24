@@ -55,9 +55,8 @@ class OauthOrderHeader(generics.ListCreateAPIView):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('customerCode',)
 
-# still working on this one
-class OauthOrderHeaderUpdate(generics.UpdateAPIView):
-    permission_classes = []
+class OauthOrderHeaderUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = OrderHeader.objects.all()
     serializer_class = OauthOrderHeaderSerializer
 
@@ -68,7 +67,19 @@ class OauthOrderLines(generics.ListCreateAPIView):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('orderHeaderID',)
 
+class OauthOrderLinesUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = OrderLines.objects.all()
+    serializer_class = OauthOrderLinesSerializer
+
 class OauthBackInStock(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = BackInStock.objects.all()
+    serializer_class = OauthBackInStockSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('username',)
+
+class OauthBackInStockDelete(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = BackInStock.objects.all()
     serializer_class = OauthBackInStockSerializer
@@ -123,4 +134,4 @@ class Search(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProdListSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('itemno', 'description', 'colour',)
+    search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)

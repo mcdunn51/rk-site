@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 import mysql.connector, csv, pymssql, json, secrets, socket, re, requests
 
 # setting test mode
@@ -135,11 +136,13 @@ def Address(local_cur, local_conn, ref_cur, ref_conn):
 
 # send notificatin if item is now in stock 
 def BackinStock(local_cur, local_conn):
-    local_cur.execute("SELECT id, customerNO, itemno, notified, dateNotified, username FROM api_backinstock where notified = 0;")
+    local_cur.execute("SELECT bs.id, bs.itemno, bs.username, (select email from auth_user where username = bs.username) as email FROM api_backinstock as bs where notified = 0 ;")
     for row in local_cur.fetchall():
-        # email sending code here
-        local_cur.execute("UPDATE `api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
-        local_conn.commit()
+        local_cur.execute("SELECT FreeStock FROM `django-test`.api_product where itemno = '%s' and freestock > 0;" % (row[1]))
+        if len(local_cur.fetchall()) > 0:
+            send_mail('%s is now in Stock' % (row[1]), 'not sure what to put her yet HEREMIKE', 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
+            local_cur.execute("UPDATE `api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
+            local_conn.commit()
 
 # setting variables for db connections
 local_conn = create_local_mysql_connection()
@@ -148,11 +151,26 @@ ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
 
 # update function calls
-user(local_conn, local_cur, ref_conn, ref_cur)
-customer(local_conn, local_cur, ref_conn, ref_cur)
-products(local_conn, local_cur, ref_conn, ref_cur)
-# updateImages(local_conn, local_cur)
-updateStock(local_conn, local_cur, ref_conn, ref_cur)
-CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-Address(local_cur, local_conn, ref_cur, ref_conn)
+# print('running user')
+# user(local_conn, local_cur, ref_conn, ref_cur)
+
+# print('running customer')
+# customer(local_conn, local_cur, ref_conn, ref_cur)
+
+# print('running products')
+# products(local_conn, local_cur, ref_conn, ref_cur)
+
+# # print('running updateImages')
+# # updateImages(local_conn, local_cur)
+
+# print('running updateStock')
+# updateStock(local_conn, local_cur, ref_conn, ref_cur)
+
+# print('running CustomerPrices')
+# CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+
+# print('running Address')
+# Address(local_cur, local_conn, ref_cur, ref_conn)
+
+print('running BackinStock')
 BackinStock(local_cur, local_conn)

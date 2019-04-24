@@ -160,3 +160,7 @@ OAUTH2_PROVIDER = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_PROFILE_MODULE = "api.UserProfile"
+
+EMAIL_HOST = 'svgexch01.svg.local'
+EMAIL_HOST_USER = 'Michael.Mountford@rkwltd.com'
+EMAIL_USE_TLS = True
