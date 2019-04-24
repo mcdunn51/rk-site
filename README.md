@@ -16,7 +16,6 @@ Back END:
         Password: H61dk0Fa
         URL: https://5.5.5.10:2087/pma/   it will probably give you an SSL warning, just ignore it. if this doesnt work try below
         https://46.20.231.215:2087/pma
-
     EndPoints:
         Token:
             Link: http://100.1.253.16:8000/o/token/
@@ -182,6 +181,30 @@ Back END:
                         "orderStatus": "Basket"
                     }
                 ]
+        OOrderHeader/UpdateDelete:
+            Link: http://100.1.253.16:8000/OOrderHeader/UpdateDelete/
+            Example: http://100.1.253.16:8000/OOrderHeader/UpdateDelete/17
+            Params: pk
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>     
+            Type:
+                GET|PUT|PATCH|DELETE
+            Payload:
+                {
+                    "customerCode": "ide01",
+                    "addressID": 5,
+                    "orderDateTime": "1995-02-15T06:00",
+                    "orderStatus": "Basket"
+                }
+            Returns:
+                {
+                    "id": 15,
+                    "customerCode": "ama01",
+                    "addressID": 1,
+                    "orderDateTime": "1995-02-15T06:00:00Z",
+                    "orderStatus": "Basket"
+                }
         OOrderLines:
             Link: http://100.1.253.16:8000/OOrderLines/
             Example: http://100.1.253.16:8000/OOrderLines/?orderHeaderID=1
@@ -210,6 +233,82 @@ Back END:
                         "price": "23.99",
                         "orderDateTime": "1995-02-25T00:00:00Z",
                         "orderHeaderID": 1
+                    }
+                ]
+        OOrderLines/UpdateDelete:
+            Link: http://100.1.253.16:8000/OOrderLines/UpdateDelete/
+            Example: http://100.1.253.16:8000/OOrderLines/UpdateDelete/17
+            Params: pk
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>     
+            Type:
+                GET|PUT|PATCH|DELETE
+            Payload:
+                {
+                    "lineNo": 26848,
+                    "itemno": "178016",
+                    "quantity": 1000,
+                    "price": "23.99",
+                    "orderDateTime": "1995-02-25T00:00:00Z",
+                    "orderHeaderID": 2
+                }
+            Returns:
+                {
+                    "id": 17,
+                    "lineNo": 26848,
+                    "itemno": "178016",
+                    "quantity": 5,
+                    "price": "23.99",
+                    "orderDateTime": "1995-02-25T00:00:00Z",
+                    "orderHeaderID": 2
+                }
+        OBackInStock:
+            Link: http://100.1.253.16:8000/OBackInStock/
+            Example: http://100.1.253.16:8000/OBackInStock/?username=m
+            Params: username
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>     
+            Type:
+                GET|POST
+            Payload:
+                {
+                    "username": "BRITANNIA STADIUM",
+                    "customerNO": "ama01",
+                    "itemno": "t14001"
+                }
+            Returns:
+                [
+                    {
+                        "id": 4,
+                        "username": "m",
+                        "customerNO": "ama01",
+                        "itemno": "IDT80044C"
+                    }
+                ]
+        OBackInStock/Delete:
+            Link: http://100.1.253.16:8000/OBackInStock/Delete/
+            Example: http://100.1.253.16:8000/OBackInStock/Delete/3
+            Params: username
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>     
+            Type:
+                DELETE
+            Payload:
+                {
+                    "username": "BRITANNIA STADIUM",
+                    "customerNO": "ama01",
+                    "itemno": "t14001"
+                }
+            Returns:
+                [
+                    {
+                        "id": 4,
+                        "username": "m",
+                        "customerNO": "ama01",
+                        "itemno": "IDT80044C"
                     }
                 ]
         OSearch:

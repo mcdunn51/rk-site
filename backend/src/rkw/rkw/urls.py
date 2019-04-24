@@ -13,9 +13,11 @@ urlpatterns = [
     path('OProdDetailed/', OauthProdDetailed.as_view()),
     path('OAddressList/', OauthAddressList.as_view()),
     path('OOrderHeader/', OauthOrderHeader.as_view()),
-    path('OOrderHeaderUpdate/', OauthOrderHeaderUpdate.as_view()),
+    path('OOrderHeader/UpdateDelete/<pk>', OauthOrderHeaderUpdateDelete.as_view()),
     path('OOrderLines/', OauthOrderLines.as_view()),
+    path('OOrderLines/UpdateDelete/<pk>', OauthOrderLinesUpdateDelete.as_view()),
     path('OBackInStock/', OauthBackInStock.as_view()),
+    path('OBackInStock/Delete/<pk>', OauthBackInStockDelete.as_view()),
     path('OSearch/', OSearch.as_view()),
     
     # non Oauth paths
