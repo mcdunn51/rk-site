@@ -19,6 +19,8 @@ urlpatterns = [
     path('OBackInStock/', OauthBackInStock.as_view()),
     path('OBackInStock/Delete/<pk>', OauthBackInStockDelete.as_view()),
     path('OSearch/', OSearch.as_view()),
+    path('OBasket/', OBasket.as_view()),
+    path('OBasket/UpdateDelete/pk', OBasketUpdateDelete.as_view()),
     
     # non Oauth paths
     path('Productlist/', Productlist.as_view()),

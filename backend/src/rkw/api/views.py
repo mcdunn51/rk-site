@@ -1,10 +1,10 @@
-from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope)
-from .models import Product, Address, OrderHeader, OrderLines, UserProfile, BackInStock
-from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdressSerializer, ProdDetailedSerializer, OauthProdDetailedSerializer, OauthProdListSerializer, OauthOrderHeaderSerializer, OauthOrderLinesSerializer, OUserProfileSerializer, OauthBackInStockSerializer, IPGSerializer
-
 from django.db.models import Q
+from rest_framework import generics, permissions, filters
+from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope)
+from .models import *
+from .serializers import * 
+
 # Oauth views
 
 class OCustomer(generics.ListAPIView):
@@ -91,6 +91,18 @@ class OSearch(generics.ListAPIView):
     serializer_class = OauthProdListSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)
+
+class OBasket(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = Basket.objects.all()
+    serializer_class = OBasketSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('customerCode',)
+
+class OBasketUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = Basket.objects.all()
+    serializer_class = OBasketSerializer
 
 # non Oauth views
 

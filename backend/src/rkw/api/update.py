@@ -49,16 +49,16 @@ def user(local_conn, local_cur, ref_conn, ref_cur):
     ref_cur.execute("SELECT `email`, `customerNo`, `username` FROM `Contact`")
     res = ref_cur.fetchall()
     for row in res:
-        if not User.objects.filter(username=row[2]).exists():
-            user=User.objects.create_user(username=row[2], password=secrets.token_urlsafe(), email=row[0])
+        if not User.objects.filter(username=sub(row[2])).exists():
+            user=User.objects.create_user(username=sub(row[2]), password=secrets.token_urlsafe(), email=row[0])
             user.save()
-            local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (row[2]))
+            local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (sub(row[2])))
             if not len(local_cur.fetchall()) > 0:
                 if row[1] == 'rep':
                     rep = 1
                 else:
                     rep = 0
-                local_cur.execute("INSERT INTO `api_userprofile` (`username`, `customerno`, rep) VALUES ('%s', '%s', '%s');" % (row[2], row[1], rep))
+                local_cur.execute("INSERT INTO `api_userprofile` (`username`, `customerno`, rep, companyName, proforma, billingaddressID, SalespersonCode, ElectricalRep, HousewaresRep, HouseManager, CreditControlManager) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0');" % (sub(row[2]), row[1], rep))
                 local_conn.commit()
 
 # update customer table
@@ -151,26 +151,26 @@ ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
 
 # update function calls
-# print('running user')
-# user(local_conn, local_cur, ref_conn, ref_cur)
+print('running user')
+user(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running customer')
-# customer(local_conn, local_cur, ref_conn, ref_cur)
+print('running customer')
+customer(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running products')
-# products(local_conn, local_cur, ref_conn, ref_cur)
+print('running products')
+products(local_conn, local_cur, ref_conn, ref_cur)
 
-# # print('running updateImages')
-# # updateImages(local_conn, local_cur)
+# print('running updateImages')
+# updateImages(local_conn, local_cur)
 
-# print('running updateStock')
-# updateStock(local_conn, local_cur, ref_conn, ref_cur)
+print('running updateStock')
+updateStock(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running CustomerPrices')
-# CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+print('running CustomerPrices')
+CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running Address')
-# Address(local_cur, local_conn, ref_cur, ref_conn)
+print('running Address')
+Address(local_cur, local_conn, ref_cur, ref_conn)
 
-# print('running BackinStock')
-# BackinStock(local_cur, local_conn)
+print('running BackinStock')
+BackinStock(local_cur, local_conn)
