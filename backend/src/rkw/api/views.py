@@ -4,6 +4,7 @@ from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope)
 from .models import Product, Address, OrderHeader, OrderLines, UserProfile, BackInStock
 from .serializers import ProdListSerializer, ManufacturerSerializer, OauthAdressSerializer, ProdDetailedSerializer, OauthProdDetailedSerializer, OauthProdListSerializer, OauthOrderHeaderSerializer, OauthOrderLinesSerializer, OUserProfileSerializer, OauthBackInStockSerializer, IPGSerializer
 
+from django.db.models import Q
 # Oauth views
 
 class OCustomer(generics.ListAPIView):
@@ -15,28 +16,28 @@ class OCustomer(generics.ListAPIView):
 
 class OauthProductlist(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
     serializer_class = OauthProdListSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('manufacturerCode', 'itemno', 'colour', 'IPG')
     def get(self, request, *args, **kwargs):
-        if 'LTPrice' in self.request.query_params:
-            if len(self.request.query_params['LTPrice']) > 0:
-                self.queryset = self.queryset.filter(price__lte=self.request.query_params['LTPrice'])
-        if 'GTPrice' in self.request.query_params:
-            if len(self.request.query_params['GTPrice']) > 0:
-                self.queryset = self.queryset.filter(price__gte=self.request.query_params['GTPrice'])
-        if 'LTFreeStock' in self.request.query_params:
-            if len(self.request.query_params['LTFreeStock']) > 0:
-                self.queryset = self.queryset.filter(FreeStock__lte=self.request.query_params['LTFreeStock'])
-        if 'GTFreeStock' in self.request.query_params:
-            if len(self.request.query_params['GTFreeStock']) > 0:
-                self.queryset = self.queryset.filter(FreeStock__gte=self.request.query_params['GTFreeStock'])
+        LTPrice = self.request.query_params.get('LTPrice', '')
+        if LTPrice:
+            self.queryset = self.queryset.filter(Price__lte=self.request.query_params['LTPrice'])
+        GTPrice = self.request.query_params.get('LTPrice', '')
+        if GTPrice:
+            self.queryset = self.queryset.filter(Price__gte=self.request.query_params['GTPrice'])
+        LTFreeStock = self.request.query_params.get('LTFreeStock', '')
+        if LTFreeStock:
+            self.queryset = self.queryset.filter(FreeStock__lte=self.request.query_params['LTFreeStock'])
+        GTFreeStock = self.request.query_params.get('GTFreeStock', '')
+        if GTFreeStock:
+            self.queryset = self.queryset.filter(FreeStock__gte=self.request.query_params['GTFreeStock'])
         return super().get(request, *args, **kwargs)
 
 class OauthProdDetailed(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
     serializer_class = OauthProdDetailedSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('itemno',)
@@ -86,31 +87,31 @@ class OauthBackInStockDelete(generics.DestroyAPIView):
 
 class OSearch(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
     serializer_class = OauthProdListSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('itemno', 'description', 'colour',)
+    search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)
 
 # non Oauth views
 
 class Productlist(generics.ListAPIView):
     permission_classes = []
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
     serializer_class = ProdListSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('manufacturerCode', 'itemno', 'colour', 'IPG')
+    filter_fields = ('manufacturerCode', 'itemno', 'colour', 'IPG', 'FreeStock')
     def get_queryset(self):
         LTFreeStock = self.request.query_params.get('LTFreeStock', '')
         if LTFreeStock:
-            self.queryset = self.queryset.filter(LTFreeStock=self.request.query_params['LTFreeStock'])
+            self.queryset = self.queryset.filter(FreeStock__lte=self.request.query_params['LTFreeStock'])
         GTFreeStock = self.request.query_params.get('GTFreeStock', '')
         if GTFreeStock:
-            self.queryset = self.queryset.filter(GTFreeStock=self.request.query_params['GTFreeStock'])
+            self.queryset = self.queryset.filter(FreeStock__gte=self.request.query_params['GTFreeStock'])
         return super().get_queryset()
             
 class ProdDetailed(generics.ListAPIView):
     permission_classes = []
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
     serializer_class = ProdDetailedSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('itemno',)
@@ -131,7 +132,7 @@ class IPG(generics.ListAPIView):
 
 class Search(generics.ListAPIView):
     permission_classes = []
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
     serializer_class = ProdListSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)
