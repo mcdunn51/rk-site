@@ -44,21 +44,21 @@ def imageExists(item):
         pass
     return str(links).replace("'", "")
 
-# update user table
+# update user table - add code to send alert to user for their username and password HEREMIKE
 def user(local_conn, local_cur, ref_conn, ref_cur):
     ref_cur.execute("SELECT `email`, `customerNo`, `username` FROM `Contact`")
     res = ref_cur.fetchall()
     for row in res:
-        if not User.objects.filter(username=row[2]).exists():
-            user=User.objects.create_user(username=row[2], password=secrets.token_urlsafe(), email=row[0])
+        if not User.objects.filter(username=sub(row[2])).exists():
+            user=User.objects.create_user(username=sub(row[2]), password=secrets.token_urlsafe(), email=row[0])
             user.save()
-            local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (row[2]))
+            local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (sub(row[2])))
             if not len(local_cur.fetchall()) > 0:
                 if row[1] == 'rep':
                     rep = 1
                 else:
                     rep = 0
-                local_cur.execute("INSERT INTO `api_userprofile` (`username`, `customerno`, rep) VALUES ('%s', '%s', '%s');" % (row[2], row[1], rep))
+                local_cur.execute("INSERT INTO `api_userprofile` (`username`, `customerno`, rep, companyName, proforma, billingaddressID, SalespersonCode, ElectricalRep, HousewaresRep, HouseManager, CreditControlManager) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0');" % (sub(row[2]), row[1], rep))
                 local_conn.commit()
 
 # update customer table
@@ -134,13 +134,13 @@ def Address(local_cur, local_conn, ref_cur, ref_conn):
             local_cur.execute("INSERT INTO `api_address` (`customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, Code) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (sub(row[0]), sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[9])))
             local_conn.commit()
 
-# send notificatin if item is now in stock 
+# send notificatin if item is now in stock - needs finsihing off with proper email wording etc HEREMIKE
 def BackinStock(local_cur, local_conn):
-    local_cur.execute("SELECT bs.id, bs.itemno, bs.username, (select email from auth_user where username = bs.username) as email FROM api_backinstock as bs where notified = 0 ;")
+    local_cur.execute("SELECT bs.id, bs.itemno, bs.username, (select email from auth_user where username = bs.username), (SELECT `description` FROM `api_product` where itemno = bs.itemno) as email FROM api_backinstock as bs where notified = 0 ;")
     for row in local_cur.fetchall():
-        local_cur.execute("SELECT FreeStock FROM `django-test`.api_product where itemno = '%s' and freestock > 0;" % (row[1]))
+        local_cur.execute("SELECT FreeStock FROM api_product where itemno = '%s' and freestock > 0;" % (row[1]))
         if len(local_cur.fetchall()) > 0:
-            send_mail('%s is now in Stock' % (row[1]), 'not sure what to put her yet HEREMIKE', 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
+            send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
             local_cur.execute("UPDATE `api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
             local_conn.commit()
 
@@ -151,26 +151,26 @@ ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
 
 # update function calls
-# print('running user')
-# user(local_conn, local_cur, ref_conn, ref_cur)
+print('running user')
+user(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running customer')
-# customer(local_conn, local_cur, ref_conn, ref_cur)
+print('running customer')
+customer(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running products')
-# products(local_conn, local_cur, ref_conn, ref_cur)
+print('running products')
+products(local_conn, local_cur, ref_conn, ref_cur)
 
-# # print('running updateImages')
-# # updateImages(local_conn, local_cur)
+# print('running updateImages')
+# updateImages(local_conn, local_cur)
 
-# print('running updateStock')
-# updateStock(local_conn, local_cur, ref_conn, ref_cur)
+print('running updateStock')
+updateStock(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running CustomerPrices')
-# CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+print('running CustomerPrices')
+CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running Address')
-# Address(local_cur, local_conn, ref_cur, ref_conn)
+print('running Address')
+Address(local_cur, local_conn, ref_cur, ref_conn)
 
 print('running BackinStock')
 BackinStock(local_cur, local_conn)

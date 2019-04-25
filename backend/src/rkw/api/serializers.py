@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Address, OrderHeader, OrderLines, UserProfile, BackInStock
+from .models import *
 
 class OUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,6 +35,11 @@ class OauthBackInStockSerializer(serializers.ModelSerializer):
     class Meta:
         model = BackInStock
         fields = ('id', 'username', 'customerNO', 'itemno')
+
+class OBasketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Basket
+        fields = ('customerCode', 'itemno', 'quantity', 'price')
 
 # non Oauth serializers
 class ProdListSerializer(serializers.ModelSerializer):
