@@ -4,6 +4,8 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 
+
+
 // import Button from './addToCartBtn';
 import Filters from './filters';
 
@@ -12,11 +14,12 @@ class Index extends Component {
 
     getProductInfo() {
         const { loadProducts, accessToken} = this.props
-        console.log(accessToken)
+        // console.log(accessToken) //the access token you get once logged - in this is working
         axios({
             method: 'get',
             url: `http://100.1.253.16:8000/OProductlist/?IPG=${this.props.id}`,
-            headers: { 'Authorization': `Bearer ${accessToken}` },
+            // headers: { 'Authorization': `Bearer ${accessToken}` },
+            headers: { 'Authorization': 'Bearer Sg41nV4aocWG1swPCQmZRU0iIdDBKo'}
         })
             .then(res => {
                 console.log(res.data)
@@ -45,15 +48,15 @@ class Index extends Component {
         const { products, addToCart } = this.props
         
 
-        const getImages = (product) => {
-            console.log(products)
-            const Images = JSON.parse(product.Image)
-            console.log(Images)
-            const Image = Images.image0
-            return (
-                Image
-            )
-        }
+        // const getImages = (product) => {
+        //     // console.log(products)
+        //     const Images = JSON.parse(product.Image)
+        //     console.log(Images)
+        //     const Image = Images.image0
+        //     return (
+        //         Image
+        //     )
+        // }
 
         return (
             <Container id="productsPageContainer">
@@ -81,7 +84,8 @@ class Index extends Component {
                                 <Col id="cardCol" xs={6} md={4} lg={3}>
                                     <Card className="text-center">
                                         <Link to={`/product/${product.itemno}`}>
-                                            <Card.Img variant="top" src={getImages(product)} />
+                                            {/* <Card.Img variant="top" src={getImages(product)} /> */}
+                                            <Card.Img variant="top" src="http://images.cdn.rkwltd.com/t11002.jpg" />
                                         </Link>
                                         <Card.Body>
                                             <Card.Title>

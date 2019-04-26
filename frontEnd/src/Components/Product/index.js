@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import Slider from 'react-slick';
 import { Container, Row, Col, Form, Button, Tabs, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
+
+import ProductSlider from './productSlider'
+
 
 class Index extends Component {
 
@@ -39,90 +41,13 @@ class Index extends Component {
 
         const { productDetailed, addToCart } = this.props
 
-        // const settingsSliderMainImage = {
-        //     slidesToShow: 1,
-        //     slidesToScroll: 1,
-        //     arrows: false,
-        //     fade: true,
-        //     asNavFor: '.slider-nav'
-        
-        // }
-        
-        // const settingsSliderNav = {
-        
-        //     slidesToShow: 3,
-        //     slidesToScroll: 1,
-        //     asNavFor: '.slider-for',
-        //     dots: true,
-        //     centerMode: true,
-        //     focusOnSelect: true
-        
-        // }
+
 
         return (
 
             <Container id="productContainer">
                 <Row className="mb-5">
-
-                    <Col md={5}>
-                        {/* <Slider {...settingsSliderMainImage}/>
-                        <div>
-                            <h1>1</h1>
-                        </div>
-                        <div>
-                            <h1>2</h1>
-                        </div>
-                        <div>
-                            <h1>3</h1>
-                        </div>
-                        <div>
-                            <h1>4</h1>
-                        </div>
-                        <div>
-                            <h1>5</h1>
-                        </div>
-                        <div>
-                            <h1>6</h1>
-                        </div>
-                        <div>
-                            <h1>7</h1>
-                        </div>
-                        <div>
-                            <h1>8</h1>
-                        </div>
-                        <div>
-                            <h1>9</h1>
-                        </div> */}
-
-                        {/* <Slider {...settingsSliderNav}/>
-                        <div>
-                            <h1>1</h1>
-                        </div>
-                        <div>
-                            <h1>2</h1>
-                        </div>
-                        <div>
-                            <h1>3</h1>
-                        </div>
-                        <div>
-                            <h1>4</h1>
-                        </div>
-                        <div>
-                            <h1>5</h1>
-                        </div>
-                        <div>
-                            <h1>6</h1>
-                        </div>
-                        <div>
-                            <h1>7</h1>
-                        </div>
-                        <div>
-                            <h1>8</h1>
-                        </div>
-                        <div>
-                            <h1>9</h1>
-                        </div> */}
-                    </Col> 
+                        <ProductSlider/>
                     <Col md={7}>
 
                         <div>
@@ -185,7 +110,7 @@ class Index extends Component {
                 <Row className="mb-5">
                     <Col className="text-center">
                         <h3 className="mb-4">The Collection</h3>
-                        <img src="http://placekitten.com/1110/350"/>
+                        <img src="http://placekitten.com/1110/350" />
                     </Col>
                 </Row>
 
