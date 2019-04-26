@@ -89,14 +89,14 @@ class Media(models.Model):
 class OrderHeader(models.Model):
     customerCode = models.CharField(max_length=20)
     addressID = models.IntegerField()
-    orderDateTime = models.DateTimeField(auto_created=True)
+    orderDateTime = models.DateTimeField(auto_now_add=True)
     orderStatus = models.CharField(max_length=20)
 
 class OrderLines(models.Model):
     itemno = models.CharField(max_length=100)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    orderDateTime = models.DateTimeField(auto_created=True)
+    orderDateTime = models.DateTimeField(auto_now_add=True)
     orderHeaderID = models.IntegerField()
 
 class Matched(models.Model):
@@ -111,11 +111,11 @@ class BackInStock(models.Model):
     notified = models.BooleanField(default=False)
     dateNotified = models.DateTimeField(default='1900-01-01')
     username = models.CharField(max_length=50)
-    dateCreated = models.DateTimeField(auto_created=True)
+    dateCreated = models.DateTimeField(auto_now_add=True)
 
 class Basket(models.Model):
     customerCode = models.CharField(max_length=20)
     itemno = models.CharField(max_length=100)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    dateCreated = models.DateTimeField(auto_created=True)
+    dateCreated = models.DateTimeField(auto_now_add=True)

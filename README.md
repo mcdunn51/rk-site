@@ -19,7 +19,7 @@ Back END:
     EndPoints:
         Token:
             Link: http://100.1.253.16:8000/o/token/
-            Example: http://100.1.253.16:8000/o/token/?grant_type=password&username=Mike&password=tas}Ng2uQ7?!rSS9&client_id=3USdTjmnjbcdTeNrdwjeaOlEcVg1n7oFmXHPz2q9&client_secret=QuZg0JK62clUelPFMJs1884zx1g1ZeFPcgPN74W58Z3ZKUrWrUFAaMwoxJ8sdLei5CvTUIvCErNcmIQk4hoRA5w5A3GC1u9Sbe4ctqWrV67SX12mZ8Rxp2hFwVhFXF5M
+            Example: http://100.1.253.16:8000/o/token/?grant_type=password&username=<inser username>&password=<insert password>&client_id=3USdTjmnjbcdTeNrdwjeaOlEcVg1n7oFmXHPz2q9&client_secret=QuZg0JK62clUelPFMJs1884zx1g1ZeFPcgPN74W58Z3ZKUrWrUFAaMwoxJ8sdLei5CvTUIvCErNcmIQk4hoRA5w5A3GC1u9Sbe4ctqWrV67SX12mZ8Rxp2hFwVhFXF5M
             Client_id: 3USdTjmnjbcdTeNrdwjeaOlEcVg1n7oFmXHPz2q9
             Client_secret: QuZg0JK62clUelPFMJs1884zx1g1ZeFPcgPN74W58Z3ZKUrWrUFAaMwoxJ8sdLei5CvTUIvCErNcmIQk4hoRA5w5A3GC1u9Sbe4ctqWrV67SX12mZ8Rxp2hFwVhFXF5M
             Params: grant_type|username|password|client_id|client_secret
@@ -33,9 +33,33 @@ Back END:
                     "scope": "read write groups",
                     "refresh_token": "LLR3fjm5q556GfiEGdZNoq0sXxGOWY"
                 }
+        OSearch:
+            Link: http://100.1.253.16:8000/OSearch/
+            Example: http://100.1.253.16:8000/OSearch/?search=<insert search>
+            Params: search
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>     
+            Type:
+                GET
+            Returns:
+                [
+                    {
+                        "id": 281,
+                        "itemno": "T14001",
+                        "description": "HALOGEN LOW FAT AIR FRYER",
+                        "colour": "Black",
+                        "RRP": "99.99",
+                        "SSP": "44.99",
+                        "manufacturerCode": "TOWER",
+                        "FreeStock": 0,
+                        "restockDate": "1900-01-01",
+                        "Image": "{\"image0\": \"http://images.cdn.rkwltd.com/t14001.jpg\", \"image2\": \"http://images.cdn.rkwltd.com/t14001_02.jpg\", \"image3\": \"http://images.cdn.rkwltd.com/t14001_03.jpg\", \"image4\": \"http://images.cdn.rkwltd.com/t14001_04.jpg\", \"image5\": \"http://images.cdn.rkwltd.com/t14001_05.jpg\", \"image6\": \"http://images.cdn.rkwltd.com/t14001_06.jpg\", \"image7\": \"http://images.cdn.rkwltd.com/t14001_07.jpg\", \"image8\": \"http://images.cdn.rkwltd.com/t14001_08.jpg\"}"
+                    }
+                ]
         OCustomer:
             Link: http://100.1.253.16:8000/OCustomer/
-            Example: http://100.1.253.16:8000/OCustomer/?username=mike
+            Example: http://100.1.253.16:8000/OCustomer/?username=<inser username>
             Params: username
             Headers:
                 Content-Type:application/json
@@ -61,7 +85,7 @@ Back END:
                 ]
         OProductlist:
             Link: http://100.1.253.16:8000/OProductlist/
-            Example: http://100.1.253.16:8000/OProductlist/?manufacturerCode=SWAN&itemno=SK22110GRN
+            Example: http://100.1.253.16:8000/OProductlist/?manufacturerCode=<insert manufacturerCode>&itemno=<insert itemno>
             Params: manufacturerCode|itemno|LTPrice|GTPrice|colour|LTFreeStock|GTFreeStock|IPG
             Headers:
                 Content-Type:application/json
@@ -85,7 +109,7 @@ Back END:
                 ]
         OProdDetailed:
             Link: http://100.1.253.16:8000/OProdDetailed/
-            Example: http://100.1.253.16:8000/OProdDetailed/?itemno=T14001
+            Example: http://100.1.253.16:8000/OProdDetailed/?itemno=<insert itemno>
             Params: itemno
             Headers:
                 Content-Type:application/json
@@ -134,7 +158,7 @@ Back END:
                 ]
         OAddressList:
             Link: http://100.1.253.16:8000/OAddressList/
-            Example: http://100.1.253.16:8000/OAddressList/?customerNO=1
+            Example: http://100.1.253.16:8000/OAddressList/?customerNO=<insert customerNO>
             Params: customerNO
             Headers:
                 Content-Type:application/json
@@ -157,7 +181,7 @@ Back END:
                 ]
         OOrderHeader:
             Link: http://100.1.253.16:8000/OOrderHeader/
-            Example: http://100.1.253.16:8000/OOrderHeader/?customerCode=0
+            Example: http://100.1.253.16:8000/OOrderHeader/?customerCode=<insert customerCode>
             Params: customerCode
             Headers:
                 Content-Type:application/json
@@ -166,10 +190,9 @@ Back END:
                 GET|POST
             Payload:
                 {
-                    "customerID": 2,
+                    "customerCode": "ama01",
                     "addressID": 1,
-                    "orderDateTime": "1995-02-15T06:00",
-                    "orderStatus": "Basket"
+                    "orderStatus": "Order Placed"
                 }
             Returns:
                 [
@@ -183,7 +206,7 @@ Back END:
                 ]
         OOrderHeader/UpdateDelete:
             Link: http://100.1.253.16:8000/OOrderHeader/UpdateDelete/
-            Example: http://100.1.253.16:8000/OOrderHeader/UpdateDelete/17
+            Example: http://100.1.253.16:8000/OOrderHeader/UpdateDelete/<insert id>
             Params: pk
             Headers:
                 Content-Type:application/json
@@ -207,7 +230,7 @@ Back END:
                 }
         OOrderLines:
             Link: http://100.1.253.16:8000/OOrderLines/
-            Example: http://100.1.253.16:8000/OOrderLines/?orderHeaderID=1
+            Example: http://100.1.253.16:8000/OOrderLines/?orderHeaderID=<insert orderHeaderID>
             Params: customerID
             Headers:
                 Content-Type:application/json
@@ -237,11 +260,11 @@ Back END:
                 ]
         OOrderLines/UpdateDelete:
             Link: http://100.1.253.16:8000/OOrderLines/UpdateDelete/
-            Example: http://100.1.253.16:8000/OOrderLines/UpdateDelete/17
+            Example: http://100.1.253.16:8000/OOrderLines/UpdateDelete/<insert id>
             Params: pk
             Headers:
                 Content-Type:application/json
-                Authorization:Bearer <insert token>     
+                Authorization:Bearer <insert token>
             Type:
                 GET|PUT|PATCH|DELETE
             Payload:
@@ -255,21 +278,20 @@ Back END:
                 }
             Returns:
                 {
-                    "id": 17,
-                    "lineNo": 26848,
+                    "id": 1,
                     "itemno": "178016",
                     "quantity": 5,
                     "price": "23.99",
-                    "orderDateTime": "1995-02-25T00:00:00Z",
+                    "orderDateTime": "2019-04-26T10:07:09.658960Z",
                     "orderHeaderID": 2
                 }
         OBackInStock:
             Link: http://100.1.253.16:8000/OBackInStock/
-            Example: http://100.1.253.16:8000/OBackInStock/?username=m
+            Example: http://100.1.253.16:8000/OBackInStock/?username=<insert username>
             Params: username
             Headers:
                 Content-Type:application/json
-                Authorization:Bearer <insert token>     
+                Authorization:Bearer <insert token>
             Type:
                 GET|POST
             Payload:
@@ -289,11 +311,11 @@ Back END:
                 ]
         OBackInStock/Delete:
             Link: http://100.1.253.16:8000/OBackInStock/Delete/
-            Example: http://100.1.253.16:8000/OBackInStock/Delete/3
+            Example: http://100.1.253.16:8000/OBackInStock/Delete/<insert id>
             Params: username
             Headers:
                 Content-Type:application/json
-                Authorization:Bearer <insert token>     
+                Authorization:Bearer <insert token>
             Type:
                 DELETE
             Payload:
@@ -302,42 +324,81 @@ Back END:
                     "customerNO": "ama01",
                     "itemno": "t14001"
                 }
+        OBasket:
+            Link: http://100.1.253.16:8000/OBasket/
+            Example: http://100.1.253.16:8000/OBasket/?customerCode=<insert customerCode>
+            Params: customerCode
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>
+            Type:
+                GET|POST
+            Payload:
+                {
+                    "customerCode": "ama01",
+                    "itemno": "t14001",
+                    "quantity": "500",
+                    "price": "23.99"
+                }
             Returns:
                 [
                     {
-                        "id": 4,
-                        "username": "m",
-                        "customerNO": "ama01",
-                        "itemno": "IDT80044C"
+                        "id": 2,
+                        "customerCode": "ama01",
+                        "itemno": "t14001",
+                        "quantity": 1500,
+                        "price": "23.99"
                     }
-                ]
-        OSearch:
-            Link: http://100.1.253.16:8000/OSearch/
-            Example: http://100.1.253.16:8000/OSearch/?search=black bin
+                ]   
+        OBasket/UpdateDelete:
+            Link: http://100.1.253.16:8000/OBasket/UpdateDelete/
+            Example: http://100.1.253.16:8000/OBasket/UpdateDelete/<insert id>
+            Params: pk
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>
+            Type:
+                GET|PUT|PATCH|DELETE
+            Payload:
+                {
+                    "customerCode": "ama01",
+                    "itemno": "t14001",
+                    "quantity": "1000",
+                    "price": "23.99"
+                }
+            Returns:
+                {
+                    "id": 2,
+                    "customerCode": "ama01",
+                    "itemno": "t14001",
+                    "quantity": 1500,
+                    "price": "23.99"
+                }
+        Search:
+            Link: http://100.1.253.16:8000/Search/
+            Example: http://100.1.253.16:8000/Search/?search=<insert search>
             Params: search
             Headers:
                 Content-Type:application/json
-                Authorization:Bearer <insert token>     
+                Authorization:Bearer <insert token>
             Type:
                 GET
             Returns:
                 [
                     {
-                        "id": 281,
-                        "itemno": "T14001",
-                        "description": "HALOGEN LOW FAT AIR FRYER",
+                        "id": 184,
+                        "itemno": "SWKA1010BN",
+                        "description": "SWAN RETRO Bread Bin Black",
                         "colour": "Black",
-                        "RRP": "99.99",
-                        "SSP": "44.99",
-                        "manufacturerCode": "TOWER",
+                        "manufacturerCode": "SWAN",
                         "FreeStock": 0,
-                        "restockDate": "1900-01-01",
-                        "Image": "{\"image0\": \"http://images.cdn.rkwltd.com/t14001.jpg\", \"image2\": \"http://images.cdn.rkwltd.com/t14001_02.jpg\", \"image3\": \"http://images.cdn.rkwltd.com/t14001_03.jpg\", \"image4\": \"http://images.cdn.rkwltd.com/t14001_04.jpg\", \"image5\": \"http://images.cdn.rkwltd.com/t14001_05.jpg\", \"image6\": \"http://images.cdn.rkwltd.com/t14001_06.jpg\", \"image7\": \"http://images.cdn.rkwltd.com/t14001_07.jpg\", \"image8\": \"http://images.cdn.rkwltd.com/t14001_08.jpg\"}"
+                        "restockDate": "2019-05-19",
+                        "Image": "{\"image0\": \"http://images.cdn.rkwltd.com/swka1010bn.jpg\", \"image2\": \"http://images.cdn.rkwltd.com/swka1010bn_02.jpg\"}"
                     }
                 ]
         Productlist:
             Link: http://100.1.253.16:8000/Productlist/
-            Example: http://100.1.253.16:8000/Productlist/?manufacturerCode=tower&colour=red
+            Example: http://100.1.253.16:8000/Productlist/?manufacturerCode=<insert manufacturerCode>&colour=<insert colour>
             Params: manufacturerCode|itemno|colour|LTFreeStock|GTFreeStock
             Headers:
                 Content-Type:application/json
@@ -359,7 +420,7 @@ Back END:
                 ]
         ProdDetailed:
             Link: http://100.1.253.16:8000/ProdDetailed/
-            Example: http://100.1.253.16:8000/ProdDetailed/?itemno=t14001
+            Example: http://100.1.253.16:8000/ProdDetailed/?itemno=<insert itemno>
             Params: itemno
             Headers:
                 Content-Type:application/json
@@ -417,7 +478,7 @@ Back END:
                 ]
         IPG:
             Link: http://100.1.253.16:8000/IPG/
-            Example: http://100.1.253.16:8000/IPG/?Electrical_or_Housewares=electrical
+            Example: http://100.1.253.16:8000/IPG/?Electrical_or_Housewares=<insert Electrical_or_Housewares>
             Params: Electrical_or_Housewares
             Headers:
                 Content-Type:application/json
@@ -427,27 +488,5 @@ Back END:
                 [
                     {
                         "IPG": "VACUUM CLEANER BAGS AND ACCESSORIES"
-                    }
-                ]
-        Search:
-            Link: http://100.1.253.16:8000/Search/
-            Example: http://100.1.253.16:8000/Search/?search=swan red bin
-            Params: search
-            Headers:
-                Content-Type:application/json
-                Authorization:Bearer <insert token>     
-            Type:
-                GET
-            Returns:
-                [
-                    {
-                        "id": 184,
-                        "itemno": "SWKA1010BN",
-                        "description": "SWAN RETRO Bread Bin Black",
-                        "colour": "Black",
-                        "manufacturerCode": "SWAN",
-                        "FreeStock": 0,
-                        "restockDate": "2019-05-19",
-                        "Image": "{\"image0\": \"http://images.cdn.rkwltd.com/swka1010bn.jpg\", \"image2\": \"http://images.cdn.rkwltd.com/swka1010bn_02.jpg\"}"
                     }
                 ]

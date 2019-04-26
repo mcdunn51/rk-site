@@ -1,7 +1,7 @@
 import requests, json, os, socket
 
 token = ''
-item = 't14001'
+item = 'EGLBUNDLE002'
 
 # Testing Mode
 if socket.gethostname() == 's1.intranet.svg.local':
@@ -11,7 +11,7 @@ else:
 
 if test_mode:
     IP = '127.0.0.1:8000'  
-    authentication = requests.post(r'http://'+str(IP)+r'/o/token/?grant_type=password&username=M&password=0&client_id=CpV612uZEllAr8vh7bFGVB9Uiq6DagTrhCUu3l4W&client_secret=jJVNuUlYkGSsbbdSQ7DvrAtuiR2T9OO9eY2kVQIJDoNRZ69pHjSkk2KSVJtnXNyGmDAh2PHF0qogfc1GpdXvnqj7ID1rdwVvgjbuNdDkXup3Ewt1mKaDYZR37jTQ6cvr')
+    authentication = requests.post(r'http://'+str(IP)+r'/o/token/?grant_type=password&username=michael.mountford&password=0&client_id=CpV612uZEllAr8vh7bFGVB9Uiq6DagTrhCUu3l4W&client_secret=jJVNuUlYkGSsbbdSQ7DvrAtuiR2T9OO9eY2kVQIJDoNRZ69pHjSkk2KSVJtnXNyGmDAh2PHF0qogfc1GpdXvnqj7ID1rdwVvgjbuNdDkXup3Ewt1mKaDYZR37jTQ6cvr')
 else:
     IP = '100.1.253.16:8000'
     authentication = requests.post(r'http://'+str(IP)+r'/o/token/?grant_type=password&username=Mike&password=tas}Ng2uQ7?!rSS9&client_id=3USdTjmnjbcdTeNrdwjeaOlEcVg1n7oFmXHPz2q9&client_secret=QuZg0JK62clUelPFMJs1884zx1g1ZeFPcgPN74W58Z3ZKUrWrUFAaMwoxJ8sdLei5CvTUIvCErNcmIQk4hoRA5w5A3GC1u9Sbe4ctqWrV67SX12mZ8Rxp2hFwVhFXF5M')
@@ -24,6 +24,14 @@ def Token():
         return token
     else:
         print(authentication.text)
+
+# Search endpoint
+def OSearch(IP, token, item):
+    authentication = requests.get(r'http://'+str(IP)+r'/OSearch/?access_token='+str(token)+'&search='+str(item))
+    if not 'itemno' in authentication.text:
+        print('Failed OSearch endpoint')
+    else:
+        print('Success OSearch endpoint')
 
 # OCustomer endpoint
 def OCustomer(IP, token, item):
@@ -73,13 +81,29 @@ def OOrderLines(IP, token, item):
     else:
         print('Success OOrderLines endpoint')
 
-# OSearch endpoint
-def OSearch(IP, token, item):
-    authentication = requests.get(r'http://'+str(IP)+r'/OSearch/?access_token='+str(token)+r'&search='+str(item))
-    if not 'itemno' in authentication.text:
-        print('Failed OSearch endpoint')
+# OBackInStock endpoint
+def OBackInStock(IP, token, item):
+    authentication = requests.get(r'http://'+str(IP)+r'/OBackInStock/?access_token='+str(token))
+    if not 'username' in authentication.text:
+        print('Failed OBackInStock endpoint')
     else:
-        print('Success OSearch endpoint')
+        print('Success OBackInStock endpoint')
+
+# OBasket endpoint
+def OBasket(IP, token, item):
+    authentication = requests.get(r'http://'+str(IP)+r'/OBasket/?access_token='+str(token))
+    if not 'customerCode' in authentication.text:
+        print('Failed OBasket endpoint')
+    else:
+        print('Success OBasket endpoint')
+
+# Search endpoint
+def Search(IP, item):
+    authentication = requests.get(r'http://'+str(IP)+r'/Search/?search='+str(item))
+    if not 'itemno' in authentication.text:
+        print('Failed Search endpoint')
+    else:
+        print('Success Search endpoint')
 
 # Productlist endpoint
 def Productlist(IP, item):
@@ -113,24 +137,17 @@ def IPG(IP, item):
     else:
         print('Success IPG endpoint')
 
-# Search endpoint
-def Search(IP, item):
-    authentication = requests.get(r'http://'+str(IP)+r'/Search/?search='+str(item))
-    if not 'itemno' in authentication.text:
-        print('Failed Search endpoint')
-    else:
-        print('Success Search endpoint')
-
 token = Token()
+OSearch(IP, token, item)
 OCustomer(IP, token, item)
 OProductlist(IP, token, item)
 OProdDetailed(IP, token, item)
 OAddressList(IP, token, item)
 OOrderHeader(IP, token, item)
 OOrderLines(IP, token, item)
-OSearch(IP, token, item)
+OBackInStock(IP, token, item)
+Search(IP, item)
 Productlist(IP, item)
 ProductDetailed(IP, item)
 manufacturerCode(IP, item)
 IPG(IP, item)
-Search(IP, item)
