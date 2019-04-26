@@ -29,7 +29,7 @@ class OauthOrderHeaderSerializer(serializers.ModelSerializer):
 class OauthOrderLinesSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderLines
-        fields = ('id', 'lineNo', 'itemno', 'quantity', 'price', 'orderDateTime', 'orderHeaderID')
+        fields = ('id', 'itemno', 'quantity', 'price', 'orderDateTime', 'orderHeaderID')
     
 class OauthBackInStockSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,7 +39,7 @@ class OauthBackInStockSerializer(serializers.ModelSerializer):
 class OBasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
-        fields = ('customerCode', 'itemno', 'quantity', 'price')
+        fields = ('id', 'customerCode', 'itemno', 'quantity', 'price')
 
 # non Oauth serializers
 class ProdListSerializer(serializers.ModelSerializer):
