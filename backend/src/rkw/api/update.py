@@ -63,12 +63,12 @@ def user(local_conn, local_cur, ref_conn, ref_cur):
 
 # update customer table
 def customer(local_conn, local_cur, ref_conn, ref_cur):
-    ref_cur.execute("SELECT `customerCode`, `companyName`, `proforma`, SalespersonCode, ElectricalRep, HousewaresRep, HouseManager, CreditControlManager FROM `Customer`")
+    ref_cur.execute("SELECT `customerCode`, `companyName`, `proforma`, SalespersonCode, ElectricalRep, HousewaresRep, HouseManager, CreditControlManager, SalespersonCodePhone, SalespersonCodeEmail, ElectricalRepPhone, ElectricalRepEmail, HousewaresRepPhone, HousewaresRepEmail, HouseManagerPhone, HouseManagerEmail, CreditControlManagerPhone, CreditControlManagerEmail FROM `Customer`")
     res = ref_cur.fetchall()
     for row in res:
         local_cur.execute("SELECT `customerno` FROM api_userprofile where customerno = '%s'" % (row[0]))
         if len(local_cur.fetchall()) > 0:
-            local_cur.execute("UPDATE `api_userprofile` SET `companyName` = '%s', `proforma` = '%s', `billingaddressID` = -1, SalespersonCode = '%s', ElectricalRep = '%s', HousewaresRep = '%s', HouseManager = '%s', CreditControlManager = '%s' WHERE `customerno` = '%s';" % (str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5], row[6], row[7], row[0]))
+            local_cur.execute("UPDATE `api_userprofile` SET `companyName` = '%s', `proforma` = '%s', `billingaddressID` = -1, SalespersonCode = '%s', ElectricalRep = '%s', HousewaresRep = '%s', HouseManager = '%s', CreditControlManager = '%s', SalespersonCodePhone = '%s', SalespersonCodeEmail = '%s', ElectricalRepPhone = '%s', ElectricalRepEmail = '%s', HousewaresRepPhone = '%s', HousewaresRepEmail = '%s', HouseManagerPhone = '%s', HouseManagerEmail = '%s', CreditControlManagerPhone = '%s', CreditControlManagerEmail = '%s' WHERE `customerno` = '%s';" % (str(row[1]).replace("'", ""), row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17],row[0]))
             local_conn.commit()
 
 # update products table
@@ -151,26 +151,26 @@ ref_conn = create_refrence_mysql_connection()
 ref_cur = ref_conn.cursor()
 
 # update function calls
-print('running user')
-user(local_conn, local_cur, ref_conn, ref_cur)
+# print('running user')
+# user(local_conn, local_cur, ref_conn, ref_cur)
 
 print('running customer')
 customer(local_conn, local_cur, ref_conn, ref_cur)
 
-print('running products')
-products(local_conn, local_cur, ref_conn, ref_cur)
+# print('running products')
+# products(local_conn, local_cur, ref_conn, ref_cur)
 
-# print('running updateImages')
-# updateImages(local_conn, local_cur)
+# # print('running updateImages')
+# # updateImages(local_conn, local_cur)
 
-print('running updateStock')
-updateStock(local_conn, local_cur, ref_conn, ref_cur)
+# print('running updateStock')
+# updateStock(local_conn, local_cur, ref_conn, ref_cur)
 
-print('running CustomerPrices')
-CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+# print('running CustomerPrices')
+# CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
 
-print('running Address')
-Address(local_cur, local_conn, ref_cur, ref_conn)
+# print('running Address')
+# Address(local_cur, local_conn, ref_cur, ref_conn)
 
-print('running BackinStock')
-BackinStock(local_cur, local_conn)
+# print('running BackinStock')
+# BackinStock(local_cur, local_conn)
