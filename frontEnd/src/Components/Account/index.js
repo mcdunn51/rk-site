@@ -178,14 +178,15 @@ class Index extends Component {
                     <Col>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Card Title</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                                <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
-                                </Card.Text>
-                                <Card.Link href="#">Card Link</Card.Link>
-                                <Card.Link href="#">Another Link</Card.Link>
+                                <Card.Title>Need Assistance?</Card.Title>
+                                <div id="needAssistanceWrapper">
+                                    Why not call our Sales team for any queries or changes on <a href="tel:+44 7526745507">0333 1234 1234</a> and we'll be happy to help.
+                                    <p>
+                                        <a href="tel:+44 7526745507">
+                                            <FontAwesomeIcon className="icon" icon={faPhone} />
+                                        </a>
+                                    </p>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>

@@ -13,6 +13,7 @@
       font-size: 16px;
       border: 0.25px solid lightgray;
       padding: 5px 8px;
+      color:black;
     }
   }
   button {
@@ -50,5 +51,9 @@
       margin-right: 10px;
       color: gray;
     }
+  }
+  #needAssistanceWrapper {
+    display: flex;
+    
   }
 }
