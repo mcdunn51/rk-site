@@ -1,4 +1,5 @@
 #accountIndexWrapper {
+  font-size: 14px;
   #firstCol {
     display: flex;
     flex-direction: row;
@@ -13,14 +14,14 @@
       font-size: 16px;
       border: 0.25px solid lightgray;
       padding: 5px 8px;
-      color:black;
+      color: black;
     }
   }
   button {
-      border-radius: 0%;
-      margin-right: 30px;
-      background-color: #01b5dd;
-      border-color: #01b5dd;
+    border-radius: 0%;
+    margin-right: 30px;
+    background-color: #01b5dd;
+    border-color: #01b5dd;
   }
   .card {
     a {
@@ -51,9 +52,18 @@
       margin-right: 10px;
       color: gray;
     }
-  }
-  #needAssistanceWrapper {
-    display: flex;
-    
+    #needAssistanceCol {
+      text-align: justify;
+    }
+    #iconCol {
+      padding-left: 0px;
+      padding-right: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a {
+        font-size: 30px;
+      }
+    }
   }
 }
