@@ -40,7 +40,6 @@ class update():
                         rep = 1
                     else:
                         rep = 0
-                    print("INSERT INTO api_userprofile (username, customerno, rep, companyName, proforma, billingaddressID, SalespersonCode, SalespersonCodePhone, SalespersonCodeEmail, ElectricalRep, ElectricalRepPhone, ElectricalRepEmail, HousewaresRep, HousewaresRepPhone, HousewaresRepEmail, HouseManager, HouseManagerPhone, HouseManagerEmail, CreditControlManager, CreditControlManagerPhone, CreditControlManagerPhone) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');" % (update.sub(row[2]), row[1], rep))
                     local_cur.execute("INSERT INTO api_userprofile (username, customerno, rep, companyName, proforma, billingaddressID, SalespersonCode, SalespersonCodePhone, SalespersonCodeEmail, ElectricalRep, ElectricalRepPhone, ElectricalRepEmail, HousewaresRep, HousewaresRepPhone, HousewaresRepEmail, HouseManager, HouseManagerPhone, HouseManagerEmail, CreditControlManager, CreditControlManagerPhone, CreditControlManagerEmail) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');" % (update.sub(row[2]), row[1], rep))
                     local_conn.commit()
 
@@ -65,19 +64,21 @@ class update():
                     local_cur.execute("insert into api_product (itemno, CatalogueTheme, RRP, SSP, manufacturerCode, colour, IPG, description, ItemSpec1, ItemSpec2, ItemSpec3, ItemSpec4, ItemSpec5, ItemSpec6, ItemSpec7, ItemSpec8, ItemSpec9, ItemSpec10, restockDate, FreeStock, TI, HI, Analysis2, Item_Height, Item_Length, Item_Width, ProductPaging_Height, ProductPaging_Length, ProductPaging_Width, CartonHeight, CartonLength, CartonWidth, cartonQty, palletQty, `Electrical_or_Housewares`, HighSell, Analysis1) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (row[0], row[1], row[2], row[3], row[4], row[5], str(row[6]).replace('/', ' '), row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35], row[36]))
                     local_conn.commit()
                 except Exception as e:
-                    print("cant insert '%s' due to '%s'" % (row[0], e))
+                    # print("cant insert '%s' due to '%s'" % (row[0], e))
+                    pass
             else:
                 try:
                     local_cur.execute("UPDATE api_product SET `CatalogueTheme` = '%s', `RRP` = '%s', `SSP` = '%s', `manufacturerCode` = '%s', `colour` = '%s', `IPG` = '%s', `description` = '%s', `ItemSpec1` = '%s', `ItemSpec2` = '%s', `ItemSpec3` = '%s', `ItemSpec4` = '%s', `ItemSpec5` = '%s', `ItemSpec6` = '%s', `ItemSpec7` = '%s', `ItemSpec8` = '%s', `ItemSpec9` = '%s', `ItemSpec10` = '%s', `restockDate` = '%s', `FreeStock` = '%s', `TI` = '%s', `HI` = '%s', Analysis2 = '%s', `Item_Height` = '%s', `Item_Length` = '%s', `Item_Width` = '%s', `ProductPaging_Height` = '%s', `ProductPaging_Length` = '%s', `ProductPaging_Width` = '%s', `CartonHeight` = '%s', `CartonLength` = '%s', `CartonWidth` = '%s', `cartonQty` = '%s', palletQty = '%s', Electrical_or_Housewares = '%s', HighSell = '%s', Analysis1 = '%s' WHERE `itemno` = '%s'" % (row[1], row[2], row[3], row[4], row[5], str(row[6]).replace('/', ' '), row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35], row[36], row[0]))
                     local_conn.commit()
                 except Exception as e:
-                    print("cant update '%s' due to '%s'" % (row[0], e))
+                    # print("cant update '%s' due to '%s'" % (row[0], e))
+                    pass
 
     # update image field on products table
     def updateImages(local_conn, local_cur):
         local_cur.execute("select itemno from api_product where restockDate > '1900-01-01' or freestock > 0;")
         for row in local_cur.fetchall():
-            images = imageExists(row[0].lower())
+            images = update.imageExists(row[0].lower())
             local_cur.execute("update api_product set image = '%s' where itemno = '%s';" % (images, row[0] ))
             local_conn.commit()
 
@@ -156,22 +157,22 @@ class update():
         ref_cur = ref_conn.cursor()
 
         # function calls
-        print('running user')
-        update.user(local_conn, local_cur, ref_conn, ref_cur)
-        print('running customer')
-        update.customer(local_conn, local_cur, ref_conn, ref_cur)
-        print('running products')
-        update.products(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running user')
+        # update.user(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running customer')
+        # update.customer(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running products')
+        # update.products(local_conn, local_cur, ref_conn, ref_cur)
         # print('running updateImages')
-        # update.updateImages(local_conn, local_cur)
-        print('running updateStock')
-        update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
-        print('running CustomerPrices')
-        update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-        print('running Address')
-        update.Address(local_cur, local_conn, ref_cur, ref_conn)
-        print('running BackinStock')
-        update.BackinStock(local_cur, local_conn)
+        update.updateImages(local_conn, local_cur)
+        # print('running updateStock')
+        # update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running CustomerPrices')
+        # update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running Address')
+        # update.Address(local_cur, local_conn, ref_cur, ref_conn)
+        # print('running BackinStock')
+        # update.BackinStock(local_cur, local_conn)
     
 class Command(BaseCommand):
     help = 'Refesh data for mysql'
