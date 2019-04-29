@@ -9,10 +9,20 @@ class UserProfile(models.Model):
     proforma = models.BooleanField()
     billingaddressID = models.IntegerField()
     SalespersonCode = models.CharField(max_length=20)
+    SalespersonCodePhone = models.CharField(max_length=30)
+    SalespersonCodeEmail = models.CharField(max_length=80)
     ElectricalRep = models.CharField(max_length=20)
+    ElectricalRepPhone = models.CharField(max_length=20)
+    ElectricalRepEmail = models.CharField(max_length=80)
     HousewaresRep = models.CharField(max_length=20)
+    HousewaresRepPhone = models.CharField(max_length=30)
+    HousewaresRepEmail = models.CharField(max_length=80)
     HouseManager = models.CharField(max_length=20)
+    HouseManagerPhone = models.CharField(max_length=30)
+    HouseManagerEmail = models.CharField(max_length=80)
     CreditControlManager = models.CharField(max_length=20)
+    CreditControlManagerPhone = models.CharField(max_length=30)
+    CreditControlManagerEmail = models.CharField(max_length=80)
     def __str__(self):
         return self.username
 
