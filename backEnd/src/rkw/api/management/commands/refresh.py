@@ -31,16 +31,17 @@ class update():
         ref_cur.execute("SELECT `email`, `customerNo`, `username` FROM `Contact`")
         res = ref_cur.fetchall()
         for row in res:
-            if not User.objects.filter(username=sub(row[2])).exists():
-                user=User.objects.create_user(username=sub(row[2]), password=secrets.token_urlsafe(), email=row[0])
+            if not User.objects.filter(username=update.sub(row[2])).exists():
+                user=User.objects.create_user(username=update.sub(row[2]), password=secrets.token_urlsafe(), email=row[0])
                 user.save()
-                local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (sub(row[2])))
+                local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (update.sub(row[2])))
                 if not len(local_cur.fetchall()) > 0:
                     if row[1] == 'rep':
                         rep = 1
                     else:
                         rep = 0
-                    local_cur.execute("INSERT INTO `api_userprofile` (`username`, `customerno`, rep, companyName, proforma, billingaddressID, SalespersonCode, ElectricalRep, HousewaresRep, HouseManager, CreditControlManager) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0');" % (sub(row[2]), row[1], rep))
+                    print("INSERT INTO api_userprofile (username, customerno, rep, companyName, proforma, billingaddressID, SalespersonCode, SalespersonCodePhone, SalespersonCodeEmail, ElectricalRep, ElectricalRepPhone, ElectricalRepEmail, HousewaresRep, HousewaresRepPhone, HousewaresRepEmail, HouseManager, HouseManagerPhone, HouseManagerEmail, CreditControlManager, CreditControlManagerPhone, CreditControlManagerPhone) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');" % (update.sub(row[2]), row[1], rep))
+                    local_cur.execute("INSERT INTO api_userprofile (username, customerno, rep, companyName, proforma, billingaddressID, SalespersonCode, SalespersonCodePhone, SalespersonCodeEmail, ElectricalRep, ElectricalRepPhone, ElectricalRepEmail, HousewaresRep, HousewaresRepPhone, HousewaresRepEmail, HouseManager, HouseManagerPhone, HouseManagerEmail, CreditControlManager, CreditControlManagerPhone, CreditControlManagerEmail) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');" % (update.sub(row[2]), row[1], rep))
                     local_conn.commit()
 
     # update customer table
@@ -108,12 +109,12 @@ class update():
         ref_cur.execute("SELECT `customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, `Code` FROM `Address`")
         res = ref_cur.fetchall()
         for row in res:
-            local_cur.execute("SELECT * FROM api_address where customerno = '%s' and code = '%s';" % (sub(row[0]), sub(row[9])))
+            local_cur.execute("SELECT * FROM api_address where customerno = '%s' and code = '%s';" % (update.sub(row[0]), update.sub(row[9])))
             if len(local_cur.fetchall()) > 0:
-                local_cur.execute("UPDATE `api_address` SET `address1` = '%s', `address2` = '%s', `county` = '%s', `postcode` = '%s', `phoneNumber` = '%s', `country` = '%s', `city` = '%s', `Type` = '%s' WHERE customerNO = '%s' and Code = '%s';" % (sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[0]), sub(row[9])))
+                local_cur.execute("UPDATE `api_address` SET `address1` = '%s', `address2` = '%s', `county` = '%s', `postcode` = '%s', `phoneNumber` = '%s', `country` = '%s', `city` = '%s', `Type` = '%s' WHERE customerNO = '%s' and Code = '%s';" % (update.sub(row[1]), update.sub(row[2]), update.sub(row[3]), update.sub(row[4]), update.sub(row[5]), update.sub(row[6]), update.sub(row[7]), update.sub(row[8]), update.sub(row[0]), update.sub(row[9])))
                 local_conn.commit()
             else:
-                local_cur.execute("INSERT INTO `api_address` (`customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, Code) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (sub(row[0]), sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[9])))
+                local_cur.execute("INSERT INTO `api_address` (`customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, Code) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (update.sub(row[0]), update.sub(row[1]), update.sub(row[2]), update.sub(row[3]), update.sub(row[4]), update.sub(row[5]), update.sub(row[6]), update.sub(row[7]), update.sub(row[8]), update.sub(row[9])))
                 local_conn.commit()
 
     # send notificatin if item is now in stock - needs finsihing off with proper email wording etc HEREMIKE
@@ -154,31 +155,23 @@ class update():
         ref_conn = create_refrence_mysql_connection()
         ref_cur = ref_conn.cursor()
 
-        # update function calls
-        # print('running user')
-        # user(local_conn, local_cur, ref_conn, ref_cur)
-
+        # function calls
+        print('running user')
+        update.user(local_conn, local_cur, ref_conn, ref_cur)
         print('running customer')
         update.customer(local_conn, local_cur, ref_conn, ref_cur)
-        
-
-        # print('running products')
-        # products(local_conn, local_cur, ref_conn, ref_cur)
-
-        # # print('running updateImages')
-        # # updateImages(local_conn, local_cur)
-
-        # print('running updateStock')
-        # updateStock(local_conn, local_cur, ref_conn, ref_cur)
-
-        # print('running CustomerPrices')
-        # CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-
-        # print('running Address')
-        # Address(local_cur, local_conn, ref_cur, ref_conn)
-
-        # print('running BackinStock')
-        # BackinStock(local_cur, local_conn)
+        print('running products')
+        update.products(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running updateImages')
+        # update.updateImages(local_conn, local_cur)
+        print('running updateStock')
+        update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
+        print('running CustomerPrices')
+        update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+        print('running Address')
+        update.Address(local_cur, local_conn, ref_cur, ref_conn)
+        print('running BackinStock')
+        update.BackinStock(local_cur, local_conn)
     
 class Command(BaseCommand):
     help = 'Refesh data for mysql'
