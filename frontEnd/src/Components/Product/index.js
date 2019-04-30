@@ -16,7 +16,7 @@ class Index extends Component {
         axios({
             method: 'get',
             url: `http://100.1.253.16:8000/OProdDetailed/?itemno=${this.props.id}`,
-            headers: { 'Authorization': 'Bearer Bymg0PGzTYP8x4r9trJiC0V5fyAT5V' },
+            headers: { 'Authorization': "Bearer cxRgNcThHBzefnmcD4mvsqOsKV5Yaf" },
         })
             .then(res => {
                 console.log(res.data[0])

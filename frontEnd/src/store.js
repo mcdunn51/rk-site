@@ -4,6 +4,7 @@ import { brandsReducer, electricalsReducer, housewaresReducer } from './Componen
 import productsReducer from './Components/Products/reducer';
 import productDetailedReducer from './Components/Product/reducer';
 import loginReducer from './Components/Login/reducer';
+import accountsReducer from './Components/Account/reducer'
 
 const rooReducer = combineReducers({
     brands: brandsReducer,
@@ -12,6 +13,7 @@ const rooReducer = combineReducers({
     products: productsReducer,
     product: productDetailedReducer,
     form: formReducer,
+    account: accountsReducer,
     accessToken: loginReducer
 })
 
