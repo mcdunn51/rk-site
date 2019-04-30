@@ -9,18 +9,16 @@ class update():
         string = str(string).replace("'", "").replace(",", "")
         return  string
 
-    # index images 
-    def imageExists(item):
+    # index images
+    def imageExists(item, req):
         try:
-            print(item)
             links = {}
             for i in range(0, 9):
                 if i == 0:
-                    link = 'http://images.cdn.rkwltd.com/%s.jpg' % (item)
+                    link = '%s.jpg' % (item)
                 else:
-                    link = 'http://images.cdn.rkwltd.com/%s_0%s.jpg' % (item, i)
-                req = requests.get(link)
-                if req.status_code == 200:
+                    link = '%s_0%s.jpg' % (item, i)
+                if link in req:
                     links['"image%s"' % (i)] = '"%s"' % (link)
         except:
             pass
@@ -76,9 +74,12 @@ class update():
 
     # update image field on products table
     def updateImages(local_conn, local_cur):
+        link = 'http://images.cdn.rkwltd.com/'
+        req = requests.get(link)
+        req = req.text
         local_cur.execute("select itemno from api_product where restockDate > '1900-01-01' or freestock > 0;")
         for row in local_cur.fetchall():
-            images = update.imageExists(row[0].lower())
+            images = update.imageExists(row[0].lower(), req)
             local_cur.execute("update api_product set image = '%s' where itemno = '%s';" % (images, row[0] ))
             local_conn.commit()
 
@@ -157,22 +158,22 @@ class update():
         ref_cur = ref_conn.cursor()
 
         # function calls
-        # print('running user')
-        # update.user(local_conn, local_cur, ref_conn, ref_cur)
-        # print('running customer')
-        # update.customer(local_conn, local_cur, ref_conn, ref_cur)
-        # print('running products')
-        # update.products(local_conn, local_cur, ref_conn, ref_cur)
-        # print('running updateImages')
+        print('running user')
+        update.user(local_conn, local_cur, ref_conn, ref_cur)
+        print('running customer')
+        update.customer(local_conn, local_cur, ref_conn, ref_cur)
+        print('running CustomerPrices')
+        update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+        print('running Address')
+        update.Address(local_cur, local_conn, ref_cur, ref_conn)
+        print('running products')
         update.updateImages(local_conn, local_cur)
-        # print('running updateStock')
-        # update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
-        # print('running CustomerPrices')
-        # update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-        # print('running Address')
-        # update.Address(local_cur, local_conn, ref_cur, ref_conn)
-        # print('running BackinStock')
-        # update.BackinStock(local_cur, local_conn)
+        print('running updateStock')
+        update.products(local_conn, local_cur, ref_conn, ref_cur)
+        print('running updateImages')
+        update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
+        print('running BackinStock')
+        update.BackinStock(local_cur, local_conn)
     
 class Command(BaseCommand):
     help = 'Refesh data for mysql'

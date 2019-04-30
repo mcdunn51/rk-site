@@ -4,7 +4,7 @@ from .models import *
 class OUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ("id", "username", "customerno", "companyName", "rep", "SalespersonCode", "ElectricalRep", "HousewaresRep", "proforma", "HouseManager", "CreditControlManager")
+        fields = ("id", "username", "customerno", "companyName", "rep", "proforma", "SalespersonCode", "SalespersonCodePhone", "SalespersonCodeEmail", "ElectricalRep", "ElectricalRepPhone", "ElectricalRepEmail", "HousewaresRep", "HousewaresRepPhone", "HousewaresRepEmail", "HouseManager", "HouseManagerPhone", "HouseManagerEmail" "CreditControlManager", "CreditControlManagerPhone", "CreditControlManagerEmail")
 
 class OauthProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:
