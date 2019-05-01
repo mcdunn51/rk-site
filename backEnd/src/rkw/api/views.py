@@ -7,6 +7,13 @@ from .serializers import *
 
 # Oauth views
 
+class OSearch(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
+    serializer_class = OauthProdListSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)
+
 class OCustomer(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = UserProfile.objects.all()
@@ -85,13 +92,6 @@ class OauthBackInStockDelete(generics.DestroyAPIView):
     queryset = BackInStock.objects.all()
     serializer_class = OauthBackInStockSerializer
 
-class OSearch(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
-    serializer_class = OauthProdListSerializer
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)
-
 class OBasket(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = Basket.objects.all()
@@ -105,6 +105,13 @@ class OBasketUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OBasketSerializer
 
 # non Oauth views
+
+class Search(generics.ListAPIView):
+    permission_classes = []
+    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
+    serializer_class = ProdListSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)
 
 class Productlist(generics.ListAPIView):
     permission_classes = []
@@ -141,10 +148,3 @@ class IPG(generics.ListAPIView):
     serializer_class = IPGSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('Electrical_or_Housewares',)
-
-class Search(generics.ListAPIView):
-    permission_classes = []
-    queryset = Product.objects.filter(Q(FreeStock__gt = 0) | Q(restockDate__gt = '1900-01-01'))
-    serializer_class = ProdListSerializer
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('itemno', 'description', 'colour', 'manufacturerCode', 'IPG', 'Analysis1',)

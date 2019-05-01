@@ -1,5 +1,3 @@
-Front End:
-
 Back END:
     DevServer:
         Server IP: 100.1.253.16
@@ -14,9 +12,11 @@ Back END:
         DBName: svglrkwl_svgl1
         DBUser: svglrkwl_svglrkR
         Password: H61dk0Fa
-        URL: https://5.5.5.10:2087/pma/   it will probably give you an SSL warning, just ignore it. if this doesnt work try below
+        URL: https://5.5.5.10:2087/pma/
         https://46.20.231.215:2087/pma
-    EndPoints:
+    EndPoints/Views:
+        Admin:
+            This endpoint gives you access to the Django Site administration which when logged in enables to you to view and edit within the API, AUTHENTICATION AND AUTHORIZATION and DJANGO OAUTH TOOLKIT tables, please note that normal customers will not have access to this, you need “Staff Status” on the user enabled at a minimum just to be able to login, which you would then apply select permissions against the user for them to able to do anything such as “admin| log entry| Can add log entry” or if you have “Super user Status” enabled you have all permissions.
         Token:
             Link: http://100.1.253.16:8000/o/token/
             Example: http://100.1.253.16:8000/o/token/?grant_type=password&username=<inser username>&password=<insert password>&client_id=3USdTjmnjbcdTeNrdwjeaOlEcVg1n7oFmXHPz2q9&client_secret=QuZg0JK62clUelPFMJs1884zx1g1ZeFPcgPN74W58Z3ZKUrWrUFAaMwoxJ8sdLei5CvTUIvCErNcmIQk4hoRA5w5A3GC1u9Sbe4ctqWrV67SX12mZ8Rxp2hFwVhFXF5M
@@ -490,3 +490,149 @@ Back END:
                         "IPG": "VACUUM CLEANER BAGS AND ACCESSORIES"
                     }
                 ]
+    serializers:
+        OUserProfileSerializer:
+            model = UserProfile
+            fields = ("id", "username", "customerno", "companyName", "rep", "proforma", "SalespersonCode", "SalespersonCodePhone", "SalespersonCodeEmail", "ElectricalRep", "ElectricalRepPhone", "ElectricalRepEmail", "HousewaresRep", "HousewaresRepPhone", "HousewaresRepEmail", "HouseManager", "HouseManagerPhone", "HouseManagerEmail", "CreditControlManager", "CreditControlManagerPhone", "CreditControlManagerEmail")
+        OauthProdDetailedSerializer:
+            model = Product
+            fields = ("id", "itemno", "description", "colour", "manufacturerCode", "RRP", "SSP", "FreeStock", "ItemSpec1", "ItemSpec2", "ItemSpec3", "ItemSpec4", "ItemSpec5", "ItemSpec6", "ItemSpec7", "ItemSpec8", "ItemSpec9", "ItemSpec10", "TI", "HI", "Item_Height", "Item_Length", "Item_Width", "ProductPaging_Height", "ProductPaging_Length", "ProductPaging_Width", "CartonHeight", "CartonLength", "CartonWidth", "palletQty", "cartonQty", "restockDate", "IPG", "CatalogueTheme", "Image")
+        OauthProdListSerializer:
+            model = Product
+            fields = ("id", "itemno", "description", "colour", "RRP", "SSP", "manufacturerCode", "FreeStock", "restockDate", "Image")
+        OauthAdressSerializer:
+            model = Address
+            fields = ('id', "customerNO", "address1", "address2", "county", "postcode", "phoneNumber", "country", "city")
+        OauthOrderHeaderSerializer:
+            model = OrderHeader
+            fields = ('id', 'customerCode', 'addressID', 'orderDateTime', 'orderStatus')
+        OauthOrderLinesSerializer:
+            model = OrderLines
+            fields = ('id', 'itemno', 'quantity', 'price', 'orderDateTime', 'orderHeaderID')
+        OauthBackInStockSerializer:
+            model = BackInStock
+            fields = ('id', 'username', 'customerNO', 'itemno')
+        OBasketSerializer:
+            model = Basket
+            fields = ('id', 'customerCode', 'itemno', 'quantity', 'price')
+        ProdListSerializer:
+            model = Product
+            fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock", "restockDate", "Image")
+        ProdDetailedSerializer:
+            model = Product
+            fields = ("id", "itemno", "description", "colour", "manufacturerCode", "FreeStock", "ItemSpec1", "ItemSpec2", "ItemSpec3", "ItemSpec4", "ItemSpec5", "ItemSpec6", "ItemSpec7", "ItemSpec8", "ItemSpec9", "ItemSpec10", "TI", "HI", "Item_Height", "Item_Length", "Item_Width", "ProductPaging_Height", "ProductPaging_Length", "ProductPaging_Width", "CartonHeight", "CartonLength", "CartonWidth", "palletQty", "cartonQty", "restockDate", "IPG", "CatalogueTheme", "Image")
+        ManufacturerSerializer:
+            model = Product
+            fields = ("id", "manufacturerCode")
+        IPGSerializer:
+            model = Product
+            fields = ("id", "IPG")
+    Models:
+        UserProfile:
+            username = models.CharField(max_length=50)
+            customerno = models.CharField(max_length=20)
+            rep = models.BooleanField()
+            companyName = models.CharField(max_length=50)
+            proforma = models.BooleanField()
+            billingaddressID = models.IntegerField()
+            SalespersonCode = models.CharField(max_length=20)
+            SalespersonCodePhone = models.CharField(max_length=30, default='0')
+            SalespersonCodeEmail = models.CharField(max_length=80, default='0')
+            ElectricalRep = models.CharField(max_length=20)
+            ElectricalRepPhone = models.CharField(max_length=20, default='0')
+            ElectricalRepEmail = models.CharField(max_length=80, default='0')
+            HousewaresRep = models.CharField(max_length=20)
+            HousewaresRepPhone = models.CharField(max_length=30, default='0')
+            HousewaresRepEmail = models.CharField(max_length=80, default='0')
+            HouseManager = models.CharField(max_length=20)
+            HouseManagerPhone = models.CharField(max_length=30, default='0')
+            HouseManagerEmail = models.CharField(max_length=80, default='0')
+            CreditControlManager = models.CharField(max_length=20)
+            CreditControlManagerPhone = models.CharField(max_length=30, default='0')
+            CreditControlManagerEmail = models.CharField(max_length=80, default='0')
+        Product:
+            itemno = models.CharField(max_length=100)
+            description = models.TextField()
+            colour = models.CharField(max_length=100)
+            manufacturerCode = models.CharField(max_length = 100)
+            RRP = models.DecimalField(max_digits=6, decimal_places=2)
+            SSP = models.DecimalField(max_digits=6, decimal_places=2)
+            FreeStock = models.IntegerField()
+            ItemSpec1 = models.CharField(max_length=100)
+            ItemSpec2 = models.CharField(max_length=100)
+            ItemSpec3 = models.CharField(max_length=100)
+            ItemSpec4 = models.CharField(max_length=100)
+            ItemSpec5 = models.CharField(max_length=100)
+            ItemSpec6 = models.CharField(max_length=100)
+            ItemSpec7 = models.CharField(max_length=100)
+            ItemSpec8 = models.CharField(max_length=100)
+            ItemSpec9 = models.CharField(max_length=100)
+            ItemSpec10 = models.CharField(max_length=100)
+            TI = models.IntegerField()
+            HI = models.IntegerField()
+            Item_Height = models.DecimalField(max_digits=6, decimal_places=2)
+            Item_Length = models.DecimalField(max_digits=6, decimal_places=2)
+            Item_Width = models.DecimalField(max_digits=6, decimal_places=2)
+            ProductPaging_Height = models.DecimalField(max_digits=6, decimal_places=2)
+            ProductPaging_Length = models.DecimalField(max_digits=6, decimal_places=2)
+            ProductPaging_Width = models.DecimalField(max_digits=6, decimal_places=2)
+            CartonHeight = models.DecimalField(max_digits=6, decimal_places=2)
+            CartonLength = models.DecimalField(max_digits=6, decimal_places=2)
+            CartonWidth = models.DecimalField(max_digits=6, decimal_places=2)
+            palletQty = models.IntegerField()
+            cartonQty = models.IntegerField()
+            restockDate = models.DateField()
+            IPG = models.CharField(max_length=100)
+            CatalogueTheme = models.CharField(max_length=100)
+            Analysis2 = models.CharField(max_length=100)
+            Electrical_or_Housewares = models.CharField(max_length=100)
+            HighSell = models.DecimalField(max_digits=6, decimal_places=2)
+            Analysis1 = models.CharField(max_length=100)
+            # Image = JSONField(null=True)
+            Image = models.TextField(null=True)
+        Address:
+            customerNO = models.CharField(max_length=20)
+            address1 = models.CharField(max_length=50)
+            address2 = models.CharField(max_length=50)
+            county = models.CharField(max_length=30)
+            postcode = models.CharField(max_length=20) 
+            phoneNumber = models.CharField(max_length=30)
+            country = models.CharField(max_length=20)
+            city = models.CharField(max_length=30)
+            Type = models.CharField(max_length=20)
+            Code = models.CharField(max_length=20)
+        CustomerPrices:
+            customerNo = models.CharField(max_length=20)
+            itemno = models.CharField(max_length=20)
+            price = models.DecimalField(max_digits=6, decimal_places=2)
+            startDate = models.DateField()
+            endDate = models.DateField()
+        OrderHeader:
+            customerCode = models.CharField(max_length=20)
+            addressID = models.IntegerField()
+            orderDateTime = models.DateTimeField(auto_now_add=True)
+            orderStatus = models.CharField(max_length=20)
+        OrderLines:
+            itemno = models.CharField(max_length=100)
+            quantity = models.IntegerField()
+            price = models.DecimalField(max_digits=6, decimal_places=2)
+            orderDateTime = models.DateTimeField(auto_now_add=True)
+            orderHeaderID = models.IntegerField()
+        Matched:
+            itemno = models.CharField(max_length=100)
+            Matchingitemno = models.IntegerField()
+            ParentPartNo = models.CharField(max_length=20)
+            MatchingPartNo = models.CharField(max_length=20)
+        BackInStock:
+            customerNO = models.CharField(max_length=20)
+            itemno = models.CharField(max_length=100)
+            notified = models.BooleanField(default=False)
+            dateNotified = models.DateTimeField(default='1900-01-01')
+            username = models.CharField(max_length=50)
+            dateCreated = models.DateTimeField(auto_now_add=True)
+        Basket:
+            customerCode = models.CharField(max_length=20)
+            itemno = models.CharField(max_length=100)
+            quantity = models.IntegerField()
+            price = models.DecimalField(max_digits=6, decimal_places=2)
+            dateCreated = models.DateTimeField(auto_now_add=True)
