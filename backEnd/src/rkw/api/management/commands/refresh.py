@@ -29,10 +29,14 @@ class update():
         ref_cur.execute("SELECT `email`, `customerNo`, `username` FROM `Contact`")
         res = ref_cur.fetchall()
         for row in res:
-            if not User.objects.filter(username=update.sub(row[2])).exists():
-                user=User.objects.create_user(username=update.sub(row[2]), password=secrets.token_urlsafe(), email=row[0])
+            username = update.sub(row[2])
+            password = secrets.token_urlsafe()
+            email = row[0]
+            if not User.objects.filter(username=username).exists():
+                user=User.objects.create_user(username=username, password=password, email=email)
                 user.save()
-                local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (update.sub(row[2])))
+                # send_mail('Welcome to the RKW website', 'Dear %s, \n \n  Thank you for signing up, feel free to sign in using the below details, where you will be asked to reset your password for security purposes. \n \n  username: %s \n  Password: %s' % (row[2], username, password), 'noreply@rkwltd.com', ['%s' % (row[0])], fail_silently=False,)
+                local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (username))
                 if not len(local_cur.fetchall()) > 0:
                     if row[1] == 'rep':
                         rep = 1
@@ -125,12 +129,13 @@ class update():
         for row in local_cur.fetchall():
             local_cur.execute("SELECT FreeStock FROM api_product where itemno = '%s' and freestock > 0;" % (row[1]))
             if len(local_cur.fetchall()) > 0:
-                send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
                 local_cur.execute("UPDATE `api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
                 local_conn.commit()
+                # send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
     
     # main program, runs functions above
     def main():
+
         # setting test mode
         if socket.gethostname() == 's1.intranet.svg.local':
             test_mode = False
@@ -160,20 +165,20 @@ class update():
         # function calls
         print('running user')
         update.user(local_conn, local_cur, ref_conn, ref_cur)
-        print('running customer')
-        update.customer(local_conn, local_cur, ref_conn, ref_cur)
-        print('running CustomerPrices')
-        update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-        print('running Address')
-        update.Address(local_cur, local_conn, ref_cur, ref_conn)
-        print('running products')
-        update.updateImages(local_conn, local_cur)
-        print('running updateStock')
-        update.products(local_conn, local_cur, ref_conn, ref_cur)
-        print('running updateImages')
-        update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
-        print('running BackinStock')
-        update.BackinStock(local_cur, local_conn)
+        # print('running customer')
+        # update.customer(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running CustomerPrices')
+        # update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running Address')
+        # update.Address(local_cur, local_conn, ref_cur, ref_conn)
+        # print('running products')
+        # update.updateImages(local_conn, local_cur)
+        # print('running updateStock')
+        # update.products(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running updateImages')
+        # update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running BackinStock')
+        # update.BackinStock(local_cur, local_conn)
     
 class Command(BaseCommand):
     help = 'Refesh data for mysql'

@@ -27,5 +27,5 @@ urlpatterns = [
     path('Productlist/', Productlist.as_view()),
     path('ProductDetailed/', ProdDetailed.as_view()),
     path('Manufacturer/', Manufacturerlist.as_view()),
-    path('IPG/', IPG.as_view())    
+    path('IPG/', IPG.as_view())
 ]
