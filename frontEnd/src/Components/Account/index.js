@@ -1,79 +1,69 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faEnvelope, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
-import { connect } from "react-redux";
+import React, { Component } from 'react'
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
+import FirstRow from './firstRow'
 import Main from './Main'
+import Orders from './Orders'
+import Addresses from './Addresses'
+
 
 class Index extends Component {
-
-
-    getAccountInfo() {
-        const { loadAccountDetails } = this.props;
-
-        axios({
-            method: "get",
-            url: `http://100.1.253.16:8000/OCustomer/?username=test`,
-            headers: { Authorization: "Bearer cxRgNcThHBzefnmcD4mvsqOsKV5Yaf" }
-        }).then(res => {
-            console.log(res.data);
-            loadAccountDetails(res.data[0]);
-        });
+    constructor(props) {
+        super(props);
+        this.state = { id: this.props.match.params.id }
     }
 
-    componentDidMount() {
-        this.getAccountInfo();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.id !== prevProps.id) {
-            this.getAccountInfo();
+    componentDidUpdate(prevProps, prevState) {
+        const id = this.props.match.params.id
+        const prevId = prevState.id
+        if (id !== prevId) {
+            this.setState({ id: id })
         }
     }
 
-
-
     render() {
 
-        const { account } = this.props;
-        console.log(account.customerno)
+        const id = this.state.id
+
+        let mainContent
+
+        if (id === "About Us") {
+            // heading = <h2>About Us</h2>
+            // text = <AboutUs/>
+            mainContent = </>
+
+        } else if (id === "Delivery Information") {
+            heading = <h2>Delivery Information</h2>
+            text = <DeliveryInformation/>
+
+        } else if (id === "Privacy & Cookies Policies") {
+            heading = <h2>Privacy & Cookies Policies</h2>
+            text = <PrivacyAndCookiePolicy/>
+        } 
+
+
+
         return (
             <Container id="accountIndexWrapper">
-                <Row className="mb-5">
-                    <Col id="firstCol">
-                        <h2>Hello David Blyth,</h2>
-                        <div id="customerNumberWrapper">Customer Number: {account.customerno}</div>
-                    </Col>
-                </Row>
+                <FirstRow />
                 <Row className="mb-5">
                     <Col>
-                        <Button variant="primary">Orders</Button>
-                        <Button variant="primary">Addresses</Button>
-                        <Button variant="primary">Logout</Button>
+                        <Link to="/UsefulInformation/About Us">
+                            <Button variant="primary">Orders</Button>
+                        </Link>
+                        <Link to="/UsefulInformation/About Us">
+                            <Button variant="primary">Addresses</Button>
+                        </Link>
+                        <Link to="/UsefulInformation/About Us">
+                            <Button variant="primary">Logout</Button>
+                        </Link>
                     </Col>
                 </Row>
             </Container>
         )
     }
+
 }
 
-function mapStateToProps(state) {
-    return {
-        account: state.account
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        loadAccountDetails: accoutDetails => {
-            dispatch({ type: "LOAD_ACCOUNT_DETAILS", payload: accoutDetails });
-        }
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Index);
+export default Index;

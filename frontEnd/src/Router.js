@@ -24,10 +24,11 @@ const Router = () => {
             <Route exact path="/cart" component={Cart} />
             <Route path="/UsefulInformation/:id" component={UsefulInformation} />
             <Route exact path="/login" component={Login} />
+            
             <Route exact path="/pwdreset" component={ResetPwd} />
             <Route path="/product/:id" component={Product} />
             {/* should only be able to see this why logged in */}
-            <Route exact path="/account" component={Account} />
+            <Route path="/account/:id" component={Account} />
             {/* <Route component={Error} /> */}
         </div>
     )
