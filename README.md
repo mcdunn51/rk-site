@@ -39,7 +39,7 @@ Back END:
             Params: search
             Headers:
                 Content-Type:application/json
-                Authorization:Bearer <insert token>     
+                Authorization:Bearer <insert token>  
             Type:
                 GET
             Returns:
@@ -374,6 +374,29 @@ Back END:
                     "quantity": 1500,
                     "price": "23.99"
                 }
+        OAccountStatementRequest:
+            Link: http://100.1.253.16:8000/OAccountStatementRequest/
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>
+            Type:
+                POST
+            Payload:
+                {
+                    "username": "Miketest"
+                }
+        OInvoiceRequest:
+            Link: http://100.1.253.16:8000/OInvoiceRequest/
+            Headers:
+                Content-Type:application/json
+                Authorization:Bearer <insert token>
+            Type:
+                POST
+            Payload:
+                {
+                    "username": "Miketest",
+                    "invoiceNo": "SI420132"
+                }
         Search:
             Link: http://100.1.253.16:8000/Search/
             Example: http://100.1.253.16:8000/Search/?search=<insert search>
@@ -636,3 +659,9 @@ Back END:
             quantity = models.IntegerField()
             price = models.DecimalField(max_digits=6, decimal_places=2)
             dateCreated = models.DateTimeField(auto_now_add=True)
+
+Domain: manuals.cdn.rkwltd.com
+Username: manuals
+Password: 6hSUoEtD
+
+http://assets.cdn.rkwltd.com/'

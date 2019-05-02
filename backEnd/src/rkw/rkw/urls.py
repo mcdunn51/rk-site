@@ -21,6 +21,8 @@ urlpatterns = [
     path('OBackInStock/Delete/<pk>', OauthBackInStockDelete.as_view()),
     path('OBasket/', OBasket.as_view()),
     path('OBasket/UpdateDelete/<pk>', OBasketUpdateDelete.as_view()),
+    path('OAccountStatementRequest', OAccountStatementRequest.as_view()),
+    path('OInvoiceRequest', OInvoiceRequest.as_view()),
     
     # non Oauth paths
     path('Search/', Search.as_view()),

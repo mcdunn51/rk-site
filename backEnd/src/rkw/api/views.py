@@ -104,6 +104,16 @@ class OBasketUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Basket.objects.all()
     serializer_class = OBasketSerializer
 
+class OAccountStatementRequest(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = AccountStatementRequest.objects.all()
+    serializer_class = OAccountStatementRequestSerializer
+
+class OInvoiceRequest(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = InvoiceRequest.objects.all()
+    serializer_class = OInvoiceRequestRequestSerializer
+
 # non Oauth views
 
 class Search(generics.ListAPIView):

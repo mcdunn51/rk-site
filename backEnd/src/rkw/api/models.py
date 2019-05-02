@@ -1,6 +1,5 @@
 from django.db import models
 from django_mysql.models import JSONField
-# from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     username = models.CharField(max_length=50)
@@ -123,6 +122,19 @@ class BackInStock(models.Model):
     notified = models.BooleanField(default=False)
     dateNotified = models.DateTimeField(default='1900-01-01')
     username = models.CharField(max_length=50)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+
+class AccountStatementRequest(models.Model):
+    username = models.CharField(max_length=50)
+    notified = models.BooleanField(default=False)
+    dateNotified = models.DateTimeField(default='1900-01-01')
+    dateCreated = models.DateTimeField(auto_now_add=True)
+
+class InvoiceRequest(models.Model):
+    username = models.CharField(max_length=50)
+    invoiceNo = models.CharField(max_length = 20)
+    notified = models.BooleanField(default=False)
+    dateNotified = models.DateTimeField(default='1900-01-01')
     dateCreated = models.DateTimeField(auto_now_add=True)
 
 class Basket(models.Model):

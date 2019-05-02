@@ -131,8 +131,29 @@ class update():
             if len(local_cur.fetchall()) > 0:
                 local_cur.execute("UPDATE `api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
                 local_conn.commit()
+                # set the other line live when it comes to going live, dont want any emails going out to customers while we're deveopling.
                 # send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
-    
+                send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['michael.mountford@rkwltd.com'], fail_silently=False,)
+
+    # send notificatin for when users request an account statement
+    def AccountStatementRequest(local_cur, local_conn):
+        local_cur.execute("SELECT asr.username, (SELECT email FROM auth_user where username = asr.username) as usernameEmail, (SELECT up.CreditControlManager FROM api_userprofile up where username = asr.username) as CreditControlManager, (SELECT up.CreditControlManagerEmail FROM api_userprofile up where username = asr.username) as CreditControlManagerEmail, (SELECT up.customerno FROM api_userprofile up where username = asr.username) as customernon, id from api_accountstatementrequest as asr where notified = 0;")
+        for row in local_cur.fetchall():
+                # set the other line live when it comes to going live, dont want any emails going out to customers while we're deveopling.
+                send_mail("Account Statement Request for %s - %s" % (row[4] ,row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an account statement." % (row[2], row[4], row[0], row[1]), 'noreply@rkwltd.com', ['%s' % (row[1])], fail_silently=False, )
+                send_mail("Account Statement Request for %s - %s" % (row[4] ,row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an account statement." % (row[2], row[4], row[0], row[1]), 'noreply@rkwltd.com', ['michael.mountford@rkwltd.com'], fail_silently=False, )
+                local_cur.execute("UPDATE `api_accountstatementrequest` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = %s" % (row[5]))
+                local_conn.commit()
+
+    # send notification for when users request an account statement
+    def InvoiceRequest(local_cur, local_conn):
+        local_cur.execute("SELECT ir.username, ir.invoiceNo, (SELECT email FROM auth_user where username = ir.username) as usernameEmail, (SELECT up.CreditControlManager FROM api_userprofile up where username = ir.username) as CreditControlManager, (SELECT up.CreditControlManagerEmail FROM api_userprofile up where username = ir.username) as CreditControlManagerEmail, (SELECT up.customerno FROM api_userprofile up where username = ir.username) as customernon, id FROM api_invoicerequest as ir where notified = 0")
+        for row in local_cur.fetchall():
+            send_mail("Invoice Request for %s - %s" % (row[5], row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an invoice for %s." % (row[3], row[5], row[0], row[2], row[1]), 'noreply@rkwltd.com', ['%s' % (row[2])], fail_silently=False,)
+            send_mail("Invoice Request for %s - %s" % (row[5], row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an invoice for %s." % (row[3], row[5], row[0], row[2], row[1]), 'noreply@rkwltd.com', ['michael.mountford@rkwltd.com'], fail_silently=False,)
+            local_cur.execute("UPDATE `django-test`.`api_invoicerequest` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s'" % (row[6]))
+            local_conn.commit()
+
     # main program, runs functions above
     def main():
 
@@ -163,8 +184,8 @@ class update():
         ref_cur = ref_conn.cursor()
 
         # function calls
-        print('running user')
-        update.user(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running user')
+        # update.user(local_conn, local_cur, ref_conn, ref_cur)
         # print('running customer')
         # update.customer(local_conn, local_cur, ref_conn, ref_cur)
         # print('running CustomerPrices')
@@ -179,6 +200,10 @@ class update():
         # update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
         # print('running BackinStock')
         # update.BackinStock(local_cur, local_conn)
+        # print('running AccountStatementRequest')
+        # update.AccountStatementRequest(local_cur, local_conn)
+        print('running AccountStatementRequest')
+        update.InvoiceRequest(local_cur, local_conn)
     
 class Command(BaseCommand):
     help = 'Refesh data for mysql'

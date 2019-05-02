@@ -41,6 +41,16 @@ class OBasketSerializer(serializers.ModelSerializer):
         model = Basket
         fields = ('id', 'customerCode', 'itemno', 'quantity', 'price')
 
+class OAccountStatementRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccountStatementRequest
+        fields = ('id' ,"username")
+
+class OInvoiceRequestRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvoiceRequest
+        fields = ('id', 'username', 'invoiceNo')
+
 # non Oauth serializers
 class ProdListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,4 +71,3 @@ class IPGSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ("id", "IPG")
-
