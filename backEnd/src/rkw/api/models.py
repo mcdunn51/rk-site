@@ -1,5 +1,5 @@
 from django.db import models
-# from django.contrib.auth.models import User
+from django_mysql.models import JSONField
 
 class UserProfile(models.Model):
     username = models.CharField(max_length=50)
@@ -9,20 +9,20 @@ class UserProfile(models.Model):
     proforma = models.BooleanField()
     billingaddressID = models.IntegerField()
     SalespersonCode = models.CharField(max_length=20)
-    SalespersonCodePhone = models.CharField(max_length=30)
-    SalespersonCodeEmail = models.CharField(max_length=80)
+    SalespersonCodePhone = models.CharField(max_length=30, default='0')
+    SalespersonCodeEmail = models.CharField(max_length=80, default='0')
     ElectricalRep = models.CharField(max_length=20)
-    ElectricalRepPhone = models.CharField(max_length=20)
-    ElectricalRepEmail = models.CharField(max_length=80)
+    ElectricalRepPhone = models.CharField(max_length=20, default='0')
+    ElectricalRepEmail = models.CharField(max_length=80, default='0')
     HousewaresRep = models.CharField(max_length=20)
-    HousewaresRepPhone = models.CharField(max_length=30)
-    HousewaresRepEmail = models.CharField(max_length=80)
+    HousewaresRepPhone = models.CharField(max_length=30, default='0')
+    HousewaresRepEmail = models.CharField(max_length=80, default='0')
     HouseManager = models.CharField(max_length=20)
-    HouseManagerPhone = models.CharField(max_length=30)
-    HouseManagerEmail = models.CharField(max_length=80)
+    HouseManagerPhone = models.CharField(max_length=30, default='0')
+    HouseManagerEmail = models.CharField(max_length=80, default='0')
     CreditControlManager = models.CharField(max_length=20)
-    CreditControlManagerPhone = models.CharField(max_length=30)
-    CreditControlManagerEmail = models.CharField(max_length=80)
+    CreditControlManagerPhone = models.CharField(max_length=30, default='0')
+    CreditControlManagerEmail = models.CharField(max_length=80, default='0')
     def __str__(self):
         return self.username
 
@@ -64,7 +64,8 @@ class Product(models.Model):
     Electrical_or_Housewares = models.CharField(max_length=100)
     HighSell = models.DecimalField(max_digits=6, decimal_places=2)
     Analysis1 = models.CharField(max_length=100)
-    Image = models.TextField()
+    # Image = JSONField(null=True)
+    Image = models.TextField(null=True)
     def __str__(self):
         return self.itemno
 
@@ -121,6 +122,19 @@ class BackInStock(models.Model):
     notified = models.BooleanField(default=False)
     dateNotified = models.DateTimeField(default='1900-01-01')
     username = models.CharField(max_length=50)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+
+class AccountStatementRequest(models.Model):
+    username = models.CharField(max_length=50)
+    notified = models.BooleanField(default=False)
+    dateNotified = models.DateTimeField(default='1900-01-01')
+    dateCreated = models.DateTimeField(auto_now_add=True)
+
+class InvoiceRequest(models.Model):
+    username = models.CharField(max_length=50)
+    invoiceNo = models.CharField(max_length = 20)
+    notified = models.BooleanField(default=False)
+    dateNotified = models.DateTimeField(default='1900-01-01')
     dateCreated = models.DateTimeField(auto_now_add=True)
 
 class Basket(models.Model):

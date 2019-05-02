@@ -9,18 +9,16 @@ class update():
         string = str(string).replace("'", "").replace(",", "")
         return  string
 
-    # index images 
-    def imageExists(item):
+    # index images
+    def imageExists(item, req):
         try:
-            print(item)
             links = {}
             for i in range(0, 9):
                 if i == 0:
-                    link = 'http://images.cdn.rkwltd.com/%s.jpg' % (item)
+                    link = '%s.jpg' % (item)
                 else:
-                    link = 'http://images.cdn.rkwltd.com/%s_0%s.jpg' % (item, i)
-                req = requests.get(link)
-                if req.status_code == 200:
+                    link = '%s_0%s.jpg' % (item, i)
+                if link in req:
                     links['"image%s"' % (i)] = '"%s"' % (link)
         except:
             pass
@@ -31,16 +29,20 @@ class update():
         ref_cur.execute("SELECT `email`, `customerNo`, `username` FROM `Contact`")
         res = ref_cur.fetchall()
         for row in res:
-            if not User.objects.filter(username=sub(row[2])).exists():
-                user=User.objects.create_user(username=sub(row[2]), password=secrets.token_urlsafe(), email=row[0])
+            username = update.sub(row[2])
+            password = secrets.token_urlsafe()
+            email = row[0]
+            if not User.objects.filter(username=username).exists():
+                user=User.objects.create_user(username=username, password=password, email=email)
                 user.save()
-                local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (sub(row[2])))
+                # send_mail('Welcome to the RKW website', 'Dear %s, \n \n  Thank you for signing up, feel free to sign in using the below details, where you will be asked to reset your password for security purposes. \n \n  username: %s \n  Password: %s' % (row[2], username, password), 'noreply@rkwltd.com', ['%s' % (row[0])], fail_silently=False,)
+                local_cur.execute("SELECT id FROM api_userprofile where username = '%s'" % (username))
                 if not len(local_cur.fetchall()) > 0:
                     if row[1] == 'rep':
                         rep = 1
                     else:
                         rep = 0
-                    local_cur.execute("INSERT INTO `api_userprofile` (`username`, `customerno`, rep, companyName, proforma, billingaddressID, SalespersonCode, ElectricalRep, HousewaresRep, HouseManager, CreditControlManager) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0');" % (sub(row[2]), row[1], rep))
+                    local_cur.execute("INSERT INTO api_userprofile (username, customerno, rep, companyName, proforma, billingaddressID, SalespersonCode, SalespersonCodePhone, SalespersonCodeEmail, ElectricalRep, ElectricalRepPhone, ElectricalRepEmail, HousewaresRep, HousewaresRepPhone, HousewaresRepEmail, HouseManager, HouseManagerPhone, HouseManagerEmail, CreditControlManager, CreditControlManagerPhone, CreditControlManagerEmail) VALUES ('%s', '%s', '%s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');" % (update.sub(row[2]), row[1], rep))
                     local_conn.commit()
 
     # update customer table
@@ -64,19 +66,24 @@ class update():
                     local_cur.execute("insert into api_product (itemno, CatalogueTheme, RRP, SSP, manufacturerCode, colour, IPG, description, ItemSpec1, ItemSpec2, ItemSpec3, ItemSpec4, ItemSpec5, ItemSpec6, ItemSpec7, ItemSpec8, ItemSpec9, ItemSpec10, restockDate, FreeStock, TI, HI, Analysis2, Item_Height, Item_Length, Item_Width, ProductPaging_Height, ProductPaging_Length, ProductPaging_Width, CartonHeight, CartonLength, CartonWidth, cartonQty, palletQty, `Electrical_or_Housewares`, HighSell, Analysis1) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (row[0], row[1], row[2], row[3], row[4], row[5], str(row[6]).replace('/', ' '), row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35], row[36]))
                     local_conn.commit()
                 except Exception as e:
-                    print("cant insert '%s' due to '%s'" % (row[0], e))
+                    # print("cant insert '%s' due to '%s'" % (row[0], e))
+                    pass
             else:
                 try:
                     local_cur.execute("UPDATE api_product SET `CatalogueTheme` = '%s', `RRP` = '%s', `SSP` = '%s', `manufacturerCode` = '%s', `colour` = '%s', `IPG` = '%s', `description` = '%s', `ItemSpec1` = '%s', `ItemSpec2` = '%s', `ItemSpec3` = '%s', `ItemSpec4` = '%s', `ItemSpec5` = '%s', `ItemSpec6` = '%s', `ItemSpec7` = '%s', `ItemSpec8` = '%s', `ItemSpec9` = '%s', `ItemSpec10` = '%s', `restockDate` = '%s', `FreeStock` = '%s', `TI` = '%s', `HI` = '%s', Analysis2 = '%s', `Item_Height` = '%s', `Item_Length` = '%s', `Item_Width` = '%s', `ProductPaging_Height` = '%s', `ProductPaging_Length` = '%s', `ProductPaging_Width` = '%s', `CartonHeight` = '%s', `CartonLength` = '%s', `CartonWidth` = '%s', `cartonQty` = '%s', palletQty = '%s', Electrical_or_Housewares = '%s', HighSell = '%s', Analysis1 = '%s' WHERE `itemno` = '%s'" % (row[1], row[2], row[3], row[4], row[5], str(row[6]).replace('/', ' '), row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33], row[34], row[35], row[36], row[0]))
                     local_conn.commit()
                 except Exception as e:
-                    print("cant update '%s' due to '%s'" % (row[0], e))
+                    # print("cant update '%s' due to '%s'" % (row[0], e))
+                    pass
 
     # update image field on products table
     def updateImages(local_conn, local_cur):
+        link = 'http://images.cdn.rkwltd.com/'
+        req = requests.get(link)
+        req = req.text
         local_cur.execute("select itemno from api_product where restockDate > '1900-01-01' or freestock > 0;")
         for row in local_cur.fetchall():
-            images = imageExists(row[0].lower())
+            images = update.imageExists(row[0].lower(), req)
             local_cur.execute("update api_product set image = '%s' where itemno = '%s';" % (images, row[0] ))
             local_conn.commit()
 
@@ -108,12 +115,12 @@ class update():
         ref_cur.execute("SELECT `customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, `Code` FROM `Address`")
         res = ref_cur.fetchall()
         for row in res:
-            local_cur.execute("SELECT * FROM api_address where customerno = '%s' and code = '%s';" % (sub(row[0]), sub(row[9])))
+            local_cur.execute("SELECT * FROM api_address where customerno = '%s' and code = '%s';" % (update.sub(row[0]), update.sub(row[9])))
             if len(local_cur.fetchall()) > 0:
-                local_cur.execute("UPDATE `api_address` SET `address1` = '%s', `address2` = '%s', `county` = '%s', `postcode` = '%s', `phoneNumber` = '%s', `country` = '%s', `city` = '%s', `Type` = '%s' WHERE customerNO = '%s' and Code = '%s';" % (sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[0]), sub(row[9])))
+                local_cur.execute("UPDATE `api_address` SET `address1` = '%s', `address2` = '%s', `county` = '%s', `postcode` = '%s', `phoneNumber` = '%s', `country` = '%s', `city` = '%s', `Type` = '%s' WHERE customerNO = '%s' and Code = '%s';" % (update.sub(row[1]), update.sub(row[2]), update.sub(row[3]), update.sub(row[4]), update.sub(row[5]), update.sub(row[6]), update.sub(row[7]), update.sub(row[8]), update.sub(row[0]), update.sub(row[9])))
                 local_conn.commit()
             else:
-                local_cur.execute("INSERT INTO `api_address` (`customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, Code) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (sub(row[0]), sub(row[1]), sub(row[2]), sub(row[3]), sub(row[4]), sub(row[5]), sub(row[6]), sub(row[7]), sub(row[8]), sub(row[9])))
+                local_cur.execute("INSERT INTO `api_address` (`customerNO`, `address1`, `address2`, `county`, `postcode`, `phoneNumber`, `country`, `city`, `Type`, Code) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (update.sub(row[0]), update.sub(row[1]), update.sub(row[2]), update.sub(row[3]), update.sub(row[4]), update.sub(row[5]), update.sub(row[6]), update.sub(row[7]), update.sub(row[8]), update.sub(row[9])))
                 local_conn.commit()
 
     # send notificatin if item is now in stock - needs finsihing off with proper email wording etc HEREMIKE
@@ -122,12 +129,34 @@ class update():
         for row in local_cur.fetchall():
             local_cur.execute("SELECT FreeStock FROM api_product where itemno = '%s' and freestock > 0;" % (row[1]))
             if len(local_cur.fetchall()) > 0:
-                send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
                 local_cur.execute("UPDATE `api_backinstock` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s';" % (row[0]))
                 local_conn.commit()
-    
+                # set the other line live when it comes to going live, dont want any emails going out to customers while we're deveopling.
+                # send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['%s' % (row[3])], fail_silently=False,)
+                send_mail('RKW %s is now in Stock' % (row[1]), '%s - %s is now in stock.' % (row[1], row[4]), 'noreply@rkwltd.com', ['michael.mountford@rkwltd.com'], fail_silently=False,)
+
+    # send notificatin for when users request an account statement
+    def AccountStatementRequest(local_cur, local_conn):
+        local_cur.execute("SELECT asr.username, (SELECT email FROM auth_user where username = asr.username) as usernameEmail, (SELECT up.CreditControlManager FROM api_userprofile up where username = asr.username) as CreditControlManager, (SELECT up.CreditControlManagerEmail FROM api_userprofile up where username = asr.username) as CreditControlManagerEmail, (SELECT up.customerno FROM api_userprofile up where username = asr.username) as customernon, id from api_accountstatementrequest as asr where notified = 0;")
+        for row in local_cur.fetchall():
+                # set the other line live when it comes to going live, dont want any emails going out to customers while we're deveopling.
+                send_mail("Account Statement Request for %s - %s" % (row[4] ,row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an account statement." % (row[2], row[4], row[0], row[1]), 'noreply@rkwltd.com', ['%s' % (row[1])], fail_silently=False, )
+                send_mail("Account Statement Request for %s - %s" % (row[4] ,row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an account statement." % (row[2], row[4], row[0], row[1]), 'noreply@rkwltd.com', ['michael.mountford@rkwltd.com'], fail_silently=False, )
+                local_cur.execute("UPDATE `api_accountstatementrequest` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = %s" % (row[5]))
+                local_conn.commit()
+
+    # send notification for when users request an account statement
+    def InvoiceRequest(local_cur, local_conn):
+        local_cur.execute("SELECT ir.username, ir.invoiceNo, (SELECT email FROM auth_user where username = ir.username) as usernameEmail, (SELECT up.CreditControlManager FROM api_userprofile up where username = ir.username) as CreditControlManager, (SELECT up.CreditControlManagerEmail FROM api_userprofile up where username = ir.username) as CreditControlManagerEmail, (SELECT up.customerno FROM api_userprofile up where username = ir.username) as customernon, id FROM api_invoicerequest as ir where notified = 0")
+        for row in local_cur.fetchall():
+            send_mail("Invoice Request for %s - %s" % (row[5], row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an invoice for %s." % (row[3], row[5], row[0], row[2], row[1]), 'noreply@rkwltd.com', ['%s' % (row[2])], fail_silently=False,)
+            send_mail("Invoice Request for %s - %s" % (row[5], row[0]), "Hi %s, \n\n Customerno: %s \n Username: %s \n Email: %s \n\n Has requested an invoice for %s." % (row[3], row[5], row[0], row[2], row[1]), 'noreply@rkwltd.com', ['michael.mountford@rkwltd.com'], fail_silently=False,)
+            local_cur.execute("UPDATE `django-test`.`api_invoicerequest` SET `notified` = 1, `dateNotified` = current_timestamp() WHERE `id` = '%s'" % (row[6]))
+            local_conn.commit()
+
     # main program, runs functions above
     def main():
+
         # setting test mode
         if socket.gethostname() == 's1.intranet.svg.local':
             test_mode = False
@@ -154,31 +183,27 @@ class update():
         ref_conn = create_refrence_mysql_connection()
         ref_cur = ref_conn.cursor()
 
-        # update function calls
+        # function calls
         # print('running user')
-        # user(local_conn, local_cur, ref_conn, ref_cur)
-
-        print('running customer')
-        update.customer(local_conn, local_cur, ref_conn, ref_cur)
-        
-
-        # print('running products')
-        # products(local_conn, local_cur, ref_conn, ref_cur)
-
-        # # print('running updateImages')
-        # # updateImages(local_conn, local_cur)
-
-        # print('running updateStock')
-        # updateStock(local_conn, local_cur, ref_conn, ref_cur)
-
+        # update.user(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running customer')
+        # update.customer(local_conn, local_cur, ref_conn, ref_cur)
         # print('running CustomerPrices')
-        # CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
-
+        # update.CustomerPrices(local_conn, local_cur, ref_conn, ref_cur)
         # print('running Address')
-        # Address(local_cur, local_conn, ref_cur, ref_conn)
-
+        # update.Address(local_cur, local_conn, ref_cur, ref_conn)
+        # print('running products')
+        # update.updateImages(local_conn, local_cur)
+        # print('running updateStock')
+        # update.products(local_conn, local_cur, ref_conn, ref_cur)
+        # print('running updateImages')
+        # update.updateStock(local_conn, local_cur, ref_conn, ref_cur)
         # print('running BackinStock')
-        # BackinStock(local_cur, local_conn)
+        # update.BackinStock(local_cur, local_conn)
+        # print('running AccountStatementRequest')
+        # update.AccountStatementRequest(local_cur, local_conn)
+        print('running AccountStatementRequest')
+        update.InvoiceRequest(local_cur, local_conn)
     
 class Command(BaseCommand):
     help = 'Refesh data for mysql'

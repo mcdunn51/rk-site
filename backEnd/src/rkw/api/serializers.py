@@ -4,7 +4,7 @@ from .models import *
 class OUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ("id", "username", "customerno", "companyName", "rep", "SalespersonCode", "ElectricalRep", "HousewaresRep", "proforma", "HouseManager", "CreditControlManager")
+        fields = ("id", "username", "customerno", "companyName", "rep", "proforma", "SalespersonCode", "SalespersonCodePhone", "SalespersonCodeEmail", "ElectricalRep", "ElectricalRepPhone", "ElectricalRepEmail", "HousewaresRep", "HousewaresRepPhone", "HousewaresRepEmail", "HouseManager", "HouseManagerPhone", "HouseManagerEmail", "CreditControlManager", "CreditControlManagerPhone", "CreditControlManagerEmail")
 
 class OauthProdDetailedSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,6 +41,16 @@ class OBasketSerializer(serializers.ModelSerializer):
         model = Basket
         fields = ('id', 'customerCode', 'itemno', 'quantity', 'price')
 
+class OAccountStatementRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccountStatementRequest
+        fields = ('id' ,"username")
+
+class OInvoiceRequestRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvoiceRequest
+        fields = ('id', 'username', 'invoiceNo')
+
 # non Oauth serializers
 class ProdListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,4 +71,3 @@ class IPGSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ("id", "IPG")
-
