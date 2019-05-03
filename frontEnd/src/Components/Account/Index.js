@@ -11,6 +11,7 @@ import Addresses from './Addresses'
 class Index extends Component {
     constructor(props) {
         super(props);
+        console.log(this.props.match.params.id)
         this.state = { id: this.props.match.params.id }
     }
 
@@ -28,19 +29,13 @@ class Index extends Component {
 
         let mainContent
 
-        if (id === "About Us") {
-            // heading = <h2>About Us</h2>
-            // text = <AboutUs/>
-            mainContent = </>
-
-        } else if (id === "Delivery Information") {
-            heading = <h2>Delivery Information</h2>
-            text = <DeliveryInformation/>
-
-        } else if (id === "Privacy & Cookies Policies") {
-            heading = <h2>Privacy & Cookies Policies</h2>
-            text = <PrivacyAndCookiePolicy/>
-        } 
+        if (id === "orders") {
+            mainContent = <Orders />
+        } else if (id === "addresses") {
+            mainContent = <Addresses />
+        } else {
+            mainContent = <Main />
+        }
 
 
 
@@ -49,17 +44,21 @@ class Index extends Component {
                 <FirstRow />
                 <Row className="mb-5">
                     <Col>
-                        <Link to="/UsefulInformation/About Us">
-                            <Button variant="primary">Orders</Button>
+                        <Link to="/UsefulInformation/main">
+                            <Button variant="primary">Main</Button>
                         </Link>
-                        <Link to="/UsefulInformation/About Us">
+                        <Link to="/UsefulInformation/addresses">
                             <Button variant="primary">Addresses</Button>
                         </Link>
-                        <Link to="/UsefulInformation/About Us">
-                            <Button variant="primary">Logout</Button>
+                        <Link to="/UsefulInformation/orders">
+                            <Button variant="primary">Orders</Button>
                         </Link>
+                        {/* <Link to="/UsefulInformation/About Us">
+                            <Button variant="primary">Logout</Button>
+                        </Link> */}
                     </Col>
                 </Row>
+                {mainContent}
             </Container>
         )
     }

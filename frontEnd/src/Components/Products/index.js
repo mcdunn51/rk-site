@@ -15,7 +15,7 @@ class Index extends Component {
       method: "get",
       url: `http://100.1.253.16:8000/OProductlist/?IPG=${this.props.id}`,
       // headers: { 'Authorization': `Bearer ${accessToken}` },
-      headers: { Authorization: "Bearer Sg41nV4aocWG1swPCQmZRU0iIdDBKo" }
+      headers: { Authorization: "Bearer cxRgNcThHBzefnmcD4mvsqOsKV5Yaf" }
     }).then(res => {
       console.log(res.data);
       loadProducts(res.data);
