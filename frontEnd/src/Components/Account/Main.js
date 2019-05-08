@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faPhone, faEnvelope, faMobileAlt} from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faEnvelope, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 
-class Index extends Component {
+class Main extends Component {
     getAccountInfo() {
         const { loadAccountDetails } = this.props;
 
@@ -23,36 +23,16 @@ class Index extends Component {
         this.getAccountInfo();
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.id !== prevProps.id) {
-            this.getAccountInfo();
-        }
-    }
-
     
-
     render() {
 
         const { account } = this.props;
         console.log(account.customerno)
         return (
-            <Container id="accountIndexWrapper">
-                <Row className="mb-5">
-                    <Col id="firstCol">
-                        <h2>Hello David Blyth,</h2>
-                        <div id="customerNumberWrapper">Customer Number: {account.customerno}</div>
-                    </Col>
-                </Row>
-                <Row className="mb-5">
+            <div>
+                <Row>
                     <Col>
-                        <Button variant="primary">Orders</Button>
-                        <Button variant="primary">Addresses</Button>
-                        <Button variant="primary">Logout</Button>
-                    </Col>
-                </Row>
-                <Row className="mb-5">
-                    <Col>
-                        <Card>
+                        <Card className="mb-5">
                             <div className="cardTitleWrapper">
                                 <Card.Title>Card Title</Card.Title>
                             </div>
@@ -80,7 +60,7 @@ class Index extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card>
+                        <Card className="mb-5">
                             <div className="cardTitleWrapper">
                                 <Card.Title>Card Title</Card.Title>
                             </div>
@@ -108,7 +88,7 @@ class Index extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card>
+                        <Card className="mb-5">
                             <div className="cardTitleWrapper">
                                 <Card.Title>Card Title</Card.Title>
                             </div>
@@ -136,9 +116,9 @@ class Index extends Component {
                         </Card>
                     </Col>
                 </Row>
-                <Row className="mb-5">
+                <Row>
                     <Col>
-                        <Card>
+                        <Card className="mb-5">
                             <div className="cardTitleWrapper">
                                 <Card.Title>Card Title</Card.Title>
                             </div>
@@ -166,7 +146,7 @@ class Index extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card>
+                        <Card className="mb-5">
                             <div className="cardTitleWrapper">
                                 <Card.Title>Card Title</Card.Title>
                             </div>
@@ -194,7 +174,7 @@ class Index extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card>
+                        <Card className="mb-5">
                             <Card.Body>
                                 <Card.Title className="mb-1">Need Assistance?</Card.Title>
                                 <Row>
@@ -217,7 +197,7 @@ class Index extends Component {
                         </Card>
                     </Col>
                 </Row>
-            </Container>
+            </div>
         )
     }
 }
@@ -239,4 +219,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Index);
+)(Main);

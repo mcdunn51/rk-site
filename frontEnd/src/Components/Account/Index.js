@@ -11,12 +11,12 @@ import Addresses from './Addresses'
 class Index extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.match.params.id)
-        this.state = { id: this.props.match.params.id }
+        console.log(props.id)
+        this.state = { id: this.props.id }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        const id = this.props.match.params.id
+    componentDidUpdate(prevState) {
+        const id = this.props.id
         const prevId = prevState.id
         if (id !== prevId) {
             this.setState({ id: id })
@@ -26,7 +26,7 @@ class Index extends Component {
     render() {
 
         const id = this.state.id
-
+        console.log(id)
         let mainContent
 
         if (id === "orders") {
@@ -44,13 +44,13 @@ class Index extends Component {
                 <FirstRow />
                 <Row className="mb-5">
                     <Col>
-                        <Link to="/UsefulInformation/main">
+                        <Link to="/account/main">
                             <Button variant="primary">Main</Button>
                         </Link>
-                        <Link to="/UsefulInformation/addresses">
+                        <Link to="/account/addresses">
                             <Button variant="primary">Addresses</Button>
                         </Link>
-                        <Link to="/UsefulInformation/orders">
+                        <Link to="/account/orders">
                             <Button variant="primary">Orders</Button>
                         </Link>
                         {/* <Link to="/UsefulInformation/About Us">

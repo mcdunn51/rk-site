@@ -1,9 +1,9 @@
 import React from 'react'
 import Index from '../Components/Account'
 
-const Account = () => {
+const Account = (props) => {
     return (
-        <Index />
+        <Index id={props.match.params.id}/>
     )
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Nav, NavDropdown } from 'react-bootstrap';
 import { IndexLinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
@@ -93,13 +94,9 @@ class MainNavbar extends Component {
                                 )
                             }
                         </NavDropdown>
-
-                        <Nav.Item>
-                            <Nav.Link eventKey="3" disabled>
-                                NavLink 3 content
-                        </Nav.Link>
-                        </Nav.Item>
-
+                        <Link to="/account/main">
+                            Account
+                        </Link>
                     </Nav>
                 </Container>
             </Container>
